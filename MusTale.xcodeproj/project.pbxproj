@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09411BB5A67E48069539D12E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 482151283D684C95BE4FAA66 /* libPods.a */; };
+		E4AA8B33175798DF001FA121 /* MTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B32175798DF001FA121 /* MTLoginViewController.m */; };
+		E4AA8B3917579C6F001FA121 /* MTSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B3817579C6F001FA121 /* MTSliderViewController.m */; };
+		E4AA8B3C17579C90001FA121 /* MTMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B3B17579C90001FA121 /* MTMenuViewController.m */; };
+		E4AA8B4217579EBD001FA121 /* UIViewController+SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B4117579EBD001FA121 /* UIViewController+SliderView.m */; };
+		E4AA8B451757A117001FA121 /* MTPlaylistListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B441757A117001FA121 /* MTPlaylistListViewController.m */; };
+		E4AA8B481757A13E001FA121 /* MTPlaylistGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B471757A13E001FA121 /* MTPlaylistGridViewController.m */; };
+		E4AA8B4B1757A170001FA121 /* MTPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B4A1757A170001FA121 /* MTPlayMusicViewController.m */; };
+		E4AA8B4E1757A1A3001FA121 /* MTSongModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B4D1757A1A3001FA121 /* MTSongModel.m */; };
+		E4AA8B511757A1C8001FA121 /* MTPlaylistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B501757A1C8001FA121 /* MTPlaylistModel.m */; };
+		E4AA8B541757A22A001FA121 /* MTVoiceNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B531757A22A001FA121 /* MTVoiceNoteModel.m */; };
+		E4AA8B571757A236001FA121 /* MTTextNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B561757A236001FA121 /* MTTextNoteModel.m */; };
+		E4AA8B5A1757A276001FA121 /* MTUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B591757A276001FA121 /* MTUserModel.m */; };
 		E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1ED91756604800518BDE /* UIKit.framework */; };
 		E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDB1756604800518BDE /* Foundation.framework */; };
 		E4BD1EDE1756604800518BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDD1756604800518BDE /* CoreGraphics.framework */; };
@@ -18,9 +31,43 @@
 		E4BD1EF01756604900518BDE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BD1EEF1756604900518BDE /* Default-568h@2x.png */; };
 		E4BD1EF31756604900518BDE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */; };
 		E4BD1EF61756604900518BDE /* MTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1EF51756604900518BDE /* MTViewController.m */; };
+		E4BD1F011756632300518BDE /* MTNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F001756632300518BDE /* MTNetworkController.m */; };
+		E4BD1F051756634F00518BDE /* MTPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F041756634F00518BDE /* MTPlaylistController.m */; };
+		E4BD1F08175663D100518BDE /* MTCommentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F07175663D100518BDE /* MTCommentsController.m */; };
+		E4BD1F0B175664E200518BDE /* MTRecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F0A175664E200518BDE /* MTRecordingController.m */; };
+		E4BD1F0E1756650700518BDE /* MTMusicPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */; };
+		E4BD1F111756673200518BDE /* MTUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F101756673200518BDE /* MTUserController.m */; };
+		E4BD1F141756676B00518BDE /* MTS3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F131756676B00518BDE /* MTS3Controller.m */; };
+		E4BD1F171756679700518BDE /* MTCommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F161756679700518BDE /* MTCommentsModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		391B5BE28835412F87F8FE0B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		482151283D684C95BE4FAA66 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4AA8B31175798DF001FA121 /* MTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLoginViewController.h; sourceTree = "<group>"; };
+		E4AA8B32175798DF001FA121 /* MTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLoginViewController.m; sourceTree = "<group>"; };
+		E4AA8B3717579C6F001FA121 /* MTSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSliderViewController.h; sourceTree = "<group>"; };
+		E4AA8B3817579C6F001FA121 /* MTSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSliderViewController.m; sourceTree = "<group>"; };
+		E4AA8B3A17579C90001FA121 /* MTMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMenuViewController.h; sourceTree = "<group>"; };
+		E4AA8B3B17579C90001FA121 /* MTMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTMenuViewController.m; sourceTree = "<group>"; };
+		E4AA8B4017579EBD001FA121 /* UIViewController+SliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SliderView.h"; sourceTree = "<group>"; };
+		E4AA8B4117579EBD001FA121 /* UIViewController+SliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SliderView.m"; sourceTree = "<group>"; };
+		E4AA8B431757A117001FA121 /* MTPlaylistListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistListViewController.h; sourceTree = "<group>"; };
+		E4AA8B441757A117001FA121 /* MTPlaylistListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistListViewController.m; sourceTree = "<group>"; };
+		E4AA8B461757A13E001FA121 /* MTPlaylistGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistGridViewController.h; sourceTree = "<group>"; };
+		E4AA8B471757A13E001FA121 /* MTPlaylistGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistGridViewController.m; sourceTree = "<group>"; };
+		E4AA8B491757A170001FA121 /* MTPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlayMusicViewController.h; sourceTree = "<group>"; };
+		E4AA8B4A1757A170001FA121 /* MTPlayMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlayMusicViewController.m; sourceTree = "<group>"; };
+		E4AA8B4C1757A1A3001FA121 /* MTSongModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSongModel.h; sourceTree = "<group>"; };
+		E4AA8B4D1757A1A3001FA121 /* MTSongModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSongModel.m; sourceTree = "<group>"; };
+		E4AA8B4F1757A1C8001FA121 /* MTPlaylistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistModel.h; sourceTree = "<group>"; };
+		E4AA8B501757A1C8001FA121 /* MTPlaylistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistModel.m; sourceTree = "<group>"; };
+		E4AA8B521757A22A001FA121 /* MTVoiceNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTVoiceNoteModel.h; sourceTree = "<group>"; };
+		E4AA8B531757A22A001FA121 /* MTVoiceNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTVoiceNoteModel.m; sourceTree = "<group>"; };
+		E4AA8B551757A236001FA121 /* MTTextNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTextNoteModel.h; sourceTree = "<group>"; };
+		E4AA8B561757A236001FA121 /* MTTextNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTextNoteModel.m; sourceTree = "<group>"; };
+		E4AA8B581757A276001FA121 /* MTUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTUserModel.h; sourceTree = "<group>"; };
+		E4AA8B591757A276001FA121 /* MTUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTUserModel.m; sourceTree = "<group>"; };
 		E4BD1ED61756604800518BDE /* MusTale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusTale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BD1ED91756604800518BDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4BD1EDB1756604800518BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +84,22 @@
 		E4BD1EF21756604900518BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E4BD1EF41756604900518BDE /* MTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTViewController.h; sourceTree = "<group>"; };
 		E4BD1EF51756604900518BDE /* MTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTViewController.m; sourceTree = "<group>"; };
+		E4BD1EFF1756632300518BDE /* MTNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTNetworkController.h; sourceTree = "<group>"; };
+		E4BD1F001756632300518BDE /* MTNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTNetworkController.m; sourceTree = "<group>"; };
+		E4BD1F031756634F00518BDE /* MTPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistController.h; sourceTree = "<group>"; };
+		E4BD1F041756634F00518BDE /* MTPlaylistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistController.m; sourceTree = "<group>"; };
+		E4BD1F06175663D100518BDE /* MTCommentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCommentsController.h; sourceTree = "<group>"; };
+		E4BD1F07175663D100518BDE /* MTCommentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCommentsController.m; sourceTree = "<group>"; };
+		E4BD1F09175664E200518BDE /* MTRecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRecordingController.h; sourceTree = "<group>"; };
+		E4BD1F0A175664E200518BDE /* MTRecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRecordingController.m; sourceTree = "<group>"; };
+		E4BD1F0C1756650700518BDE /* MTMusicPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMusicPlaybackController.h; sourceTree = "<group>"; };
+		E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTMusicPlaybackController.m; sourceTree = "<group>"; };
+		E4BD1F0F1756673200518BDE /* MTUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTUserController.h; sourceTree = "<group>"; };
+		E4BD1F101756673200518BDE /* MTUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTUserController.m; sourceTree = "<group>"; };
+		E4BD1F121756676B00518BDE /* MTS3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTS3Controller.h; sourceTree = "<group>"; };
+		E4BD1F131756676B00518BDE /* MTS3Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTS3Controller.m; sourceTree = "<group>"; };
+		E4BD1F151756679700518BDE /* MTCommentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCommentsModel.h; sourceTree = "<group>"; };
+		E4BD1F161756679700518BDE /* MTCommentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCommentsModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +110,7 @@
 				E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */,
 				E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */,
 				E4BD1EDE1756604800518BDE /* CoreGraphics.framework in Frameworks */,
+				09411BB5A67E48069539D12E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +123,7 @@
 				E4BD1EDF1756604800518BDE /* MusTale */,
 				E4BD1ED81756604800518BDE /* Frameworks */,
 				E4BD1ED71756604800518BDE /* Products */,
+				391B5BE28835412F87F8FE0B /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +141,7 @@
 				E4BD1ED91756604800518BDE /* UIKit.framework */,
 				E4BD1EDB1756604800518BDE /* Foundation.framework */,
 				E4BD1EDD1756604800518BDE /* CoreGraphics.framework */,
+				482151283D684C95BE4FAA66 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -83,6 +149,9 @@
 		E4BD1EDF1756604800518BDE /* MusTale */ = {
 			isa = PBXGroup;
 			children = (
+				E4BD1EFE175662EF00518BDE /* UI */,
+				E4BD1EFD175662EA00518BDE /* Models */,
+				E4BD1EFC175662E300518BDE /* Controllers */,
 				E4BD1EE81756604800518BDE /* MTAppDelegate.h */,
 				E4BD1EE91756604800518BDE /* MTAppDelegate.m */,
 				E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */,
@@ -107,6 +176,67 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E4BD1EFC175662E300518BDE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E4BD1EFF1756632300518BDE /* MTNetworkController.h */,
+				E4BD1F001756632300518BDE /* MTNetworkController.m */,
+				E4BD1F031756634F00518BDE /* MTPlaylistController.h */,
+				E4BD1F041756634F00518BDE /* MTPlaylistController.m */,
+				E4BD1F06175663D100518BDE /* MTCommentsController.h */,
+				E4BD1F07175663D100518BDE /* MTCommentsController.m */,
+				E4BD1F09175664E200518BDE /* MTRecordingController.h */,
+				E4BD1F0A175664E200518BDE /* MTRecordingController.m */,
+				E4BD1F0C1756650700518BDE /* MTMusicPlaybackController.h */,
+				E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */,
+				E4BD1F0F1756673200518BDE /* MTUserController.h */,
+				E4BD1F101756673200518BDE /* MTUserController.m */,
+				E4BD1F121756676B00518BDE /* MTS3Controller.h */,
+				E4BD1F131756676B00518BDE /* MTS3Controller.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E4BD1EFD175662EA00518BDE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E4BD1F151756679700518BDE /* MTCommentsModel.h */,
+				E4BD1F161756679700518BDE /* MTCommentsModel.m */,
+				E4AA8B4C1757A1A3001FA121 /* MTSongModel.h */,
+				E4AA8B4D1757A1A3001FA121 /* MTSongModel.m */,
+				E4AA8B4F1757A1C8001FA121 /* MTPlaylistModel.h */,
+				E4AA8B501757A1C8001FA121 /* MTPlaylistModel.m */,
+				E4AA8B521757A22A001FA121 /* MTVoiceNoteModel.h */,
+				E4AA8B531757A22A001FA121 /* MTVoiceNoteModel.m */,
+				E4AA8B551757A236001FA121 /* MTTextNoteModel.h */,
+				E4AA8B561757A236001FA121 /* MTTextNoteModel.m */,
+				E4AA8B581757A276001FA121 /* MTUserModel.h */,
+				E4AA8B591757A276001FA121 /* MTUserModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E4BD1EFE175662EF00518BDE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA8B31175798DF001FA121 /* MTLoginViewController.h */,
+				E4AA8B32175798DF001FA121 /* MTLoginViewController.m */,
+				E4AA8B3717579C6F001FA121 /* MTSliderViewController.h */,
+				E4AA8B3817579C6F001FA121 /* MTSliderViewController.m */,
+				E4AA8B3A17579C90001FA121 /* MTMenuViewController.h */,
+				E4AA8B3B17579C90001FA121 /* MTMenuViewController.m */,
+				E4AA8B4017579EBD001FA121 /* UIViewController+SliderView.h */,
+				E4AA8B4117579EBD001FA121 /* UIViewController+SliderView.m */,
+				E4AA8B431757A117001FA121 /* MTPlaylistListViewController.h */,
+				E4AA8B441757A117001FA121 /* MTPlaylistListViewController.m */,
+				E4AA8B461757A13E001FA121 /* MTPlaylistGridViewController.h */,
+				E4AA8B471757A13E001FA121 /* MTPlaylistGridViewController.m */,
+				E4AA8B491757A170001FA121 /* MTPlayMusicViewController.h */,
+				E4AA8B4A1757A170001FA121 /* MTPlayMusicViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -114,9 +244,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4BD1EF91756604900518BDE /* Build configuration list for PBXNativeTarget "MusTale" */;
 			buildPhases = (
+				75139B74B755496A8700B2F5 /* Check Pods Manifest.lock */,
 				E4BD1ED21756604800518BDE /* Sources */,
 				E4BD1ED31756604800518BDE /* Frameworks */,
 				E4BD1ED41756604800518BDE /* Resources */,
+				CF8A50CB7E374987B59E3345 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +301,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		75139B74B755496A8700B2F5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		CF8A50CB7E374987B59E3345 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E4BD1ED21756604800518BDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -177,6 +340,26 @@
 				E4BD1EE61756604800518BDE /* main.m in Sources */,
 				E4BD1EEA1756604800518BDE /* MTAppDelegate.m in Sources */,
 				E4BD1EF61756604900518BDE /* MTViewController.m in Sources */,
+				E4BD1F011756632300518BDE /* MTNetworkController.m in Sources */,
+				E4BD1F051756634F00518BDE /* MTPlaylistController.m in Sources */,
+				E4BD1F08175663D100518BDE /* MTCommentsController.m in Sources */,
+				E4BD1F0B175664E200518BDE /* MTRecordingController.m in Sources */,
+				E4BD1F0E1756650700518BDE /* MTMusicPlaybackController.m in Sources */,
+				E4BD1F111756673200518BDE /* MTUserController.m in Sources */,
+				E4BD1F141756676B00518BDE /* MTS3Controller.m in Sources */,
+				E4BD1F171756679700518BDE /* MTCommentsModel.m in Sources */,
+				E4AA8B33175798DF001FA121 /* MTLoginViewController.m in Sources */,
+				E4AA8B3917579C6F001FA121 /* MTSliderViewController.m in Sources */,
+				E4AA8B3C17579C90001FA121 /* MTMenuViewController.m in Sources */,
+				E4AA8B4217579EBD001FA121 /* UIViewController+SliderView.m in Sources */,
+				E4AA8B451757A117001FA121 /* MTPlaylistListViewController.m in Sources */,
+				E4AA8B481757A13E001FA121 /* MTPlaylistGridViewController.m in Sources */,
+				E4AA8B4B1757A170001FA121 /* MTPlayMusicViewController.m in Sources */,
+				E4AA8B4E1757A1A3001FA121 /* MTSongModel.m in Sources */,
+				E4AA8B511757A1C8001FA121 /* MTPlaylistModel.m in Sources */,
+				E4AA8B541757A22A001FA121 /* MTVoiceNoteModel.m in Sources */,
+				E4AA8B571757A236001FA121 /* MTTextNoteModel.m in Sources */,
+				E4AA8B5A1757A276001FA121 /* MTUserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +410,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -251,7 +434,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -260,10 +443,12 @@
 		};
 		E4BD1EFA1756604900518BDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 391B5BE28835412F87F8FE0B /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusTale/MusTale-Prefix.pch";
 				INFOPLIST_FILE = "MusTale/MusTale-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -271,10 +456,12 @@
 		};
 		E4BD1EFB1756604900518BDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 391B5BE28835412F87F8FE0B /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusTale/MusTale-Prefix.pch";
 				INFOPLIST_FILE = "MusTale/MusTale-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -299,6 +486,7 @@
 				E4BD1EFB1756604900518BDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
