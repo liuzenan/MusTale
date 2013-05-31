@@ -52,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="60" id="I2F-Yp-4SX">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="60" id="I2F-Yp-4SX" customClass="MTMenuTableCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -73,6 +73,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="iconImage" destination="JCS-Ba-bIe" id="651-OV-4op"/>
+                                    <outlet property="menuLabel" destination="zE6-kn-56m" id="Hp9-6f-rJ9"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -405,6 +409,13 @@
                 <relationship kind="action" name="loginBtnPressed:"/>
             </relationships>
         </class>
+        <class className="MTMenuTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="iconImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="menuLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="MTMenuViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuViewController.h"/>
         </class>
@@ -416,6 +427,9 @@
         </class>
         <class className="MTPlaylistListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuBtnPressed:"/>
+            </relationships>
         </class>
         <class className="MTRecordVoiceNoteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTRecordVoiceNoteViewController.h"/>

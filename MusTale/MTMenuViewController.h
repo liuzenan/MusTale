@@ -9,6 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
 
+typedef enum {
+    kMenuSectionOthers,
+    kMenuSectionCount
+} kMenuSection;
+
+typedef enum {
+    kOthersSectionTypeInbox,
+    kOthersSectionTypeOutbox,
+    kOthersSectionTypePopular,
+    kOthersSectionTypeFeatured,
+    kOthersSectionTypePlaylist,
+    kOthersSectionTypeLogout,
+    kOthersSectionTypeCount
+} kOthersSectionType;
+
 @interface MTMenuViewController : UITableViewController
 
 @end

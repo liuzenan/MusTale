@@ -7,6 +7,7 @@
 //
 
 #import "MTMenuViewController.h"
+#import "MTMenuTableCell.h"
 
 @interface MTMenuViewController ()
 
@@ -27,11 +28,6 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,24 +40,77 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return kMenuSectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    switch (section) {
+        case kMenuSectionOthers:
+            return kOthersSectionTypeCount;
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"MenuCell";
+    MTMenuTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    if (!cell) {
+        cell = [[MTMenuTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     // Configure the cell...
+    
+    NSString *labelString = @"";
+    NSString *imageString = @"";
+
+    if (indexPath.section == kMenuSectionOthers) {
+        
+        switch (indexPath.row) {
+            case kOthersSectionTypeInbox:
+                labelString = @"Inbox";
+                imageString = @"icon-inbox";
+                break;
+            
+            case kOthersSectionTypeOutbox:
+                labelString = @"Outbox";
+                imageString = @"icon-outbox";
+                break;
+                
+            case kOthersSectionTypePopular:
+                labelString = @"Popular";
+                imageString = @"icon-popular";
+                break;
+            
+            case kOthersSectionTypeFeatured:
+                labelString = @"Featured";
+                imageString = @"icon-featured";
+                break;
+            
+            case kOthersSectionTypePlaylist:
+                labelString = @"Playlist";
+                imageString = @"icon-playlist";
+                break;
+            
+            case kOthersSectionTypeLogout:
+                labelString = @"Logout";
+                imageString = @"icon-logout";
+                break;
+            default:
+                labelString = @"Unknown";
+                imageString = @"";
+                break;
+        }
+    }
+    
+    [cell.iconImage setImage:[UIImage imageNamed:imageString]];
+    [cell.menuLabel setText:labelString];
     
     return cell;
 }
