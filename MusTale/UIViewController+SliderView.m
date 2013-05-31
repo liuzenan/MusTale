@@ -25,12 +25,16 @@
         self.navigationController.view.layer.shadowRadius = 10.0f;
         self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
         [self.navigationController.view addGestureRecognizer:self.slidingViewController.panGesture];
+        
+        NSLog(@"setup navigation gesture");
     } else {
         self.view.layer.shadowOpacity = 0.75f;
         self.view.layer.shadowRadius = 10.0f;
         self.view.layer.shadowColor = [UIColor blackColor].CGColor;
         [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+        NSLog(@"setup non navigation gesture");
     }
+    
 }
 
 /**

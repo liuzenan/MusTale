@@ -30,12 +30,6 @@
 #define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 5
 #define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 1
 
-// Novocaine
-#define COCOAPODS_POD_AVAILABLE_Novocaine
-#define COCOAPODS_VERSION_MAJOR_Novocaine 0
-#define COCOAPODS_VERSION_MINOR_Novocaine 0
-#define COCOAPODS_VERSION_PATCH_Novocaine 1
-
 // Reachability
 #define COCOAPODS_POD_AVAILABLE_Reachability
 #define COCOAPODS_VERSION_MAJOR_Reachability 3

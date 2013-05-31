@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MTPlaylistListViewController : UITableViewController
+- (IBAction)menuBtnPressed:(id)sender;
 
 @end

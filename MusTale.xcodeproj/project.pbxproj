@@ -27,6 +27,12 @@
 		E4AA8B691757AA07001FA121 /* MTSendTaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B681757AA07001FA121 /* MTSendTaleViewController.m */; };
 		E4AA8B6D1757AF81001FA121 /* MTPlaylistListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B6C1757AF81001FA121 /* MTPlaylistListCell.m */; };
 		E4AA8B701757AFBA001FA121 /* MTPlaylistGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B6F1757AFBA001FA121 /* MTPlaylistGridCell.m */; };
+		E4AA8B721757B66E001FA121 /* MTPlaylistGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B711757B66E001FA121 /* MTPlaylistGridCell.xib */; };
+		E4AA8B741757B773001FA121 /* MTVoiceNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B731757B773001FA121 /* MTVoiceNoteView.xib */; };
+		E4AA8B761757B78A001FA121 /* MTTextNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B751757B78A001FA121 /* MTTextNoteView.xib */; };
+		E4AA8B781757B7C1001FA121 /* MTComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B771757B7C0001FA121 /* MTComments.xib */; };
+		E4AA8B7B1757B8A8001FA121 /* MTCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B7A1757B8A8001FA121 /* MTCommentCell.m */; };
+		E4AA8B7D1757B8BB001FA121 /* MTCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B7C1757B8BA001FA121 /* MTCommentCell.xib */; };
 		E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1ED91756604800518BDE /* UIKit.framework */; };
 		E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDB1756604800518BDE /* Foundation.framework */; };
 		E4BD1EDE1756604800518BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDD1756604800518BDE /* CoreGraphics.framework */; };
@@ -89,6 +95,13 @@
 		E4AA8B6C1757AF81001FA121 /* MTPlaylistListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistListCell.m; sourceTree = "<group>"; };
 		E4AA8B6E1757AFBA001FA121 /* MTPlaylistGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistGridCell.h; sourceTree = "<group>"; };
 		E4AA8B6F1757AFBA001FA121 /* MTPlaylistGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaylistGridCell.m; sourceTree = "<group>"; };
+		E4AA8B711757B66E001FA121 /* MTPlaylistGridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTPlaylistGridCell.xib; sourceTree = "<group>"; };
+		E4AA8B731757B773001FA121 /* MTVoiceNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTVoiceNoteView.xib; sourceTree = "<group>"; };
+		E4AA8B751757B78A001FA121 /* MTTextNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTTextNoteView.xib; sourceTree = "<group>"; };
+		E4AA8B771757B7C0001FA121 /* MTComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTComments.xib; sourceTree = "<group>"; };
+		E4AA8B791757B8A7001FA121 /* MTCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCommentCell.h; sourceTree = "<group>"; };
+		E4AA8B7A1757B8A8001FA121 /* MTCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCommentCell.m; sourceTree = "<group>"; };
+		E4AA8B7C1757B8BA001FA121 /* MTCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTCommentCell.xib; sourceTree = "<group>"; };
 		E4BD1ED61756604800518BDE /* MusTale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusTale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BD1ED91756604800518BDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4BD1EDB1756604800518BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -145,8 +158,23 @@
 				E4AA8B6C1757AF81001FA121 /* MTPlaylistListCell.m */,
 				E4AA8B6E1757AFBA001FA121 /* MTPlaylistGridCell.h */,
 				E4AA8B6F1757AFBA001FA121 /* MTPlaylistGridCell.m */,
+				E4AA8B711757B66E001FA121 /* MTPlaylistGridCell.xib */,
+				E4AA8B791757B8A7001FA121 /* MTCommentCell.h */,
+				E4AA8B7A1757B8A8001FA121 /* MTCommentCell.m */,
+				E4AA8B7C1757B8BA001FA121 /* MTCommentCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		E4AA8B7E1757BA33001FA121 /* Tales */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA8B5E1757A9B0001FA121 /* MTVoiceNoteViewController.h */,
+				E4AA8B5F1757A9B0001FA121 /* MTVoiceNoteViewController.m */,
+				E4AA8B611757A9BD001FA121 /* MTTextNoteViewController.h */,
+				E4AA8B621757A9BD001FA121 /* MTTextNoteViewController.m */,
+			);
+			name = Tales;
 			sourceTree = "<group>";
 		};
 		E4BD1ECD1756604800518BDE = {
@@ -251,6 +279,7 @@
 		E4BD1EFE175662EF00518BDE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E4AA8B7E1757BA33001FA121 /* Tales */,
 				E4AA8B6A1757AF61001FA121 /* Cells */,
 				E4AA8B31175798DF001FA121 /* MTLoginViewController.h */,
 				E4AA8B32175798DF001FA121 /* MTLoginViewController.m */,
@@ -268,14 +297,13 @@
 				E4AA8B4A1757A170001FA121 /* MTPlayMusicViewController.m */,
 				E4AA8B5B1757A781001FA121 /* MTTalesViewController.h */,
 				E4AA8B5C1757A781001FA121 /* MTTalesViewController.m */,
-				E4AA8B5E1757A9B0001FA121 /* MTVoiceNoteViewController.h */,
-				E4AA8B5F1757A9B0001FA121 /* MTVoiceNoteViewController.m */,
-				E4AA8B611757A9BD001FA121 /* MTTextNoteViewController.h */,
-				E4AA8B621757A9BD001FA121 /* MTTextNoteViewController.m */,
 				E4AA8B641757A9F3001FA121 /* MTRecordVoiceNoteViewController.h */,
 				E4AA8B651757A9F3001FA121 /* MTRecordVoiceNoteViewController.m */,
 				E4AA8B671757AA07001FA121 /* MTSendTaleViewController.h */,
 				E4AA8B681757AA07001FA121 /* MTSendTaleViewController.m */,
+				E4AA8B731757B773001FA121 /* MTVoiceNoteView.xib */,
+				E4AA8B751757B78A001FA121 /* MTTextNoteView.xib */,
+				E4AA8B771757B7C0001FA121 /* MTComments.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -339,6 +367,11 @@
 				E4BD1EEE1756604800518BDE /* Default@2x.png in Resources */,
 				E4BD1EF01756604900518BDE /* Default-568h@2x.png in Resources */,
 				E4BD1EF31756604900518BDE /* MainStoryboard.storyboard in Resources */,
+				E4AA8B721757B66E001FA121 /* MTPlaylistGridCell.xib in Resources */,
+				E4AA8B741757B773001FA121 /* MTVoiceNoteView.xib in Resources */,
+				E4AA8B761757B78A001FA121 /* MTTextNoteView.xib in Resources */,
+				E4AA8B781757B7C1001FA121 /* MTComments.xib in Resources */,
+				E4AA8B7D1757B8BB001FA121 /* MTCommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +443,7 @@
 				E4AA8B691757AA07001FA121 /* MTSendTaleViewController.m in Sources */,
 				E4AA8B6D1757AF81001FA121 /* MTPlaylistListCell.m in Sources */,
 				E4AA8B701757AFBA001FA121 /* MTPlaylistGridCell.m in Sources */,
+				E4AA8B7B1757B8A8001FA121 /* MTCommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

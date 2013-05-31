@@ -7,6 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
+#import "MTUserModel.h"
+
+@protocol FacebookLoginDelegate <NSObject>
+
+- (void) facebookLoginSuccessWithExistingUser;
+- (void) facebookLoginSuccessWithNewUser;
+- (void) facebookLoginFailedWithError:(NSError *)error;
+
+@end
 
 @interface MTUserController : NSObject
 

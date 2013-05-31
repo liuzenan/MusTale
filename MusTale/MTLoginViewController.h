@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTUserController.h"
+#import "SVProgressHUD.h"
 
-@interface MTLoginViewController : UIViewController
+
+@interface MTLoginViewController : UIViewController <FacebookLoginDelegate>
+
+- (IBAction)loginBtnPressed:(id)sender;
 
 @end

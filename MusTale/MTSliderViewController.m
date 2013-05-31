@@ -14,19 +14,17 @@
 
 @implementation MTSliderViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    // Setup initial main playlist
+    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+    
+    // Set up menu
+    self.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuView"];
+
+    self.anchorLeftRevealAmount = 200.0f;
 }
 
 - (void)didReceiveMemoryWarning

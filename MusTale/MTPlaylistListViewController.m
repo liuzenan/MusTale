@@ -7,6 +7,8 @@
 //
 
 #import "MTPlaylistListViewController.h"
+#import "UIViewController+SliderView.h"
+
 
 @interface MTPlaylistListViewController ()
 
@@ -21,6 +23,11 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self setupTopViewController];
 }
 
 - (void)viewDidLoad
@@ -118,4 +125,8 @@
      */
 }
 
+- (IBAction)menuBtnPressed:(id)sender {
+    
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+}
 @end

@@ -35,4 +35,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
+
+
+- (IBAction)loginBtnPressed:(id)sender {
+    
+    [SVProgressHUD showSuccessWithStatus:@"Successfully logged in!"];
+    [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
+
+}
+
+
+#pragma mark - Facebook Login Delegates
+
+- (void)facebookLoginFailedWithError:(NSError *)error
+{
+    
+}
+
+- (void)facebookLoginSuccessWithExistingUser
+{
+    
+}
+
+- (void)facebookLoginSuccessWithNewUser
+{
+    
+}
 @end
