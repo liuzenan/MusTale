@@ -7,6 +7,7 @@
 //
 
 #import "MTPlayMusicViewController.h"
+#import "UIViewController+SliderView.h"
 
 @interface MTPlayMusicViewController ()
 
@@ -27,6 +28,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self setupTopViewController];
 }
 
 - (void)didReceiveMemoryWarning

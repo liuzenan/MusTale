@@ -24,7 +24,7 @@
     // Set up menu
     self.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuView"];
 
-    self.anchorLeftRevealAmount = 200.0f;
+    self.anchorLeftRevealAmount = 224.0f;
 }
 
 - (void)didReceiveMemoryWarning

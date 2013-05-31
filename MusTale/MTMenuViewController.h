@@ -24,6 +24,6 @@ typedef enum {
     kOthersSectionTypeCount
 } kOthersSectionType;
 
-@interface MTMenuViewController : UITableViewController
+@interface MTMenuViewController : UITableViewController<UIActionSheetDelegate>
 
 @end

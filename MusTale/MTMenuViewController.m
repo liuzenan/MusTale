@@ -9,6 +9,8 @@
 #import "MTMenuViewController.h"
 #import "MTMenuTableCell.h"
 
+#define MENU_CELL_HEIGHT 60.0f
+
 @interface MTMenuViewController ()
 
 @end
@@ -154,17 +156,81 @@
 }
 */
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return MENU_CELL_HEIGHT;
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if (indexPath.section == kMenuSectionOthers) {
+        
+        UIActionSheet *actionSheet;
+        UINavigationController *viewController;
+        
+        switch (indexPath.row) {
+                
+            case kOthersSectionTypeInbox:
+            {
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                break;
+            }
+            case kOthersSectionTypeOutbox:
+            {
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                break;
+            }
+            case kOthersSectionTypePopular:
+            {
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                break;
+            }
+            case kOthersSectionTypeFeatured:
+            {
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                break;
+            }
+            case kOthersSectionTypePlaylist:
+            {
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                UIViewController *playlist = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
+                [viewController pushViewController:playlist animated:NO];
+                break;
+            }
+            case kOthersSectionTypeLogout:
+            {
+                actionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure to log out?"
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                            destructiveButtonTitle:@"Log Out"
+                                                 otherButtonTitles:nil];
+                [actionSheet showInView:self.view];
+                break;
+            }
+            default:
+                break;
+        }
+        
+        if (viewController) {
+            CGRect frame = self.slidingViewController.topViewController.view.frame;
+            self.slidingViewController.topViewController = viewController;
+            self.slidingViewController.topViewController.view.frame = frame;
+            [self.slidingViewController resetTopView];
+        }
+    }
+}
+
+#pragma mark - UIActionSheet Delegate
+
+- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if (buttonIndex == 0) {
+        UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
+        loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentModalViewController:loginView animated:YES];
+    }
 }
 
 @end
