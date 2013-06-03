@@ -7,17 +7,38 @@
 //
 
 #import "MTAppDelegate.h"
+#import "MTConstants.h"
 
 @implementation MTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self customizeAppearance];
     return YES;
 }
 
 - (void) customizeAppearance
 {
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor whiteColor],
+      UITextAttributeTextColor,
+      [UIColor clearColor],
+      UITextAttributeTextShadowColor,
+      [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 1.0f)],
+      UITextAttributeTextShadowOffset,
+      [UIFont fontWithName:LATO_BLACK size:19.0f],
+      UITextAttributeFont,
+      nil]];
+    
+
+    // Remove shadow from iOS6.0
+    UINavigationBar *navBar = [[UINavigationBar alloc] init];
+    if ([navBar respondsToSelector:@selector(shadowImage)])
+        [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
 }
 

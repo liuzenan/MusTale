@@ -7,7 +7,15 @@
 //
 
 #import "AQGridViewController.h"
+#import "MTPlaylistViewDelegate.h"
 
 @interface MTPlaylistGridViewController : AQGridViewController
+
+@property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
+
+- (IBAction)showListView:(id)sender;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *listButton;
+
+
 
 @end

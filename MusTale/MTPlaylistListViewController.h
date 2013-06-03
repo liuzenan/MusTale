@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MTPlaylistViewDelegate.h"
 @interface MTPlaylistListViewController : UITableViewController
-- (IBAction)menuBtnPressed:(id)sender;
+@property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
+- (IBAction)showGridView:(id)sender;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *gridButton;
 
 @end

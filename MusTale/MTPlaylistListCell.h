@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface MTPlaylistListCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIView *contentWrapper;
+@property (strong, nonatomic) IBOutlet UIImageView *songCoverImage;
+@property (strong, nonatomic) IBOutlet UILabel *songTitle;
+@property (strong, nonatomic) IBOutlet UILabel *singerName;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+
 
 @end

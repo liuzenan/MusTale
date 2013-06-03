@@ -33,4 +33,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)changedTopViewControllerToGrid
+{
+    NSLog(@"change to grid");
+    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistGrid"];
+}
+
+-(void)changedTopViewControllerToList
+{
+    NSLog(@"change to list");
+    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+}
+
 @end

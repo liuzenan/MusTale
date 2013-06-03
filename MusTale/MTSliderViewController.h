@@ -7,7 +7,8 @@
 //
 
 #import "ECSlidingViewController.h"
+#import "MTPlaylistViewDelegate.h"
 
-@interface MTSliderViewController : ECSlidingViewController
+@interface MTSliderViewController : ECSlidingViewController<MTPlaylistViewDelegate>
 
 @end

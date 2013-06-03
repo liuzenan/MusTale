@@ -7,8 +7,13 @@
 //
 
 #import "MTPlaylistListViewController.h"
+#import "MTSliderViewController.h"
 #import "UIViewController+SliderView.h"
+#import "MTPlaylistListCell.h"
+#import "UIViewController+DoubleRightBarItems.h"
+#import <QuartzCore/QuartzCore.h>
 
+#define PLAY_LIST_CELL_HEIGHT 124.0f
 
 @interface MTPlaylistListViewController ()
 
@@ -27,18 +32,25 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self setupTopViewController];
+    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
+    self.delegate = sliderController;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setupRightNavBarItems];
+    [self setStyling];
+    
+    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
+    self.delegate = sliderController;
+    
+    
+    UIEdgeInsets inset = UIEdgeInsetsMake(10.0f, 0, 0, 0);
+    self.tableView.contentInset = inset;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,64 +65,41 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"PlaylistListCell";
+    MTPlaylistListCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    if (!cell) {
+        cell = [[MTPlaylistListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaylistListCell"];
+    }
+    
+    [cell.contentWrapper.layer setCornerRadius:4.0f];
+    // border
+    [cell.contentWrapper.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [cell.contentWrapper.layer setBorderWidth:0.4f];
+    
+    cell.contentWrapper.layer.shouldRasterize = YES;
+    cell.contentWrapper.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     // Configure the cell...
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return PLAY_LIST_CELL_HEIGHT;
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -125,8 +114,20 @@
      */
 }
 
-- (IBAction)menuBtnPressed:(id)sender {
-    
-    [self.slidingViewController anchorTopViewTo:ECLeft];
+- (IBAction)showGridView:(id)sender {
+    NSLog(@"show grid view");
+    [self.delegate changedTopViewControllerToGrid];
 }
+
+- (void)viewDidUnload {
+    [self setGridButton:nil];
+    [super viewDidUnload];
+}
+
+
+- (void)setStyling{
+    
+    [self.gridButton setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+}
+
 @end

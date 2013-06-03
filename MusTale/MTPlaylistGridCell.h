@@ -8,6 +8,10 @@
 
 #import "AQGridViewCell.h"
 
-@interface MTPlaylistGridCell : AQGridViewCell
+@interface MTPlaylistGridCell : UIView
+@property (strong, nonatomic) IBOutlet UIImageView *coverImage;
+@property (strong, nonatomic) IBOutlet UILabel *songLabel;
+
+- (void) setStyling;
 
 @end

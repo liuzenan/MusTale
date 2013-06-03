@@ -94,15 +94,20 @@
         <scene sceneID="seC-46-YcA">
             <objects>
                 <viewController storyboardIdentifier="" id="GPp-es-PVf" customClass="MTPlaylistGridViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="i67-8G-7Uz">
+                    <view key="view" contentMode="scaleToFill" id="i67-8G-7Uz" customClass="AQGridView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="Rnd-wn-3hp">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="rBt-75-Y3Q"/>
+                        <barButtonItem key="leftBarButtonItem" image="icon-grid.png" id="rBt-75-Y3Q">
+                            <connections>
+                                <action selector="showListView:" destination="GPp-es-PVf" id="aeu-Cm-fHt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="listButton" destination="rBt-75-Y3Q" id="740-LN-C3W"/>
                         <segue destination="30y-XI-yvH" kind="push" identifier="kLoadSongFromGrid" id="Zhy-zS-vvV"/>
                     </connections>
                 </viewController>
@@ -285,58 +290,68 @@
         <scene sceneID="btt-xG-q5u">
             <objects>
                 <tableViewController storyboardIdentifier="" id="ndE-ae-Ir4" customClass="MTPlaylistListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kt8-W3-Ifk">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kt8-W3-Ifk">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="140" id="d11-Lo-631">
-                                <rect key="frame" x="0.0" y="22" width="320" height="140"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistListCell" rowHeight="124" id="d11-Lo-631" customClass="MTPlaylistListCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" id="Dt0-rc-LCx">
-                                            <rect key="frame" x="12" y="12" width="297" height="116"/>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" id="Dt0-rc-LCx">
+                                            <rect key="frame" x="12" y="0.0" width="297" height="111"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="8V9-yy-mTm">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="album-example.jpg" id="8V9-yy-mTm">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G4j-E5-BBR">
-                                                    <rect key="frame" x="95" y="12" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Get Lucky" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G4j-E5-BBR">
+                                                    <rect key="frame" x="95" y="12" width="192" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kZE-zy-KsC">
-                                                    <rect key="frame" x="95" y="41" width="42" height="21"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Daft Punk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kZE-zy-KsC">
+                                                    <rect key="frame" x="95" y="41" width="192" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" id="lGd-ek-UjC">
-                                                    <rect key="frame" x="0.0" y="70" width="297" height="2"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="0.0" y="72" width="297" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RAo-l3-cNV">
-                                                    <rect key="frame" x="245" y="80" width="42" height="21"/>
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2 days ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RAo-l3-cNV">
+                                                    <rect key="frame" x="207" y="80" width="80" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="contentWrapper" destination="Dt0-rc-LCx" id="25l-sB-pZW"/>
+                                    <outlet property="dateLabel" destination="RAo-l3-cNV" id="boS-Z1-VNd"/>
+                                    <outlet property="singerName" destination="kZE-zy-KsC" id="9LJ-SQ-n7b"/>
+                                    <outlet property="songCoverImage" destination="8V9-yy-mTm" id="QCh-OC-Ysp"/>
+                                    <outlet property="songTitle" destination="G4j-E5-BBR" id="iyL-Il-q6I"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -345,14 +360,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="h6Q-ke-LgY">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="wbR-eF-T2G"/>
-                        <barButtonItem key="rightBarButtonItem" title="Menu" id="CjH-Za-w21">
+                        <barButtonItem key="leftBarButtonItem" image="icon-list.png" id="wbR-eF-T2G">
                             <connections>
-                                <action selector="menuBtnPressed:" destination="ndE-ae-Ir4" id="rAZ-7I-iOG"/>
+                                <action selector="showGridView:" destination="ndE-ae-Ir4" id="m23-Oy-QR4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="gridButton" destination="wbR-eF-T2G" id="OG4-cK-uHp"/>
                         <segue destination="30y-XI-yvH" kind="push" identifier="kLoadSongFromList" id="F0S-PV-WB7"/>
                     </connections>
                 </tableViewController>
@@ -397,7 +412,19 @@
             <point key="canvasLocation" x="610" y="-410"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="album-example.jpg" width="72" height="72"/>
+        <image name="icon-grid.png" width="16" height="16"/>
+        <image name="icon-list.png" width="16" height="16"/>
+    </resources>
     <classes>
+        <class className="AQGridView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
         <class className="AQGridViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridViewController.h"/>
         </class>
@@ -425,11 +452,26 @@
         </class>
         <class className="MTPlaylistGridViewController" superclassName="AQGridViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showListView:"/>
+                <relationship kind="outlet" name="listButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="singerName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="songCoverImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="MTPlaylistListViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListViewController.h"/>
             <relationships>
-                <relationship kind="action" name="menuBtnPressed:"/>
+                <relationship kind="action" name="showGridView:"/>
+                <relationship kind="outlet" name="gridButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="MTRecordVoiceNoteViewController" superclassName="UIViewController">

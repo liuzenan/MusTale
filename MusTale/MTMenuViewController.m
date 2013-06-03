@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor darkGrayColor];
 
 }
 
@@ -175,6 +176,7 @@
             case kOthersSectionTypeInbox:
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                
                 break;
             }
             case kOthersSectionTypeOutbox:

@@ -7,25 +7,13 @@
 //
 
 #import "MTPlaylistGridCell.h"
+#import "MTConstants.h"
 
 @implementation MTPlaylistGridCell
 
-- (id)initWithFrame:(CGRect)frame
+-(void)setStyling
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    [self.songLabel setFont:[UIFont fontWithName:LATO_BOLD size:14.0f]];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
