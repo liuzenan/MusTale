@@ -7,6 +7,7 @@
 //
 
 #import "MTPlaylistListCell.h"
+#import "MTConstants.h"
 
 @implementation MTPlaylistListCell
 
@@ -24,6 +25,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)setStyling
+{
+    [self.songTitle setFont:[UIFont fontWithName:LATO_BOLD size:20.0f]];
+    [self.singerName setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    [self.dateLabel setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
+    self.dateLabel.textColor = [UIColor darkGrayColor];
 }
 
 @end

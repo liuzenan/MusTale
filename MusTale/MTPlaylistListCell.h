@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *singerName;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 
+-(void) setStyling;
 
 @end

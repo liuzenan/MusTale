@@ -69,6 +69,9 @@
 		E4AA8B781757B7C1001FA121 /* MTComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B771757B7C0001FA121 /* MTComments.xib */; };
 		E4AA8B7B1757B8A8001FA121 /* MTCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AA8B7A1757B8A8001FA121 /* MTCommentCell.m */; };
 		E4AA8B7D1757B8BB001FA121 /* MTCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AA8B7C1757B8BA001FA121 /* MTCommentCell.xib */; };
+		E4AB9AD4175CF25A00A4DCFA /* UIColor+i7HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AB9AD3175CF25A00A4DCFA /* UIColor+i7HexColor.m */; };
+		E4AB9ADD175CF96C00A4DCFA /* MTSearchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AB9ADC175CF96C00A4DCFA /* MTSearchBarController.m */; };
+		E4AB9ADF175CF97D00A4DCFA /* MTSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AB9ADE175CF97D00A4DCFA /* MTSearchBar.xib */; };
 		E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1ED91756604800518BDE /* UIKit.framework */; };
 		E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDB1756604800518BDE /* Foundation.framework */; };
 		E4BD1EDE1756604800518BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDD1756604800518BDE /* CoreGraphics.framework */; };
@@ -178,6 +181,11 @@
 		E4AA8B791757B8A7001FA121 /* MTCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCommentCell.h; sourceTree = "<group>"; };
 		E4AA8B7A1757B8A8001FA121 /* MTCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCommentCell.m; sourceTree = "<group>"; };
 		E4AA8B7C1757B8BA001FA121 /* MTCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTCommentCell.xib; sourceTree = "<group>"; };
+		E4AB9AD2175CF25A00A4DCFA /* UIColor+i7HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+i7HexColor.h"; path = "MusTale/UIColor+i7HexColor.h"; sourceTree = "<group>"; };
+		E4AB9AD3175CF25A00A4DCFA /* UIColor+i7HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+i7HexColor.m"; path = "MusTale/UIColor+i7HexColor.m"; sourceTree = "<group>"; };
+		E4AB9ADB175CF96C00A4DCFA /* MTSearchBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSearchBarController.h; sourceTree = "<group>"; };
+		E4AB9ADC175CF96C00A4DCFA /* MTSearchBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSearchBarController.m; sourceTree = "<group>"; };
+		E4AB9ADE175CF97D00A4DCFA /* MTSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTSearchBar.xib; sourceTree = "<group>"; };
 		E4BD1ED61756604800518BDE /* MusTale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusTale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BD1ED91756604800518BDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4BD1EDB1756604800518BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -318,6 +326,16 @@
 			name = Tales;
 			sourceTree = "<group>";
 		};
+		E4AB9AD5175CF39100A4DCFA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E4AB9ADB175CF96C00A4DCFA /* MTSearchBarController.h */,
+				E4AB9ADC175CF96C00A4DCFA /* MTSearchBarController.m */,
+				E4AB9ADE175CF97D00A4DCFA /* MTSearchBar.xib */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		E4BD1ECD1756604800518BDE = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +357,8 @@
 		E4BD1ED81756604800518BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4AB9AD2175CF25A00A4DCFA /* UIColor+i7HexColor.h */,
+				E4AB9AD3175CF25A00A4DCFA /* UIColor+i7HexColor.m */,
 				E4BD1ED91756604800518BDE /* UIKit.framework */,
 				E4BD1EDB1756604800518BDE /* Foundation.framework */,
 				E4BD1EDD1756604800518BDE /* CoreGraphics.framework */,
@@ -423,6 +443,8 @@
 		E4BD1EFE175662EF00518BDE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E4AB9AD5175CF39100A4DCFA /* Components */,
+				E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */,
 				E4AA8B7E1757BA33001FA121 /* Tales */,
 				E4AA8B6A1757AF61001FA121 /* Cells */,
 				E4AA8B31175798DF001FA121 /* MTLoginViewController.h */,
@@ -449,7 +471,6 @@
 				E4AA8B731757B773001FA121 /* MTVoiceNoteView.xib */,
 				E4AA8B751757B78A001FA121 /* MTTextNoteView.xib */,
 				E4AA8B771757B7C0001FA121 /* MTComments.xib */,
-				E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */,
 				E45C145C175B8E9C00EE709D /* UIViewController+DoubleRightBarItems.h */,
 				E45C145D175B8E9C00EE709D /* UIViewController+DoubleRightBarItems.m */,
 			);
@@ -553,6 +574,7 @@
 				E45C1462175B911600EE709D /* icon-search.png in Resources */,
 				E45C1465175B927800EE709D /* icon-menu@2x.png in Resources */,
 				E45C1466175B927800EE709D /* icon-menu.png in Resources */,
+				E4AB9ADF175CF97D00A4DCFA /* MTSearchBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +650,8 @@
 				E4059A681758E16A00F4C351 /* MTMenuTableCell.m in Sources */,
 				E45C1447175B7AA800EE709D /* MTConstants.m in Sources */,
 				E45C145E175B8E9D00EE709D /* UIViewController+DoubleRightBarItems.m in Sources */,
+				E4AB9AD4175CF25A00A4DCFA /* UIColor+i7HexColor.m in Sources */,
+				E4AB9ADD175CF96C00A4DCFA /* MTSearchBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

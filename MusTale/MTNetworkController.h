@@ -10,4 +10,6 @@
 
 @interface MTNetworkController : NSObject
 
++ (void) testLoadSongWithResult;
+
 @end

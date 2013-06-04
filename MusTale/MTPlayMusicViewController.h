@@ -10,4 +10,7 @@
 
 @interface MTPlayMusicViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIScrollView *CDScroll;
+
+
 @end

@@ -11,6 +11,24 @@
 
 @implementation UIViewController (DoubleRightBarItems)
 
+-(void)setupRightNavBarItemsWithoutSearch
+{
+    UIButton *menu = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menu setImage:[UIImage imageNamed:@"icon-menu.png"] forState:UIControlStateNormal];
+    [menu sizeToFit];
+    CGRect menuFrame = menu.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(menuFrame));
+    menuFrame.size.width += 20.0f;
+    menu.frame = menuFrame;
+    [menu setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *menuBtn = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    [menuBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [menuBtn setTag:kMenuButton];
+    
+    [self.navigationItem setRightBarButtonItem:menuBtn];
+    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+}
 
 -(void)setupRightNavBarItems
 {
@@ -43,6 +61,9 @@
     
     NSArray *buttonArray = [NSArray arrayWithObjects:menuBtn, searchBtn, nil];
     [self.navigationItem setRightBarButtonItems:buttonArray];
+    
+    [search addTarget:self action:@selector(showSearchBar) forControlEvents:UIControlEventTouchUpInside];
+    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

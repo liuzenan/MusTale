@@ -102,7 +102,7 @@ NSString *RKPathFromPatternWithObject(NSString *pathPattern, id object)
 
 static NSDictionary *RKDictionaryOfFileExtensionsToMIMETypes()
 {
-    return @{ @"json": @"application/json" };
+    return @{ @"json": @"text/javascript", @"json" : @"application/json"};
 }
 
 NSString *RKMIMETypeFromPathExtension(NSString *path)

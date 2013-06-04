@@ -11,6 +11,8 @@
 #import "UIViewController+SliderView.h"
 #import "MTPlaylistListCell.h"
 #import "UIViewController+DoubleRightBarItems.h"
+#import "UIColor+i7HexColor.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 #define PLAY_LIST_CELL_HEIGHT 124.0f
@@ -28,6 +30,13 @@
         // Custom initialization
     }
     return self;
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -36,6 +45,7 @@
     [self setupTopViewController];
     MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
     self.delegate = sliderController;
+    
 }
 
 - (void)viewDidLoad
@@ -48,8 +58,11 @@
     self.delegate = sliderController;
     
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(10.0f, 0, 0, 0);
-    self.tableView.contentInset = inset;
+    // set up search bar
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:@"MTSearchBar" owner:self options:nil];
+    self.searchController = (MTSearchBarController*)[objects objectAtIndex:1];
+
+    self.tableView.tableHeaderView = self.searchController.searchBar;
     
 }
 
@@ -83,6 +96,8 @@
     if (!cell) {
         cell = [[MTPlaylistListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaylistListCell"];
     }
+    
+    [cell setStyling];
     
     [cell.contentWrapper.layer setCornerRadius:4.0f];
     // border
@@ -128,6 +143,27 @@
 - (void)setStyling{
     
     [self.gridButton setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"#fefef8"];
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 10.0f, 0.0f);
+    
 }
 
+- (void)showSearchBar
+{
+    NSLog(@"show animation");
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    
+    self.tableView.contentOffset = CGPointMake(0.0f, 0.0f);
+    
+    [UIView commitAnimations];
+
+}
+
+- (void)showMenu
+{
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+}
 @end

@@ -8,14 +8,16 @@
 
 #import "AQGridViewController.h"
 #import "MTPlaylistViewDelegate.h"
+#import "MTSearchBarController.h"
 
 @interface MTPlaylistGridViewController : AQGridViewController
 
 @property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
-
-- (IBAction)showListView:(id)sender;
+@property (strong, nonatomic) MTSearchBarController *searchController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *listButton;
 
+
+- (IBAction)showListView:(id)sender;
 
 
 @end

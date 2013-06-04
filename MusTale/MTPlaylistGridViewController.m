@@ -11,6 +11,7 @@
 #import "UIViewController+SliderView.h"
 #import "MTPlaylistGridCell.h"
 #import "UIViewController+DoubleRightBarItems.h"
+#import "UIColor+i7HexColor.h"
 
 @interface MTPlaylistGridViewController ()
 
@@ -27,16 +28,26 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.gridView.contentOffset = CGPointMake(0.0f, 44.0f);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupRightNavBarItems];
     [self setStyling];
 	// Do any additional setup after loading the view.
-    [self.gridView setBackgroundColor:[UIColor whiteColor]];
+    self.gridView.showsVerticalScrollIndicator = NO;
+    self.gridView.showsHorizontalScrollIndicator = NO;
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(10.0f, 0, 0, 0);
-    self.gridView.contentInset = inset;
+    // set up search bar
+    NSArray *objects = [[NSBundle mainBundle] loadNibNamed:@"MTSearchBar" owner:self options:nil];
+    self.searchController = (MTSearchBarController*)[objects objectAtIndex:1];
+    
+    self.gridView.gridHeaderView = self.searchController.searchBar;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,10 +94,30 @@
 
 - (void)setStyling{
     [self.listButton setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    self.gridView.backgroundColor = [UIColor colorWithHexString:@"#fefef8"];
+
 }
 
 - (void)viewDidUnload {
     [self setListButton:nil];
     [super viewDidUnload];
+}
+
+- (void)showSearchBar
+{
+    NSLog(@"show animation");
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    
+    self.gridView.contentOffset = CGPointMake(0.0f, 0.0f);
+    
+    [UIView commitAnimations];
+}
+
+- (void)showMenu
+{
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 @end

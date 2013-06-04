@@ -294,7 +294,7 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 }
 
 + (NSSet *)acceptableContentTypes {
-    return nil;
+    return [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", nil];
 }
 
 + (void)addAcceptableContentTypes:(NSSet *)contentTypes {

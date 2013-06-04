@@ -8,6 +8,7 @@
 
 #import "MTPlayMusicViewController.h"
 #import "UIViewController+SliderView.h"
+#import "MTNetworkController.h"
 
 @interface MTPlayMusicViewController ()
 
@@ -28,6 +29,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.CDScroll.pagingEnabled = YES;
+    self.CDScroll.showsHorizontalScrollIndicator = NO;
+    
+    [self loadSongs];
+    
+}
+
+- (void) loadSongs
+{
+    [MTNetworkController testLoadSongWithResult];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -42,4 +54,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setCDScroll:nil];
+    [super viewDidUnload];
+}
 @end

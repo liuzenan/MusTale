@@ -17,4 +17,6 @@ typedef enum {
 
 - (void) setupRightNavBarItems;
 
+- (void) setupRightNavBarItemsWithoutSearch;
+
 @end

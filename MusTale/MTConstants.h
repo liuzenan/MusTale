@@ -19,6 +19,8 @@ extern NSString *const LATO_LIGHT;
 extern NSString *const LATO_LIGHTITALIC;
 extern NSString *const LATO_REGULAR;
 
+#define SEARCHBAR_HEIGHT 44.0f;
+
 @interface MTConstants : NSObject
 
 @end

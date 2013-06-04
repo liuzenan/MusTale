@@ -217,6 +217,12 @@
                     <view key="view" contentMode="scaleToFill" id="KMh-lz-gYP">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="9Co-GS-3nz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Play" id="40B-Wg-n9E">
@@ -224,6 +230,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" id="tPm-pA-9R9"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="CDScroll" destination="9Co-GS-3nz" id="NI9-EK-JX7"/>
                         <segue destination="2Wq-qb-yGh" kind="push" identifier="kLoadRecordNote" id="kZa-NW-h6j"/>
                         <segue destination="S6B-YW-tJ2" kind="push" identifier="kLoadTales" id="IoH-e3-Wlm"/>
                     </connections>
@@ -303,7 +310,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" id="Dt0-rc-LCx">
-                                            <rect key="frame" x="12" y="0.0" width="297" height="111"/>
+                                            <rect key="frame" x="12" y="12" width="297" height="111"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="album-example.jpg" id="8V9-yy-mTm">
@@ -311,7 +318,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Get Lucky" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G4j-E5-BBR">
-                                                    <rect key="frame" x="95" y="12" width="192" height="21"/>
+                                                    <rect key="frame" x="95" y="16" width="192" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
