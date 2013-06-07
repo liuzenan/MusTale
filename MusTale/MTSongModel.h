@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *trackId;
 @property (nonatomic, strong) NSURL *trackViewUrl;
 @property (nonatomic, strong) NSString *artistId;
-@property (nonatomic, strong) NSString *artworkUrl100;
+@property (nonatomic, strong) NSURL *artworkUrl100;
 @property (nonatomic, strong) NSString *collectionName;
 @property (nonatomic, strong) NSString *collectionId;
 @property (nonatomic, strong) NSString *country;

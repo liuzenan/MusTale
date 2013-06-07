@@ -10,6 +10,6 @@
 
 @interface MTNetworkController : NSObject
 
-+ (void) testLoadSongWithResult;
++ (void) testLoadSongWithResult:(void(^)(NSArray* songs))callback;
 
 @end

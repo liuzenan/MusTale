@@ -13,7 +13,7 @@
 
 @implementation MTNetworkController
 
-+ (void) testLoadSongWithResult
++ (void) testLoadSongWithResult:(void(^)(NSArray* success))callback
 {    
     RKObjectMapping *songMapping = [RKObjectMapping mappingForClass:[MTSongModel class]];
     [songMapping addAttributeMappingsFromDictionary:@{
@@ -34,7 +34,7 @@
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:songMapping pathPattern:nil keyPath:@"results" statusCodes:statusCodes];
     
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunes.apple.com/search?term=taylor+swift"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunes.apple.com/search?term=taylor+swift&limit=10&media=music&entity=song"]];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     
     NSLog(@"start rest query");
@@ -42,7 +42,7 @@
     [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
         //MTSongModel *song = [mappingResult firstObject];
         RKLogInfo(@"Load collection of Articles: %@", mappingResult.array);
-        
+        callback(mappingResult.array);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         RKLogError(@"Operation failed with error: %@", error);
     }];

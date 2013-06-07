@@ -7,6 +7,8 @@
 //
 
 #import "MTMenuTableCell.h"
+#import "UIColor+i7HexColor.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MTMenuTableCell
 
@@ -28,7 +30,11 @@
 
 -(void)setStyling
 {
-
+    [self.menuLabel setFont:[UIFont fontWithName:LATO_BOLD size:18.0f]];
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    [bgColorView setBackgroundColor:[UIColor colorWithHexString:FLAT_BLUE_HIGHLIGHT_COLOR]];
+    [self setSelectedBackgroundView:bgColorView];
 }
 
 @end

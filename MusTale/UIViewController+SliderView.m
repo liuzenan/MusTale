@@ -21,17 +21,21 @@
     // shadowPath, shadowOffset, and rotation is handled by ECSlidingViewController.
     
     if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
-//        self.navigationController.view.layer.shadowOpacity = 0.75f;
-//        self.navigationController.view.layer.shadowRadius = 10.0f;
-//        self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.navigationController.view.layer.shadowOpacity = 0.75f;
+        self.navigationController.view.layer.shadowRadius = 10.0f;
+        self.navigationController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+//        self.navigationController.view.layer.shouldRasterize = YES;
+//        self.navigationController.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         [self.navigationController.view addGestureRecognizer:self.slidingViewController.panGesture];
         
         NSLog(@"setup navigation gesture");
     } else {
-//        self.view.layer.shadowOpacity = 0.75f;
-//        self.view.layer.shadowRadius = 10.0f;
-//        self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-        [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+        self.view.layer.shadowOpacity = 0.75f;
+        self.view.layer.shadowRadius = 10.0f;
+        self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.view.layer.shouldRasterize = YES;
+//        self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+//        [self.view addGestureRecognizer:self.slidingViewController.panGesture];
         NSLog(@"setup non navigation gesture");
     }
     
