@@ -31,10 +31,13 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#2c3e50"];
+    NSLog(@"menu did load");
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    NSLog(@"menu did appear");
     if (currentSelected) {
         [self.tableView selectRowAtIndexPath:currentSelected animated:NO scrollPosition:UITableViewScrollPositionNone];
     } else {
@@ -190,10 +193,12 @@
         }
         
         if (viewController) {
-            CGRect frame = self.slidingViewController.topViewController.view.frame;
-            self.slidingViewController.topViewController = viewController;
-            self.slidingViewController.topViewController.view.frame = frame;
-            [self.slidingViewController resetTopView];
+            [self.slidingViewController anchorTopViewOffScreenTo:ECLeft animations:nil onComplete:^{
+                CGRect frame = self.slidingViewController.topViewController.view.frame;
+                self.slidingViewController.topViewController = viewController;
+                self.slidingViewController.topViewController.view.frame = frame;
+                [self.slidingViewController resetTopView];
+            }];
         }
     }
 }

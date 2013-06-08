@@ -7,6 +7,7 @@
 //
 
 #import "MTProgressView.h"
+#import "UIColor+i7HexColor.h"
 
 @implementation MTProgressView{
     CGFloat startAngle;
@@ -30,14 +31,14 @@
     
     // Create our arc, with the correct angles
     [bezierPath addArcWithCenter:CGPointMake(rect.size.width / 2, rect.size.height / 2)
-                          radius:self.radius
+                          radius:self.radius + PROGRESS_VIEW_WIDTH / 2.0f
                       startAngle:startAngle
                         endAngle:(endAngle - startAngle) * (_percent / 100.0) + startAngle
                        clockwise:YES];
     
     // Set the display for the path, and stroke it
-    bezierPath.lineWidth = 15;
-    [[UIColor blackColor] setStroke];
+    bezierPath.lineWidth = PROGRESS_VIEW_WIDTH;
+    [[UIColor colorWithHexString:FLAT_ORANGE_COLOR] setStroke];
     [bezierPath stroke];
 }
 
@@ -45,7 +46,6 @@
     if (self = [super init]) {
         startAngle = - (M_PI / 2);
         endAngle = startAngle + (M_PI * 2);
-        self.layer.cornerRadius = self.radius;
         self.layer.masksToBounds = YES;
         self.backgroundColor = [UIColor whiteColor];
         self.radius = p_radius;

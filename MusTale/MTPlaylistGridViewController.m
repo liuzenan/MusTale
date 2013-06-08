@@ -31,7 +31,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
+    self.delegate = sliderController;
     self.gridView.contentOffset = CGPointMake(0.0f, 44.0f);
+    [self setupTopViewController];
 }
 
 - (void)viewDidLoad
@@ -48,14 +51,6 @@
     self.searchController = (MTSearchBarController*)[objects objectAtIndex:1];
     
     self.gridView.gridHeaderView = self.searchController.searchBar;
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self setupTopViewController];
-    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
-    self.delegate = sliderController;
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,6 +113,9 @@
 
 - (void)showMenu
 {
-    [self.slidingViewController anchorTopViewTo:ECLeft];
+    if (self.slidingViewController.underRightViewController.view) {
+        self.slidingViewController.underRightViewController.view.frame = self.view.frame;
+        [self.slidingViewController anchorTopViewTo:ECLeft];
+    }
 }
 @end

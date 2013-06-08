@@ -10,7 +10,8 @@
 #import "MTSongModel.h"
 #import "MTSongView.h"
 #import "MTConstants.h"
-#import <MediaPlayer/MediaPlayer.h>
+
+
 
 extern CGFloat const UPDATE_INTERVAL;
 
@@ -24,11 +25,11 @@ extern CGFloat const UPDATE_INTERVAL;
 @property (nonatomic,weak) id<SongPlayListDelegate> delegate;
 @property (nonatomic,weak) MTSongView* songview;
 @property (nonatomic,strong) MTSongModel* songmodel;
-@property (strong, nonatomic) MPMoviePlayerController *player;
+
 
 + (MTSongViewController*) songViewControllerWithViewAndModel:(MTSongView*)songview Model:(MTSongModel*)songmodel;
 
 - (void) reinit;
-
+- (void) play;
 
 @end

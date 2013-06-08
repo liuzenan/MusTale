@@ -7,6 +7,7 @@
 //
 
 #import "MTSongViewController.h"
+#import "MTPlaybackController.h"
 
 @interface MTSongViewController ()
 
@@ -32,9 +33,17 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     if (self = [super init]) {
         self.songview = v;
         self.songmodel = m;
-        self.player = [[MPMoviePlayerController alloc] initWithContentURL:self.songmodel.previewUrl];
     }
     return self;
+}
+
+- (void)moviePlayBackDidFinish:(NSNotification*)notification
+{
+    NSLog(@"music stopped");
+    [self stop];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:[[MTPlaybackController sharedInstance] player]];
 }
 
 - (void)viewDidLoad
@@ -44,7 +53,14 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [self addGestureRecognizersToView:self.songview];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self stopRotate];
+    [super viewWillDisappear:animated];
+}
+
 - (void)loadView {
+    [super loadView];
     self.view = self.songview;
 }
 
@@ -63,14 +79,13 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     
 }
 
+
+// rotating
 - (void) startRotate {
     if (self.timer == nil) {
         self.timer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_INTERVAL target:self selector:@selector(update) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
-}
-
-- (void) update{
-    
 }
 
 - (void) stopRotate {
@@ -81,34 +96,83 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 }
 
 
+- (void) update{
+    [self rotateView];
+    [self changeProgress];
+}
+
+
+// set progress 
+- (void)changeProgress
+{
+    MPMoviePlayerController *player = [[MTPlaybackController sharedInstance] player];
+    NSTimeInterval current = player.currentPlaybackTime;
+    CGFloat percent = (double) current / (double) player.duration;
+    
+    if (percent >= 0.0f && percent <= 1.0f) {
+        self.songview.progress.percent = percent * 100;
+        [self.songview.progress setNeedsDisplay];
+    }
+}
+
+
+- (void) setProgressPercent:(CGFloat)p_percent{
+    if (p_percent >= 0.0f && p_percent <= 100.0f) {
+        self.songview.progress.percent = p_percent;
+        [self.songview.progress setNeedsDisplay];
+    }
+}
+
+
+- (void) rotateView {
+    self.songview.transform = CGAffineTransformRotate(self.songview.transform, M_PI / 200.0f);
+}
+
+
 - (void) singleTap:(UIRotationGestureRecognizer *)gesture {
     if (self.timer) {
         [self pause];
-        
     } else {
         [self play];
     }
 }
 
 - (void) pause {
-    [self.songview addStateImage:kStatePause];
-    [self.player stop];
+    
+    [self.songview removeStateImage];
+    [self.songview addStateImage:kStateInit];
+    [[MTPlaybackController sharedInstance] pause];
     [self stopRotate];
+    [self.delegate didPausedPlaying:self];
+}
+
+- (void) stop {
+    
+    [self.songview removeStateImage];
+    [self.songview addStateImage:kStateInit];
+    [self setProgressPercent:0];
+    [[MTPlaybackController sharedInstance] stop];
+    [self stopRotate];
+    self.songview.transform = CGAffineTransformMakeRotation(0.0);
+    [self.delegate didFinishedPlaying:self];
 }
 
 - (void)play
 {
+    [[MTPlaybackController sharedInstance] setCurrentSong:self.songmodel];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:[[MTPlaybackController sharedInstance] player]];
     [self.songview removeStateImage];
+    [self.songview addStateImage:kStatePause];
     [self startRotate];
-    [self.player play];
+    [[MTPlaybackController sharedInstance] play];
+    [self.delegate didStartedPlaying:self];
 }
 
 - (void) reinit {
-    [self.songview addStateImage:kStateInit];
-    self.songview.transform = CGAffineTransformMakeRotation(0.0);
-    [self.player stop];
-    [self stopRotate];
-    
+    [self stop];
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "UIViewController+SliderView.h"
+#import "MTMenuViewController.h"
 
 @implementation UIViewController (SliderView)
 
@@ -19,6 +20,13 @@
 - (void)setupTopViewController {
     
     // shadowPath, shadowOffset, and rotation is handled by ECSlidingViewController.
+    NSLog(@"%@", self.slidingViewController.underRightViewController.view);
+    if (![self.slidingViewController.underRightViewController isKindOfClass:[MTMenuViewController class]]) {
+        self.slidingViewController.underRightViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuView"];
+        NSLog(@"setup under right view controller");
+    }
+    
+    self.slidingViewController.anchorLeftRevealAmount = 224.0f;
     
     if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
         self.navigationController.view.layer.shadowOpacity = 0.75f;
@@ -38,7 +46,7 @@
 //        [self.view addGestureRecognizer:self.slidingViewController.panGesture];
         NSLog(@"setup non navigation gesture");
     }
-    
+
 }
 
 /**

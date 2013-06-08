@@ -29,9 +29,14 @@ extern NSString * const FLAT_WHITE_COLOR;
 extern NSString * const FLAT_RED_COLOR;
 extern NSString * const FLAT_ORANGE_COLOR;
 extern NSString * const FLAT_BLUE_HIGHLIGHT_COLOR;
+extern NSString * const MUSIC_BG_COLOR;
+extern CGFloat const DEFAULT_SONG_VIEW_RADIUS;
+extern CGFloat const DEFAULT_SONG_VIEW_SEPERATION;
+extern CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT;
 
 
 #define NAVBAR_HEIGHT 44.0f
+#define PROGRESS_VIEW_WIDTH 10.0f
 
 @interface MTConstants : NSObject
 

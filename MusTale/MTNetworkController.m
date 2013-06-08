@@ -34,7 +34,7 @@
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:songMapping pathPattern:nil keyPath:@"results" statusCodes:statusCodes];
     
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunes.apple.com/search?term=taylor+swift&limit=10&media=music&entity=song"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://itunes.apple.com/search?term=daft+punk&limit=10&media=music&entity=song"]];
     RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request responseDescriptors:@[responseDescriptor]];
     
     NSLog(@"start rest query");

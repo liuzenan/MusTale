@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <QuartzCore/CoreAnimation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "MTProgressView.h"
 #import "MTConstants.h"
 
-typedef enum {kStateInit, kStatePause, kStateStop} PlayState;
+typedef enum {kStateInit, kStatePause} PlayState;
 
 @interface MTSongView : UIView
 
@@ -21,8 +21,6 @@ typedef enum {kStateInit, kStatePause, kStateStop} PlayState;
 @property (nonatomic,strong) UIView *middle;
 
 - (id) initWithURLAndRadius:(NSURL*)url Radius:(CGFloat)p_radius;
-- (void)hideProgressBar;
-- (void)showProgressBar;
 - (void)addStateImage:(PlayState)state;
 - (void)removeStateImage;
 

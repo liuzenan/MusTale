@@ -8,21 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "MTSongViewController.h"
+#import "MarqueeLabel.h"
 
-extern CGFloat const DEFAULT_SONG_VIEW_RADIUS;
-extern CGFloat const DEFAULT_SONG_VIEW_SEPERATION;
-extern CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT;
-
-@interface MTPlayMusicViewController : UIViewController <SongPlayListDelegate, UIGestureRecognizerDelegate>
+@interface MTPlayMusicViewController : UIViewController <SongPlayListDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *CDScroll;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBtn;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 - (IBAction)showMenu:(id)sender;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *goBack;
+- (IBAction)goBack:(id)sender;
 
 @property (strong, nonatomic) NSArray *songList;
-@property (strong, nonatomic) IBOutlet UILabel *songTitle;
-@property (strong, nonatomic) IBOutlet UILabel *singerName;
+@property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;
+@property (strong, nonatomic) IBOutlet MarqueeLabel *singerName;
+- (IBAction)showTweets:(id)sender;
+- (IBAction)showRecording:(id)sender;
+- (IBAction)showTales:(id)sender;
+- (IBAction)like:(id)sender;
 
 @end
