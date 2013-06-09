@@ -137,7 +137,7 @@
         <scene sceneID="kDX-QE-mJY">
             <objects>
                 <viewController storyboardIdentifier="RecordView" title="Record" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2Wq-qb-yGh" customClass="MTRecordVoiceNoteViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Lg5-vY-gqu">
+                    <view key="view" contentMode="scaleToFill" id="Lg5-vY-gqu" customClass="MTRecordView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -204,8 +204,6 @@
                                     <action selector="startRecording:" destination="2Wq-qb-yGh" eventType="touchDown" id="9hU-Z0-QRt"/>
                                     <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchUpOutside" id="RR2-iw-g95"/>
                                     <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchUpInside" id="k3e-da-C3e"/>
-                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchDragOutside" id="wvE-Ic-YdR"/>
-                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchDragExit" id="zvq-A1-Zhg"/>
                                 </connections>
                             </button>
                         </subviews>

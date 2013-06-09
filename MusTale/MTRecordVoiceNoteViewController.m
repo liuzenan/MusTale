@@ -33,8 +33,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    MTRecordView *recordView = (MTRecordView*) self.view;
-    recordView.delegate = self;
+
     [self setStyling];
 }
 
@@ -47,13 +46,6 @@
     [[MTFloatMusicViewController sharedInstance] changeSong:self.currentSong];
     [[MTFloatMusicViewController sharedInstance] showFloatSong];
 }
-
--(void)touchDidEnd
-{
-    [[MTRecordingController sharedInstance] stopRecording];
-    [[MTRecordingController sharedInstance] startPlaying];
-}
-
 
 - (IBAction)goBack:(id)sender {
     [self.navigationController popViewControllerAnimated:NO];

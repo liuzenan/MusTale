@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MTSongModel.h"
 #import "MarqueeLabel.h"
-#import "MTRecordView.h"
 
-@interface MTRecordVoiceNoteViewController : UIViewController<MTRecordViewDelegate>
+@interface MTRecordVoiceNoteViewController : UIViewController
 
 @property (nonatomic, strong) MTSongModel *currentSong;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;
