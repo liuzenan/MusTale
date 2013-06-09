@@ -174,11 +174,11 @@
                                     <action selector="insertAtFront:" destination="2Wq-qb-yGh" eventType="touchUpInside" id="NyH-GX-oWd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dzq-eH-MVR">
-                                <rect key="frame" x="207" y="333" width="73" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dzq-eH-MVR">
+                                <rect key="frame" x="195" y="340" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button" image="button-insert-back.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -190,7 +190,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2re-KG-XME">
-                                <rect key="frame" x="142" y="190" width="36" height="36"/>
+                                <rect key="frame" x="122" y="169" width="77" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="button-record.png">
@@ -212,7 +212,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon-menu.png" id="LQ7-oL-ibJ">
                             <connections>
-                                <action selector="send:" destination="2Wq-qb-yGh" id="Llc-2O-TLk"/>
+                                <action selector="showMenu:" destination="2Wq-qb-yGh" id="yMV-Lf-9Mu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -243,7 +243,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="u5W-PW-umQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="u5W-PW-umQ">
                                 <rect key="frame" x="54" y="354" width="35" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -258,7 +258,7 @@
                                     <action selector="showTweets:" destination="30y-XI-yvH" eventType="touchUpInside" id="CLR-5a-jmN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HOj-2j-XgW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="HOj-2j-XgW">
                                 <rect key="frame" x="119" y="354" width="25" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -273,7 +273,7 @@
                                     <action selector="showRecording:" destination="30y-XI-yvH" eventType="touchUpInside" id="g3G-Vh-2m7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R5d-RL-t58">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="R5d-RL-t58">
                                 <rect key="frame" x="176" y="354" width="30" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -288,7 +288,7 @@
                                     <action selector="showTales:" destination="30y-XI-yvH" eventType="touchUpInside" id="fef-5w-V2Q"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ecj-1b-W50">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Ecj-1b-W50">
                                 <rect key="frame" x="236" y="354" width="30" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -527,8 +527,9 @@
     </scenes>
     <resources>
         <image name="album-example.jpg" width="72" height="72"/>
+        <image name="button-insert-back.png" width="105" height="30"/>
         <image name="button-insert-front.png" width="105" height="30"/>
-        <image name="button-record.png" width="36" height="36"/>
+        <image name="button-record.png" width="72" height="72"/>
         <image name="icon-back.png" width="32" height="18"/>
         <image name="icon-grid.png" width="16" height="16"/>
         <image name="icon-heart.png" width="30" height="28"/>
@@ -538,6 +539,104 @@
         <image name="icon-tale.png" width="30" height="28"/>
         <image name="icon-twitter.png" width="35" height="28"/>
     </resources>
+    <classes>
+        <class className="AQGridView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="AQGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridViewController.h"/>
+        </class>
+        <class className="ECSlidingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ECSlidingViewController.h"/>
+        </class>
+        <class className="MTLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginBtnPressed:"/>
+            </relationships>
+        </class>
+        <class className="MTMenuTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="iconImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="menuLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MTMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuViewController.h"/>
+        </class>
+        <class className="MTPlayMusicViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlayMusicViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="like:"/>
+                <relationship kind="action" name="showMenu:"/>
+                <relationship kind="action" name="showRecording:"/>
+                <relationship kind="action" name="showTales:"/>
+                <relationship kind="action" name="showTweets:"/>
+                <relationship kind="outlet" name="CDScroll" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="singerName" candidateClass="MarqueeLabel"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="MarqueeLabel"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistGridViewController" superclassName="AQGridViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showListView:"/>
+                <relationship kind="outlet" name="listButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="singerName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="songCoverImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showGridView:"/>
+                <relationship kind="outlet" name="gridButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MTRecordVoiceNoteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTRecordVoiceNoteViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="insertAtBack:"/>
+                <relationship kind="action" name="insertAtFront:"/>
+                <relationship kind="action" name="showMenu:"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="recordBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="singerName" candidateClass="MarqueeLabel"/>
+                <relationship kind="outlet" name="songCover" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="MarqueeLabel"/>
+            </relationships>
+        </class>
+        <class className="MTSendTaleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTSendTaleViewController.h"/>
+        </class>
+        <class className="MTSliderViewController" superclassName="ECSlidingViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTSliderViewController.h"/>
+        </class>
+        <class className="MTTalesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTTalesViewController.h"/>
+        </class>
+        <class className="MarqueeLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MarqueeLabel.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

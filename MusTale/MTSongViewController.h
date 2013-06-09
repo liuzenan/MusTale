@@ -31,5 +31,6 @@ extern CGFloat const UPDATE_INTERVAL;
 
 - (void) reinit;
 - (void) play;
+- (void) startRotate;
 
 @end

@@ -59,6 +59,12 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [super viewWillDisappear:animated];
 }
 
+- (void)viewWillUnload
+{
+    [self stopRotate];
+    [super viewWillUnload];
+}
+
 - (void)loadView {
     [super loadView];
     self.view = self.songview;

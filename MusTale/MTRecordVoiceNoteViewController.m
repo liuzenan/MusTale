@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIColor+i7HexColor.h"
+#import "UIViewController+SliderView.h"
 
 @interface MTRecordVoiceNoteViewController ()
 
@@ -43,10 +44,12 @@
 }
 
 - (IBAction)goBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
-- (IBAction)send:(id)sender {
-    
+- (IBAction)showMenu:(id)sender {
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,6 +93,8 @@
     [self.backBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     self.view.backgroundColor = [UIColor colorWithHexString:MUSIC_BG_COLOR];
+    
+    
     
 }
 

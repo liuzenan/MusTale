@@ -19,4 +19,5 @@
 - (void) play;
 - (void) stop;
 - (void) pause;
+- (BOOL) isPlaying;
 @end

@@ -22,7 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBtn;
 - (IBAction)goBack:(id)sender;
-- (IBAction)send:(id)sender;
+- (IBAction)showMenu:(id)sender;
 
 
 - (void)setCurrentSong:(MTSongModel*)song;

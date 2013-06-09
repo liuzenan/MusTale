@@ -58,4 +58,13 @@
     [self.player pause];
 }
 
+- (BOOL) isPlaying
+{
+    if (self.player.playbackState == MPMoviePlaybackStatePlaying) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

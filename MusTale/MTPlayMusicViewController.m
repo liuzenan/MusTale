@@ -156,6 +156,13 @@
 {
     [super viewWillAppear:animated];
     [self setupTopViewController];
+    if ([[MTPlaybackController sharedInstance] isPlaying]) {
+        for (MTSongViewController *controller in self.childViewControllers) {
+            if ([controller.songmodel isEqual:[MTPlaybackController sharedInstance].currentSong]) {
+                [controller startRotate];
+            }
+        }
+    }
 }
 
 
@@ -208,10 +215,8 @@
 }
 
 - (IBAction)showMenu:(id)sender {
-    if (self.slidingViewController.underRightViewController.view) {
-        self.slidingViewController.underRightViewController.view.frame = self.view.frame;
-        [self.slidingViewController anchorTopViewTo:ECLeft];
-    }
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+
 }
 
 - (IBAction)goBack:(id)sender {
@@ -243,7 +248,7 @@
     if ([MTPlaybackController sharedInstance].currentSong) {
         MTRecordVoiceNoteViewController *recording = [self.storyboard instantiateViewControllerWithIdentifier:@"RecordView"];
         recording.currentSong = [MTPlaybackController sharedInstance].currentSong;
-        [self.navigationController pushViewController:recording animated:YES];
+        [self.navigationController pushViewController:recording animated:NO];
     }
 }
 

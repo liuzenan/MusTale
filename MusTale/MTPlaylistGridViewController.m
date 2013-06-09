@@ -113,9 +113,6 @@
 
 - (void)showMenu
 {
-    if (self.slidingViewController.underRightViewController.view) {
-        self.slidingViewController.underRightViewController.view.frame = self.view.frame;
-        [self.slidingViewController anchorTopViewTo:ECLeft];
-    }
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 @end
