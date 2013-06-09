@@ -39,11 +39,9 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 
 - (void)moviePlayBackDidFinish:(NSNotification*)notification
 {
-    NSLog(@"music stopped");
+    NSLog(@"music stopped notification");
+    
     [self stop];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-                                                  object:[[MTPlaybackController sharedInstance] player]];
 }
 
 - (void)viewDidLoad
@@ -118,6 +116,10 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     if (percent >= 0.0f && percent <= 1.0f) {
         self.songview.progress.percent = percent * 100;
         [self.songview.progress setNeedsDisplay];
+        
+        if (percent == 1.0f) {
+            [self stop];
+        }
     }
 }
 
@@ -137,8 +139,10 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 
 - (void) singleTap:(UIRotationGestureRecognizer *)gesture {
     if (self.timer) {
+        NSLog(@"tap pause");
         [self pause];
     } else {
+        NSLog(@"tap play");
         [self play];
     }
 }
@@ -161,24 +165,28 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [self stopRotate];
     self.songview.transform = CGAffineTransformMakeRotation(0.0);
     [self.delegate didFinishedPlaying:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:[[MTPlaybackController sharedInstance] player]];
 }
 
 - (void)play
 {
-    [[MTPlaybackController sharedInstance] setCurrentSong:self.songmodel];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:[[MTPlaybackController sharedInstance] player]];
+
+    if (![[[MTPlaybackController sharedInstance] currentSong] isEqual:self.songmodel]) {
+        [[MTPlaybackController sharedInstance] stop];
+        [[MTPlaybackController sharedInstance] setCurrentSong:self.songmodel];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(moviePlayBackDidFinish:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:[[MTPlaybackController sharedInstance] player]];
+    }
+
     [self.songview removeStateImage];
     [self.songview addStateImage:kStatePause];
     [self startRotate];
     [[MTPlaybackController sharedInstance] play];
     [self.delegate didStartedPlaying:self];
-}
-
-- (void) reinit {
-    [self stop];
 }
 
 

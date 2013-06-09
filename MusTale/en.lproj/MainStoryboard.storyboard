@@ -200,6 +200,13 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="2Wq-qb-yGh" eventType="touchDown" id="9hU-Z0-QRt"/>
+                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchUpOutside" id="RR2-iw-g95"/>
+                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchUpInside" id="k3e-da-C3e"/>
+                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchDragOutside" id="wvE-Ic-YdR"/>
+                                    <action selector="stopRecording:" destination="2Wq-qb-yGh" eventType="touchDragExit" id="zvq-A1-Zhg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -616,6 +623,8 @@
                 <relationship kind="action" name="insertAtBack:"/>
                 <relationship kind="action" name="insertAtFront:"/>
                 <relationship kind="action" name="showMenu:"/>
+                <relationship kind="action" name="startRecording:"/>
+                <relationship kind="action" name="stopRecording:"/>
                 <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="recordBtn" candidateClass="UIButton"/>

@@ -10,6 +10,7 @@
 #import "MTPlaylistViewDelegate.h"
 #import "MTSearchBarController.h"
 
+
 @interface MTPlaylistListViewController : UITableViewController
 @property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *gridButton;

@@ -7,6 +7,7 @@
 //
 
 #import "MTPlaybackController.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @implementation MTPlaybackController
 
@@ -40,11 +41,36 @@
         self.player.contentURL = currentSong.previewUrl;
     }
     
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive: YES error: nil];
+    
     [self.player prepareToPlay];
+
+    
+
+    UIImageView *art = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
+    NSURLRequest *request = [NSURLRequest requestWithURL:currentSong.artworkUrl100];
+    
+    [art setImageWithURLRequest:request
+               placeholderImage:nil
+                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                            MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+                            NSArray *keys = [NSArray arrayWithObjects:MPMediaItemPropertyAlbumTitle, MPMediaItemPropertyArtist, MPMediaItemPropertyArtwork, MPMediaItemPropertyTitle, nil];
+                            NSArray *values = [NSArray arrayWithObjects:currentSong.collectionName, currentSong.artistName, artwork, currentSong.trackName, nil];
+                            NSDictionary *mediaInfo = [NSDictionary dictionaryWithObjects:values forKeys:keys];
+                            [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:mediaInfo];
+                            
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"set artwork failed: %@", error);
+    }];
+    
+    
+
 }
 
 - (void) play
 {
+    
     [self.player play];
 }
 
@@ -64,6 +90,15 @@
         return YES;
     } else {
         return NO;
+    }
+}
+
+- (void)togglePlayPause
+{
+    if ([self isPlaying]) {
+        [self play];
+    } else {
+        [self pause];
     }
 }
 

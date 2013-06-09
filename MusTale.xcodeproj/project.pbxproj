@@ -40,6 +40,9 @@
 		E43972A117639DAF00059DD5 /* button-insert-back.png in Resources */ = {isa = PBXBuildFile; fileRef = E439729F17639DAD00059DD5 /* button-insert-back.png */; };
 		E43972A217639DAF00059DD5 /* button-insert-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E43972A017639DAE00059DD5 /* button-insert-back@2x.png */; };
 		E43972A817639FD800059DD5 /* button-record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E43972A717639FD800059DD5 /* button-record@2x.png */; };
+		E43FE58F1764591200472986 /* MTFloatMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FE58E1764591200472986 /* MTFloatMusicViewController.m */; };
+		E43FE60F17645A0E00472986 /* CHDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FE60A17645A0D00472986 /* CHDraggableView.m */; };
+		E43FE61117645A0E00472986 /* CHDraggingCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */; };
 		E4431D251760E52B009ED59A /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D231760E52B009ED59A /* icon-back.png */; };
 		E4431D261760E52B009ED59A /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D241760E52B009ED59A /* icon-back@2x.png */; };
 		E4431D3F1760EB81009ED59A /* icon-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D371760EB81009ED59A /* icon-heart.png */; };
@@ -105,17 +108,18 @@
 		E4BD1EEE1756604800518BDE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BD1EED1756604800518BDE /* Default@2x.png */; };
 		E4BD1EF01756604900518BDE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BD1EEF1756604900518BDE /* Default-568h@2x.png */; };
 		E4BD1EF31756604900518BDE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */; };
-		E4BD1EF61756604900518BDE /* MTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1EF51756604900518BDE /* MTViewController.m */; };
 		E4BD1F011756632300518BDE /* MTNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F001756632300518BDE /* MTNetworkController.m */; };
 		E4BD1F051756634F00518BDE /* MTPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F041756634F00518BDE /* MTPlaylistController.m */; };
 		E4BD1F08175663D100518BDE /* MTCommentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F07175663D100518BDE /* MTCommentsController.m */; };
 		E4BD1F0B175664E200518BDE /* MTRecordingController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F0A175664E200518BDE /* MTRecordingController.m */; };
-		E4BD1F0E1756650700518BDE /* MTMusicPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */; };
 		E4BD1F111756673200518BDE /* MTUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F101756673200518BDE /* MTUserController.m */; };
 		E4BD1F141756676B00518BDE /* MTS3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F131756676B00518BDE /* MTS3Controller.m */; };
 		E4BD1F171756679700518BDE /* MTCommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4BD1F161756679700518BDE /* MTCommentsModel.m */; };
 		E4CD25AB175E4D770042CF66 /* MTSongView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CD25AA175E4D770042CF66 /* MTSongView.m */; };
 		E4CD25AF175E4F9D0042CF66 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4CD25AE175E4F9C0042CF66 /* MediaPlayer.framework */; };
+		E4EE2A071764863500FA28B0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EE2A061764863500FA28B0 /* AVFoundation.framework */; };
+		E4EE2A091764864100FA28B0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EE2A081764864100FA28B0 /* AudioToolbox.framework */; };
+		E4EE2A0C1764985900FA28B0 /* MTRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EE2A0B1764985800FA28B0 /* MTRecordView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +160,12 @@
 		E439729F17639DAD00059DD5 /* button-insert-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-insert-back.png"; sourceTree = "<group>"; };
 		E43972A017639DAE00059DD5 /* button-insert-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-insert-back@2x.png"; sourceTree = "<group>"; };
 		E43972A717639FD800059DD5 /* button-record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-record@2x.png"; sourceTree = "<group>"; };
+		E43FE58D1764591200472986 /* MTFloatMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTFloatMusicViewController.h; sourceTree = "<group>"; };
+		E43FE58E1764591200472986 /* MTFloatMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFloatMusicViewController.m; sourceTree = "<group>"; };
+		E43FE60917645A0D00472986 /* CHDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHDraggableView.h; path = MusTale/CHDraggableView.h; sourceTree = "<group>"; };
+		E43FE60A17645A0D00472986 /* CHDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHDraggableView.m; path = MusTale/CHDraggableView.m; sourceTree = "<group>"; };
+		E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHDraggingCoordinator.h; path = MusTale/CHDraggingCoordinator.h; sourceTree = "<group>"; };
+		E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHDraggingCoordinator.m; path = MusTale/CHDraggingCoordinator.m; sourceTree = "<group>"; };
 		E4431D231760E52B009ED59A /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
 		E4431D241760E52B009ED59A /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		E4431D371760EB81009ED59A /* icon-heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart.png"; sourceTree = "<group>"; };
@@ -252,8 +262,6 @@
 		E4BD1EED1756604800518BDE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E4BD1EEF1756604900518BDE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E4BD1EF21756604900518BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		E4BD1EF41756604900518BDE /* MTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTViewController.h; sourceTree = "<group>"; };
-		E4BD1EF51756604900518BDE /* MTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTViewController.m; sourceTree = "<group>"; };
 		E4BD1EFF1756632300518BDE /* MTNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTNetworkController.h; sourceTree = "<group>"; };
 		E4BD1F001756632300518BDE /* MTNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTNetworkController.m; sourceTree = "<group>"; };
 		E4BD1F031756634F00518BDE /* MTPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistController.h; sourceTree = "<group>"; };
@@ -262,8 +270,6 @@
 		E4BD1F07175663D100518BDE /* MTCommentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCommentsController.m; sourceTree = "<group>"; };
 		E4BD1F09175664E200518BDE /* MTRecordingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRecordingController.h; sourceTree = "<group>"; };
 		E4BD1F0A175664E200518BDE /* MTRecordingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRecordingController.m; sourceTree = "<group>"; };
-		E4BD1F0C1756650700518BDE /* MTMusicPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMusicPlaybackController.h; sourceTree = "<group>"; };
-		E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTMusicPlaybackController.m; sourceTree = "<group>"; };
 		E4BD1F0F1756673200518BDE /* MTUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTUserController.h; sourceTree = "<group>"; };
 		E4BD1F101756673200518BDE /* MTUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTUserController.m; sourceTree = "<group>"; };
 		E4BD1F121756676B00518BDE /* MTS3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTS3Controller.h; sourceTree = "<group>"; };
@@ -273,6 +279,10 @@
 		E4CD25A9175E4D770042CF66 /* MTSongView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSongView.h; sourceTree = "<group>"; };
 		E4CD25AA175E4D770042CF66 /* MTSongView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSongView.m; sourceTree = "<group>"; };
 		E4CD25AE175E4F9C0042CF66 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		E4EE2A061764863500FA28B0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E4EE2A081764864100FA28B0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E4EE2A0A1764985800FA28B0 /* MTRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRecordView.h; sourceTree = "<group>"; };
+		E4EE2A0B1764985800FA28B0 /* MTRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRecordView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +290,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4EE2A091764864100FA28B0 /* AudioToolbox.framework in Frameworks */,
+				E4EE2A071764863500FA28B0 /* AVFoundation.framework in Frameworks */,
 				E4CD25AF175E4F9D0042CF66 /* MediaPlayer.framework in Frameworks */,
 				E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */,
 				E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */,
@@ -383,6 +395,8 @@
 			children = (
 				E47F174E175F7DDA00194CFC /* MTSongViewController.h */,
 				E47F174F175F7DDB00194CFC /* MTSongViewController.m */,
+				E43FE58D1764591200472986 /* MTFloatMusicViewController.h */,
+				E43FE58E1764591200472986 /* MTFloatMusicViewController.m */,
 				E4CD25A9175E4D770042CF66 /* MTSongView.h */,
 				E4CD25AA175E4D770042CF66 /* MTSongView.m */,
 				E47F1743175F74A300194CFC /* MTProgressView.h */,
@@ -444,6 +458,8 @@
 				E4AA8B651757A9F3001FA121 /* MTRecordVoiceNoteViewController.m */,
 				E4AA8B671757AA07001FA121 /* MTSendTaleViewController.h */,
 				E4AA8B681757AA07001FA121 /* MTSendTaleViewController.m */,
+				E4EE2A0A1764985800FA28B0 /* MTRecordView.h */,
+				E4EE2A0B1764985800FA28B0 /* MTRecordView.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -511,10 +527,16 @@
 		E4BD1ED81756604800518BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E43FE60917645A0D00472986 /* CHDraggableView.h */,
+				E43FE60A17645A0D00472986 /* CHDraggableView.m */,
+				E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */,
+				E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */,
 				E4160E51176245760054EB37 /* MarqueeLabel.h */,
 				E4160E52176245760054EB37 /* MarqueeLabel.m */,
 				E4AB9AD2175CF25A00A4DCFA /* UIColor+i7HexColor.h */,
 				E4AB9AD3175CF25A00A4DCFA /* UIColor+i7HexColor.m */,
+				E4EE2A081764864100FA28B0 /* AudioToolbox.framework */,
+				E4EE2A061764863500FA28B0 /* AVFoundation.framework */,
 				E4CD25AE175E4F9C0042CF66 /* MediaPlayer.framework */,
 				E4BD1ED91756604800518BDE /* UIKit.framework */,
 				E4BD1EDB1756604800518BDE /* Foundation.framework */,
@@ -531,8 +553,6 @@
 				E45C1446175B7AA800EE709D /* MTConstants.m */,
 				E4BD1EE81756604800518BDE /* MTAppDelegate.h */,
 				E4BD1EE91756604800518BDE /* MTAppDelegate.m */,
-				E4BD1EF41756604900518BDE /* MTViewController.h */,
-				E4BD1EF51756604900518BDE /* MTViewController.m */,
 				E4BD1EFE175662EF00518BDE /* UI */,
 				E4BD1EFD175662EA00518BDE /* Models */,
 				E4BD1EFC175662E300518BDE /* Controllers */,
@@ -568,14 +588,12 @@
 				E4BD1F07175663D100518BDE /* MTCommentsController.m */,
 				E4BD1F09175664E200518BDE /* MTRecordingController.h */,
 				E4BD1F0A175664E200518BDE /* MTRecordingController.m */,
-				E4BD1F0C1756650700518BDE /* MTMusicPlaybackController.h */,
-				E4BD1F0D1756650700518BDE /* MTMusicPlaybackController.m */,
+				E43972981763839000059DD5 /* MTPlaybackController.h */,
+				E43972991763839000059DD5 /* MTPlaybackController.m */,
 				E4BD1F0F1756673200518BDE /* MTUserController.h */,
 				E4BD1F101756673200518BDE /* MTUserController.m */,
 				E4BD1F121756676B00518BDE /* MTS3Controller.h */,
 				E4BD1F131756676B00518BDE /* MTS3Controller.m */,
-				E43972981763839000059DD5 /* MTPlaybackController.h */,
-				E43972991763839000059DD5 /* MTPlaybackController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -771,12 +789,10 @@
 			files = (
 				E4BD1EE61756604800518BDE /* main.m in Sources */,
 				E4BD1EEA1756604800518BDE /* MTAppDelegate.m in Sources */,
-				E4BD1EF61756604900518BDE /* MTViewController.m in Sources */,
 				E4BD1F011756632300518BDE /* MTNetworkController.m in Sources */,
 				E4BD1F051756634F00518BDE /* MTPlaylistController.m in Sources */,
 				E4BD1F08175663D100518BDE /* MTCommentsController.m in Sources */,
 				E4BD1F0B175664E200518BDE /* MTRecordingController.m in Sources */,
-				E4BD1F0E1756650700518BDE /* MTMusicPlaybackController.m in Sources */,
 				E4BD1F111756673200518BDE /* MTUserController.m in Sources */,
 				E4BD1F141756676B00518BDE /* MTS3Controller.m in Sources */,
 				E4BD1F171756679700518BDE /* MTCommentsModel.m in Sources */,
@@ -810,6 +826,10 @@
 				E47F1750175F7DDB00194CFC /* MTSongViewController.m in Sources */,
 				E4160E53176245760054EB37 /* MarqueeLabel.m in Sources */,
 				E439729A1763839000059DD5 /* MTPlaybackController.m in Sources */,
+				E43FE58F1764591200472986 /* MTFloatMusicViewController.m in Sources */,
+				E43FE60F17645A0E00472986 /* CHDraggableView.m in Sources */,
+				E43FE61117645A0E00472986 /* CHDraggingCoordinator.m in Sources */,
+				E4EE2A0C1764985900FA28B0 /* MTRecordView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

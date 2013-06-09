@@ -38,7 +38,7 @@
     
     // Set the display for the path, and stroke it
     bezierPath.lineWidth = PROGRESS_VIEW_WIDTH;
-    [[UIColor colorWithHexString:FLAT_ORANGE_COLOR] setStroke];
+    [[UIColor colorWithHexString:FLAT_YELLOW_COLOR] setStroke];
     [bezierPath stroke];
 }
 

@@ -18,6 +18,12 @@
 #define COCOAPODS_VERSION_MINOR_AQGridView 3
 #define COCOAPODS_VERSION_PATCH_AQGridView 0
 
+// CAAnimationBlocks
+#define COCOAPODS_POD_AVAILABLE_CAAnimationBlocks
+#define COCOAPODS_VERSION_MAJOR_CAAnimationBlocks 0
+#define COCOAPODS_VERSION_MINOR_CAAnimationBlocks 0
+#define COCOAPODS_VERSION_PATCH_CAAnimationBlocks 1
+
 // ECSlidingViewController
 #define COCOAPODS_POD_AVAILABLE_ECSlidingViewController
 #define COCOAPODS_VERSION_MAJOR_ECSlidingViewController 0
@@ -71,6 +77,12 @@
 #define COCOAPODS_VERSION_MAJOR_RestKit_Support 0
 #define COCOAPODS_VERSION_MINOR_RestKit_Support 20
 #define COCOAPODS_VERSION_PATCH_RestKit_Support 1
+
+// SKBounceAnimation
+#define COCOAPODS_POD_AVAILABLE_SKBounceAnimation
+#define COCOAPODS_VERSION_MAJOR_SKBounceAnimation 1
+#define COCOAPODS_VERSION_MINOR_SKBounceAnimation 0
+#define COCOAPODS_VERSION_PATCH_SKBounceAnimation 3
 
 // SOCKit
 #define COCOAPODS_POD_AVAILABLE_SOCKit

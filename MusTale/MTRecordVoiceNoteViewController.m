@@ -11,6 +11,8 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIColor+i7HexColor.h"
 #import "UIViewController+SliderView.h"
+#import "MTFloatMusicViewController.h"
+#import "MTRecordingController.h"
 
 @interface MTRecordVoiceNoteViewController ()
 
@@ -31,7 +33,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    MTRecordView *recordView = (MTRecordView*) self.view;
+    recordView.delegate = self;
     [self setStyling];
 }
 
@@ -41,7 +44,16 @@
     [self.songCover setImageWithURL:self.currentSong.artworkUrl100];
     [self.songTitle setText:self.currentSong.trackName];
     [self.singerName setText:self.currentSong.artistName];
+    [[MTFloatMusicViewController sharedInstance] changeSong:self.currentSong];
+    [[MTFloatMusicViewController sharedInstance] showFloatSong];
 }
+
+-(void)touchDidEnd
+{
+    [[MTRecordingController sharedInstance] stopRecording];
+    [[MTRecordingController sharedInstance] startPlaying];
+}
+
 
 - (IBAction)goBack:(id)sender {
     [self.navigationController popViewControllerAnimated:NO];
@@ -50,6 +62,16 @@
 - (IBAction)showMenu:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
 
+}
+
+- (IBAction)startRecording:(id)sender {
+    [[MTRecordingController sharedInstance] stopPlaying];
+    [[MTRecordingController sharedInstance] startRecording];
+}
+
+- (IBAction)stopRecording:(id)sender {
+    [[MTRecordingController sharedInstance] stopRecording];
+    [[MTRecordingController sharedInstance] startPlaying];
 }
 
 - (void)didReceiveMemoryWarning

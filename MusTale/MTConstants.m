@@ -29,10 +29,11 @@
  NSString * const FLAT_RED_COLOR = @"#c0392b";
  NSString * const FLAT_ORANGE_COLOR = @"#f39c12";
  NSString * const FLAT_BLUE_HIGHLIGHT_COLOR = @"#34495e";
- NSString * const MUSIC_BG_COLOR = @"#b7e3b4";
-CGFloat const DEFAULT_SONG_VIEW_RADIUS = 100.0f;
-CGFloat const DEFAULT_SONG_VIEW_SEPERATION = 40.0f;
-CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT = 50.0f;
+ NSString * const MUSIC_BG_COLOR = @"#3498db";
+ CGFloat const DEFAULT_SONG_VIEW_RADIUS = 100.0f;
+ CGFloat const DEFAULT_SONG_VIEW_SEPERATION = 40.0f;
+ CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT = 50.0f;
+ NSString * const USER_RECORD_FILE_NAME = @"%@/userRecord.caf";
 
 
 @implementation MTConstants

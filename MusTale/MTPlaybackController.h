@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "MTSongModel.h"
 
@@ -20,4 +21,5 @@
 - (void) stop;
 - (void) pause;
 - (BOOL) isPlaying;
+- (void) togglePlayPause;
 @end

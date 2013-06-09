@@ -33,10 +33,13 @@ extern NSString * const MUSIC_BG_COLOR;
 extern CGFloat const DEFAULT_SONG_VIEW_RADIUS;
 extern CGFloat const DEFAULT_SONG_VIEW_SEPERATION;
 extern CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT;
+extern NSString * const USER_RECORD_FILE_NAME;
 
 
 #define NAVBAR_HEIGHT 44.0f
 #define PROGRESS_VIEW_WIDTH 10.0f
+#define kFLOAT_MUSIC_TAG 1345
+#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 @interface MTConstants : NSObject
 

@@ -12,8 +12,9 @@
 #import "MTPlaylistListCell.h"
 #import "UIViewController+DoubleRightBarItems.h"
 #import "UIColor+i7HexColor.h"
-
 #import <QuartzCore/QuartzCore.h>
+#import "MTFloatMusicViewController.h"
+
 
 #define PLAY_LIST_CELL_HEIGHT 124.0f
 
@@ -40,6 +41,7 @@
     self.delegate = sliderController;
     self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
     [self setupTopViewController];
+    
 }
 
 - (void)viewDidLoad

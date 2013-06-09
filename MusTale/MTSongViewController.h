@@ -29,7 +29,6 @@ extern CGFloat const UPDATE_INTERVAL;
 
 + (MTSongViewController*) songViewControllerWithViewAndModel:(MTSongView*)songview Model:(MTSongModel*)songmodel;
 
-- (void) reinit;
 - (void) play;
 - (void) startRotate;
 

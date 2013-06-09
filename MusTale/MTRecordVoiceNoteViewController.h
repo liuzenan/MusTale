@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MTSongModel.h"
 #import "MarqueeLabel.h"
+#import "MTRecordView.h"
 
-@interface MTRecordVoiceNoteViewController : UIViewController
+@interface MTRecordVoiceNoteViewController : UIViewController<MTRecordViewDelegate>
 
 @property (nonatomic, strong) MTSongModel *currentSong;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBtn;
 - (IBAction)goBack:(id)sender;
 - (IBAction)showMenu:(id)sender;
+- (IBAction)startRecording:(id)sender;
+- (IBAction)stopRecording:(id)sender;
 
 
 - (void)setCurrentSong:(MTSongModel*)song;

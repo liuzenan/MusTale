@@ -18,6 +18,8 @@
 #import "MTRecordVoiceNoteViewController.h"
 #import "MTTalesViewController.h"
 #import "MTPlaybackController.h"
+#import "MTFloatMusicViewController.h"
+
 
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
@@ -64,7 +66,6 @@
             MTSongViewController *first = [self.childViewControllers objectAtIndex:0];
             [first play];
         }
-     
     }];
 }
 
@@ -109,7 +110,7 @@
 {
     MTSongModel *model = (MTSongModel*)[self.songList objectAtIndex:page];
     [self.songTitle setText:model.trackName];
-    [self.singerName setText:[model.artistName uppercaseString]];
+    [self.singerName setText:model.artistName];
 }
 
 
@@ -163,6 +164,8 @@
             }
         }
     }
+    
+    [[MTFloatMusicViewController sharedInstance] removeFloatSong];
 }
 
 
@@ -225,15 +228,7 @@
 
 // SongPlayListDelegate methods
 - (void) didStartedPlaying:(id)sender {
-    MTSongViewController* cur_svc = (MTSongViewController*)sender;
-    for (MTSongViewController *svc in self.childViewControllers) {
-        if (svc != cur_svc) {
-            [svc reinit];
-        }
-    }
 }
-
-
 
 - (void) didPausedPlaying:(id)sender {
     

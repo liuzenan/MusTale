@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@interface MTRecordingController : NSObject
+@interface MTRecordingController : NSObject <AVAudioRecorderDelegate>
+{
+	NSMutableDictionary *recordSetting;
+	NSMutableDictionary *editedObject;
+	NSString *recorderFilePath;
+	AVAudioRecorder *recorder;
+	AVAudioPlayer *audioPlayer;
+}
+
++ (MTRecordingController*) sharedInstance;
+-(void) startRecording;
+-(void) stopRecording;
+-(void) startPlaying;
+-(void) stopPlaying;
 
 @end
