@@ -8,11 +8,9 @@
 
 #import "MTSongViewController.h"
 #import "MTPlaybackController.h"
+#import <SKBounceAnimation/SKBounceAnimation.h>
 
 @interface MTSongViewController ()
-
-@property (nonatomic,strong) UIPanGestureRecognizer * panGesture;
-@property (nonatomic,strong) UITapGestureRecognizer * tapGesture;
 @property (nonatomic,strong) NSTimer * timer;
 @end
 
@@ -33,6 +31,8 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     if (self = [super init]) {
         self.songview = v;
         self.songmodel = m;
+        isCircleControlOn = NO;
+        self.controlButtons = [NSMutableArray array];
     }
     return self;
 }
@@ -48,7 +48,14 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self addGestureRecognizersToView:self.songview];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self addGestureRecognizersToView:self.songview.leftControl Selector:@selector(singleTap:)];
+    [self addGestureRecognizersToView:self.songview.rightControl Selector:@selector(toggleCircleControl:)];
+    [self addAllControlButtons];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -60,7 +67,40 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 - (void)viewWillUnload
 {
     [self stopRotate];
+    [self removeAllControlButtons];
     [super viewWillUnload];
+}
+
+- (void) addAllControlButtons
+{
+    
+    if ([self.controlButtons count] == 0) {
+        
+        for (int i = 0; i < NUM_OF_CONTROLS; i++) {
+            UIView *button = [self createControlButton:i];
+            [self.controlButtons addObject:button];
+            [self.songview.superview insertSubview:button belowSubview:self.songview];
+            [self addGestureRecognizersToControl:button Type:i];
+        }
+        
+    }
+}
+
+- (void) removeAllControlButtons
+{
+    @try {
+        for (int i = 0; i < NUM_OF_CONTROLS; i++) {
+            UIView *button = [self.controlButtons objectAtIndex:i];
+            [button removeFromSuperview];
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"cannot remove button or there's no control buttons");
+    }
+    @finally {
+        [self.controlButtons removeAllObjects];
+    }
+    
 }
 
 - (void)loadView {
@@ -72,15 +112,57 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     return [[MTSongViewController alloc] initWithViewAndModel:songview Model:songmodel];
 }
 
-- (void)addGestureRecognizersToView:(UIView *)the_view {
+- (void)addGestureRecognizersToView:(UIView *)the_view Selector:(SEL)selector
+{
     
     the_view.userInteractionEnabled = YES;
     
-    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-    [self.tapGesture setDelegate:self];
-    [self.tapGesture setNumberOfTapsRequired:1]; // double tap
-    [the_view addGestureRecognizer:self.tapGesture];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:selector];
+    [tapGesture setDelegate:self];
+    [tapGesture setNumberOfTapsRequired:1]; // double tap
+    [the_view addGestureRecognizer:tapGesture];
     
+}
+
+- (void)addGestureRecognizersToControl:(UIView*)control Type:(ControlButtonType)type
+{
+    control.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture;
+    switch (type) {
+        case kButtonLike:
+        {
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeSong:)];
+            break;
+        }
+        case kButtonRecord:
+        {
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recordVoice:)];
+            break;
+        }
+        case kButtonTale:
+        {
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTales:)];
+            break;
+        }
+        case kButtonTweets:
+        {
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTweets:)];
+            break;
+        }
+        case kButtonWrite:
+        {
+            tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(writeMessage:)];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    if (tapGesture) {
+        [tapGesture setDelegate:self];
+        [tapGesture setNumberOfTapsRequired:1]; // double tap
+        [control addGestureRecognizer:tapGesture];
+    }
 }
 
 
@@ -98,7 +180,6 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         self.timer = nil;
     }
 }
-
 
 - (void) update{
     [self rotateView];
@@ -136,8 +217,35 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     self.songview.transform = CGAffineTransformRotate(self.songview.transform, M_PI / 200.0f);
 }
 
+- (void) showTweets:(UIGestureRecognizer *)gesture{
+    [self.delegate showTweets:self.songmodel];
+}
 
-- (void) singleTap:(UIRotationGestureRecognizer *)gesture {
+- (void) showTales:(UIGestureRecognizer *)gesture{
+    [self.delegate showTales:self.songmodel];
+}
+
+- (void) recordVoice:(UIGestureRecognizer *)gesture{
+    [self.delegate recordVoice:self.songmodel];
+}
+
+- (void) writeMessage:(UIGestureRecognizer *)gesture{
+    [self.delegate writeMessage:self.songmodel];
+}
+
+- (void) likeSong:(UIGestureRecognizer *)gesture{
+    [self.delegate likeSong:self.songmodel];
+}
+
+- (void) toggleCircleControl:(UIGestureRecognizer *)gesture{
+    if (isCircleControlOn) {
+        [self closeCircle];
+    } else {
+        [self openCircle];
+    }
+}
+
+- (void) singleTap:(UIGestureRecognizer *)gesture {
     if (self.timer) {
         NSLog(@"tap pause");
         [self pause];
@@ -145,6 +253,178 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         NSLog(@"tap play");
         [self play];
     }
+}
+
+
+#pragma mark - control circle open and close animations
+
+- (void) openCircle {
+    [self.songview addControlButtonImage:kControlStateOn];
+    isCircleControlOn = YES;
+    
+    for (int i = 0; i < 5; i++) {
+        [self otherControlOpenAnimation:i];
+    }
+    
+    [self leftControlOpenAnimation];
+    [self rightControlOpenAnimation];
+}
+
+- (void) otherControlOpenAnimation:(ControlButtonType)i
+{
+    UIView *button = [self.controlButtons objectAtIndex:i];
+    CGPoint endPos = [self getButtonEndPosition:i];
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) otherControlCloseAnimation:(ControlButtonType)i
+{
+    UIView *button = [self.controlButtons objectAtIndex:i];
+    CGPoint endPos = self.songview.center;
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) leftControlOpenAnimation {
+    UIView *button = self.songview.leftControl;
+    CGPoint endPos = CGPointMake(self.songview.center.x,
+                                 self.songview.center.y + self.songview.radius + OUTER_CIRCLE_WIDTH);
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) rightControlOpenAnimation {
+    UIView *button = self.songview.rightControl;
+    CGPoint endPos = self.songview.center;
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) leftControlCloseAnimation {
+    UIView *button = self.songview.leftControl;
+    CGPoint endPos = CGPointMake(self.songview.center.x - self.songview.radius * 0.5f,
+                                 self.songview.center.y + self.songview.radius);
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) rightControlCloseAnimation {
+    UIView *button = self.songview.rightControl;
+    CGPoint endPos = CGPointMake(self.songview.center.x + self.songview.radius * 0.5f,
+                                 self.songview.center.y + self.songview.radius);
+    CGPoint currentCenter = button.center;
+    
+    SKBounceAnimation *animation = [SKBounceAnimation animationWithKeyPath:@"position"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
+    animation.toValue = [NSValue valueWithCGPoint:endPos];
+    animation.duration = 1.2f;
+    button.layer.position = endPos;
+    [button.layer addAnimation:animation forKey:nil];
+}
+
+- (void) closeCircle{
+    [self.songview addControlButtonImage:kControlStateOff];
+    isCircleControlOn = NO;
+    [self leftControlCloseAnimation];
+    [self rightControlCloseAnimation];
+    for (int i = 0; i < 5; i++) {
+        [self otherControlCloseAnimation:i];
+    }
+}
+
+- (CGPoint) getButtonEndPosition:(ControlButtonType)type
+{
+    return CGPointMake(self.songview.center.x + (self.songview.radius + OUTER_CIRCLE_WIDTH) * cos(type * M_PI / 3.0f + M_PI / 1.2f),
+                       self.songview.center.y + (self.songview.radius + OUTER_CIRCLE_WIDTH) * sin(type * M_PI / 3.0f + M_PI / 1.2f));
+}
+
+- (UIView*) createControlButton:(ControlButtonType)type
+{
+    UIView *button = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTROL_BUTTON_RADIUS*2, CONTROL_BUTTON_RADIUS*2)];
+    button.layer.cornerRadius = CONTROL_BUTTON_RADIUS;
+    button.backgroundColor = [UIColor whiteColor];
+    button.layer.borderColor = [UIColor whiteColor].CGColor;
+    button.layer.borderWidth = 1;
+    button.alpha = 1.0f;
+    button.center = self.songview.center;
+    
+    button.layer.shouldRasterize = YES;
+    button.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
+    UIImageView *image;
+    switch (type) {
+        case kButtonTweets:
+        {
+            image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ICON_TWEETS]];
+            break;
+        }
+        case kButtonRecord:
+        {
+            image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ICON_RECORD]];
+            break;
+        }
+        case kButtonWrite:
+        {
+            image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ICON_WRITE]];
+            break;
+        }
+        case kButtonTale:
+        {
+            image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ICON_TALE]];
+            break;
+        }
+        case kButtonLike:
+        {
+            image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ICON_LIKE]];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    if (image) {
+        image.center = CGPointMake(CGRectGetMidX(button.bounds), CGRectGetMidY(button.bounds));
+        [button addSubview:image];
+    }
+    
+    return button;
 }
 
 - (void) pause {

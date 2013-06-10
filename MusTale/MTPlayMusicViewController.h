@@ -21,9 +21,5 @@
 @property (strong, nonatomic) NSArray *songList;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *singerName;
-- (IBAction)showTweets:(id)sender;
-- (IBAction)showRecording:(id)sender;
-- (IBAction)showTales:(id)sender;
-- (IBAction)like:(id)sender;
 
 @end

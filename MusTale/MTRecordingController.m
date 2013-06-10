@@ -149,6 +149,7 @@
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder successfully:(BOOL)flag
 {
     NSLog(@"finished recording");
+    [self.delegate didFinishedRecording];
 }
 
 @end

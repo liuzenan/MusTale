@@ -19,12 +19,24 @@ extern CGFloat const UPDATE_INTERVAL;
 - (void) didStartedPlaying:(id)sender;
 - (void) didPausedPlaying:(id)sender;
 - (void) didFinishedPlaying:(id)sender;
+- (void) showTweets:(MTSongModel*)song;
+- (void) recordVoice:(MTSongModel*)song;
+- (void) writeMessage:(MTSongModel *)song;
+- (void) showTales:(MTSongModel*)song;
+- (void) likeSong:(MTSongModel*)song;
+
 @end
 
-@interface MTSongViewController : UIViewController <UIGestureRecognizerDelegate>
+typedef enum {kButtonTweets, kButtonRecord, kButtonWrite, kButtonTale, kButtonLike, kButtonPlay, kButtonToggle} ControlButtonType;
+
+@interface MTSongViewController : UIViewController <UIGestureRecognizerDelegate> {
+    BOOL isCircleControlOn;
+}
+
 @property (nonatomic,weak) id<SongPlayListDelegate> delegate;
 @property (nonatomic,weak) MTSongView* songview;
 @property (nonatomic,strong) MTSongModel* songmodel;
+@property (nonatomic,strong) NSMutableArray *controlButtons;
 
 
 + (MTSongViewController*) songViewControllerWithViewAndModel:(MTSongView*)songview Model:(MTSongModel*)songmodel;

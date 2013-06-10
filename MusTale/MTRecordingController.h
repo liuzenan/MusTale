@@ -10,6 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+@protocol MTRecorderDelegate
+
+- (void) didFinishedRecording;
+
+@end
+
 @interface MTRecordingController : NSObject <AVAudioRecorderDelegate>
 {
 	NSMutableDictionary *recordSetting;
@@ -19,6 +25,7 @@
 	AVAudioPlayer *audioPlayer;
 }
 
+@property (nonatomic, weak) id<MTRecorderDelegate> delegate;
 + (MTRecordingController*) sharedInstance;
 -(void) startRecording;
 -(void) stopRecording;

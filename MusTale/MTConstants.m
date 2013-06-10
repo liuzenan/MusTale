@@ -18,10 +18,9 @@
  NSString *const LATO_LIGHT = @"Lato-Light";
  NSString *const LATO_LIGHTITALIC = @"Lato-LightItalic";
  NSString *const LATO_REGULAR = @"Lato-Regular";
- NSString * const DEFAULT_PLAY_IMAGE = @"play.png";
- NSString * const DEFAULT_PAUSE_IMAGE = @"pause.png";
- NSString * const DEFAULT_STOP_IMAGE = @"stop.png";
- NSString * const DEFAULT_PROGRESS_IMAGE = @"circle.png";
+ NSString * const DEFAULT_PLAY_IMAGE = @"icon-play.png";
+ NSString * const DEFAULT_PAUSE_IMAGE = @"icon-pause.png";
+ NSString * const DEFAULT_PLUS_IMAGE = @"icon-plus.png";
  NSString * const FLAT_GREEN_COLOR = @"#1abc9c";
  NSString * const FLAT_YELLOW_COLOR = @"#f1c40f";
  NSString * const FLAT_BLUE_COLOR = @"#3498db";
@@ -30,12 +29,22 @@
  NSString * const FLAT_ORANGE_COLOR = @"#f39c12";
  NSString * const FLAT_BLUE_HIGHLIGHT_COLOR = @"#34495e";
  NSString * const MUSIC_BG_COLOR = @"#3498db";
- CGFloat const DEFAULT_SONG_VIEW_RADIUS = 100.0f;
- CGFloat const DEFAULT_SONG_VIEW_SEPERATION = 40.0f;
+ CGFloat const DEFAULT_SONG_VIEW_RADIUS = 80.0f;
+ CGFloat const RECORD_SONG_VIEW_RADIUS = 100.0f;
+ CGFloat const DEFAULT_SONG_VIEW_SEPERATION = 80.0f;
  CGFloat const DEFAULT_MINIMIZED_VIEW_HEIGHT = 50.0f;
  NSString * const USER_RECORD_FILE_NAME = @"%@/userRecord.caf";
-
-
+ NSString * const DEFAULT_STOP_BUTTON = @"button-stop.png";
+ NSString * const DEFAULT_RECORD_BUTTON = @"button-record.png";
+ NSString * const DEFAULT_ICON_BACK = @"icon-back.png";
+ NSString * const DEFAULT_ICON_CONFIRM = @"icon-confirm.png";
+ NSString * const DEFAULT_CD_CENTER_IMAGE = @"cd-center.png";
+ NSString *const ICON_TWEETS = @"icon-twitter.png";
+ NSString *const ICON_RECORD = @"icon-recorder.png";
+ NSString *const ICON_WRITE = @"icon-write.png";
+ NSString *const ICON_TALE = @"icon-tale.png";
+ NSString *const ICON_LIKE = @"icon-like.png";
+ NSString *const MTSongScrollNotification = @"songScrollNotification";
 @implementation MTConstants
 
 @end

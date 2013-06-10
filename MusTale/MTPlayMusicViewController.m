@@ -102,8 +102,8 @@
         // Page has changed
         [self setTitleAndName:page];
         previousPage = page;
+        [[NSNotificationCenter defaultCenter] postNotificationName:MTSongScrollNotification object:self];
     }
-    
 }
 
 -(void)setTitleAndName:(NSInteger)page
@@ -153,6 +153,7 @@
     [self addSubControllerAndView:svc ToView:self.CDScroll];
 }
 
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -183,6 +184,9 @@
     [self setSingerName:nil];
     [super viewDidUnload];
 }
+
+
+#pragma mark - set style
 
 - (void)setStyling{
     
@@ -217,6 +221,9 @@
     
 }
 
+
+#pragma mark - button actions
+
 - (IBAction)showMenu:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
 
@@ -226,7 +233,8 @@
 }
 
 
-// SongPlayListDelegate methods
+#pragma mark - SongPlayListDelegate methods
+
 - (void) didStartedPlaying:(id)sender {
 }
 
@@ -236,20 +244,37 @@
 - (void) didFinishedPlaying:(id)sender {
     
 }
-- (IBAction)showTweets:(id)sender {
+
+
+#pragma mark - control button delegate methods
+
+-(void)showTweets:(MTSongModel *)song
+{
+    
 }
 
-- (IBAction)showRecording:(id)sender {
-    if ([MTPlaybackController sharedInstance].currentSong) {
+-(void)recordVoice:(MTSongModel *)song
+{
+    if (song) {
         MTRecordVoiceNoteViewController *recording = [self.storyboard instantiateViewControllerWithIdentifier:@"RecordView"];
-        recording.currentSong = [MTPlaybackController sharedInstance].currentSong;
-        [self.navigationController pushViewController:recording animated:NO];
+        recording.currentSong = song;
+        [self presentModalViewController:recording animated:NO];
     }
 }
 
-- (IBAction)showTales:(id)sender {
+-(void)showTales:(MTSongModel *)song
+{
+    
 }
 
-- (IBAction)like:(id)sender {
+-(void)likeSong:(MTSongModel *)song
+{
+    
 }
+
+-(void)writeMessage:(MTSongModel *)song
+{
+    
+}
+
 @end

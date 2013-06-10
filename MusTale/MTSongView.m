@@ -52,20 +52,36 @@
     
     if (state == kStateInit) {
         self.controlImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:DEFAULT_PLAY_IMAGE]];
-        CGFloat scale = self.bounds.size.height / self.controlImage.bounds.size.height ;
-        self.controlImage.transform = CGAffineTransformScale(self.controlImage.transform, scale / 8, scale / 8);
-        self.controlImage.center = self.center;
-        self.controlImage.alpha = 0.8;
-        [self.superview addSubview:self.controlImage];
+        self.controlImage.center = CGPointMake(CGRectGetMidX(self.leftControl.bounds), CGRectGetMidY(self.leftControl.bounds));
+        [self.leftControl addSubview:self.controlImage];
         
     } else if (state == kStatePause) {
         
         self.controlImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:DEFAULT_PAUSE_IMAGE]];
-        CGFloat scale = self.bounds.size.height / self.controlImage.bounds.size.height ;
-        self.controlImage.transform = CGAffineTransformScale(self.controlImage.transform, scale / 10, scale / 10);
-        self.controlImage.center = self.center;
-        [self.superview addSubview:self.controlImage];
+        self.controlImage.center = CGPointMake(CGRectGetMidX(self.leftControl.bounds), CGRectGetMidY(self.leftControl.bounds));
+        [self.leftControl addSubview:self.controlImage];
         
+    }
+}
+
+- (void)addControlButtonImage:(ControlState)state{
+    
+    if (!self.controlCircleButtonImage) {
+        self.controlCircleButtonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:DEFAULT_PLUS_IMAGE]];
+        self.controlCircleButtonImage.center = CGPointMake(CGRectGetMidX(self.rightControl.bounds), CGRectGetMidY(self.rightControl.bounds));
+        [self.rightControl addSubview:self.controlCircleButtonImage];
+    }
+    
+    if (state == kControlStateOff) {
+        [UIView animateWithDuration:0.2f animations:^{
+            [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(0.0f)];
+            [self.circleView hideControlCircle];
+        }];
+    } else if (state == kControlStateOn) {
+        [UIView animateWithDuration:0.2f animations:^{
+            [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(M_PI_4)];
+            [self.circleView showControlCircle];
+        }];
     }
 }
 
@@ -99,25 +115,59 @@
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
         [self addSubview:roundCornerView];
-        self.middle = [[UIView alloc] initWithFrame:CGRectMake(self.center.x, self.center.y, self.radius / 2, self.radius / 2)];
-        self.middle.layer.cornerRadius = self.radius / 4;
-        self.middle.backgroundColor = [UIColor whiteColor];
-        self.middle.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.middle.layer.borderWidth = 1;
-        self.middle.alpha = 0.6;
-        self.middle.center = self.center;
-        
-        self.middle.layer.shouldRasterize = YES;
-        self.middle.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 
-        [self insertSubview:self.middle aboveSubview:roundCornerView];
     }
     
     return self;
 }
 
+-(CGFloat)radius
+{
+    return _radius;
+}
+
+- (void) setUpControlButtons
+{
+    UIImageView *cdCenter = [[UIImageView alloc] initWithImage:[UIImage imageNamed:DEFAULT_CD_CENTER_IMAGE]];
+    cdCenter.center = self.center;
+    
+    self.leftControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTROL_BUTTON_RADIUS*2, CONTROL_BUTTON_RADIUS*2)];
+    self.leftControl.layer.cornerRadius = CONTROL_BUTTON_RADIUS;
+    self.leftControl.backgroundColor = [UIColor whiteColor];
+    self.leftControl.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.leftControl.layer.borderWidth = 1;
+    self.leftControl.alpha = 1.0f;
+    self.leftControl.center = CGPointMake(self.center.x - self.radius * 0.5f,
+                                          self.frame.origin.y + self.frame.size.height);
+    
+    self.leftControl.layer.shouldRasterize = YES;
+    self.leftControl.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
+    self.rightControl = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTROL_BUTTON_RADIUS*2, CONTROL_BUTTON_RADIUS*2)];
+    self.rightControl.layer.cornerRadius = CONTROL_BUTTON_RADIUS;
+    self.rightControl.backgroundColor = [UIColor whiteColor];
+    self.rightControl.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.rightControl.layer.borderWidth = 1;
+    self.rightControl.alpha = 1.0f;
+    self.rightControl.center = CGPointMake(self.center.x + self.radius * 0.5f,
+                                           self.frame.origin.y + self.frame.size.height);
+    
+    self.rightControl.layer.shouldRasterize = YES;
+    self.rightControl.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
+    self.circleView = [[MTControlCircle alloc] initWithRadius:self.radius + OUTER_CIRCLE_WIDTH];
+    [self.circleView setCenter:self.center];
+    
+    [self.superview insertSubview:cdCenter aboveSubview:self];
+    [self.superview insertSubview:self.leftControl aboveSubview:cdCenter];
+    [self.superview insertSubview:self.rightControl aboveSubview:cdCenter];
+    [self.superview insertSubview:self.circleView belowSubview:self];
+}
+
 - (void)didMoveToSuperview {
+    [self setUpControlButtons];
     [self addStateImage:kStateInit];
+    [self addControlButtonImage:kControlStateOff];
     [self setUpProgress];
 }
 

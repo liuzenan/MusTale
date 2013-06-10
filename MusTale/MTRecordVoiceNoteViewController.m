@@ -12,9 +12,11 @@
 #import "UIColor+i7HexColor.h"
 #import "UIViewController+SliderView.h"
 #import "MTFloatMusicViewController.h"
-#import "MTRecordingController.h"
 
-@interface MTRecordVoiceNoteViewController ()
+
+@interface MTRecordVoiceNoteViewController (){
+    BOOL isRecording;
+}
 
 @end
 
@@ -33,7 +35,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    isRecording = NO;
+    [[MTRecordingController sharedInstance] setDelegate:self];
     [self setStyling];
 }
 
@@ -47,21 +50,42 @@
     [[MTFloatMusicViewController sharedInstance] showFloatSong];
 }
 
-- (IBAction)goBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:NO];
+- (void)goBack{
+    [self dismissModalViewControllerAnimated:NO];
 }
 
-- (IBAction)showMenu:(id)sender {
-    [self.slidingViewController anchorTopViewTo:ECLeft];
-
+- (void)confirm{
 }
 
-- (IBAction)startRecording:(id)sender {
+- (IBAction)toggleRecording:(id)sender {
+    if (isRecording) {
+        [self stopRecording];
+    } else {
+        [self startRecording];
+    }
+}
+
+-(void)didFinishedRecording
+{
+    NSLog(@"finished recording");
+    if (isRecording) {
+        [self stopRecording];
+    }
+}
+
+
+- (void)startRecording {
+    isRecording = YES;
+    UIImage *btnImg = [UIImage imageNamed:DEFAULT_STOP_BUTTON];
+    [self.recordBtn setImage:btnImg forState:UIControlStateNormal];
     [[MTRecordingController sharedInstance] stopPlaying];
     [[MTRecordingController sharedInstance] startRecording];
 }
 
-- (IBAction)stopRecording:(id)sender {
+- (void)stopRecording{
+    isRecording = NO;
+    UIImage *btnImg = [UIImage imageNamed:DEFAULT_RECORD_BUTTON];
+    [self.recordBtn setImage:btnImg forState:UIControlStateNormal];
     [[MTRecordingController sharedInstance] stopRecording];
     [[MTRecordingController sharedInstance] startPlaying];
 }
@@ -78,7 +102,7 @@
     [self setRecordBtn:nil];
     [self setSongCover:nil];
     [self setBackBtn:nil];
-    [self setMenuBtn:nil];
+    [self setConfirmBtn:nil];
     [super viewDidUnload];
 }
 
@@ -86,15 +110,15 @@
 {
     CGPoint center = [self.songCover center];
     CGRect frame = self.songCover.frame;
-    frame.size.width = frame.size.height = DEFAULT_SONG_VIEW_RADIUS * 2;
+    frame.size.width = frame.size.height = RECORD_SONG_VIEW_RADIUS * 2;
     self.songCover.frame = frame;
     [self.songCover setCenter:center];
-    self.songCover.layer.cornerRadius = DEFAULT_SONG_VIEW_RADIUS;
+    self.songCover.layer.cornerRadius = RECORD_SONG_VIEW_RADIUS;
     UIView *dark = [[UIView alloc] initWithFrame:self.songCover.frame];
     CGRect darkFrame = dark.frame;
     darkFrame.origin.x = darkFrame.origin.y = 0.0f;
     dark.frame = darkFrame;
-    dark.layer.cornerRadius = DEFAULT_SONG_VIEW_RADIUS;
+    dark.layer.cornerRadius = RECORD_SONG_VIEW_RADIUS;
     [dark setAlpha:0.6];
     dark.backgroundColor = [UIColor blackColor];
     [self.songCover addSubview:dark];
@@ -103,12 +127,35 @@
     
     [self setTextStyle];
     
-    [self.menuBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:DEFAULT_ICON_BACK] forState:UIControlStateNormal];
+    [back sizeToFit];
+    CGRect backFrame = back.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(backFrame));
+    backFrame.size.width += 20.0f;
+    back.frame = backFrame;
+    [back setShowsTouchWhenHighlighted:YES];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton *confirm = [UIButton buttonWithType:UIButtonTypeCustom];
+    [confirm setImage:[UIImage imageNamed:DEFAULT_ICON_CONFIRM] forState:UIControlStateNormal];
+    [confirm sizeToFit];
+    CGRect confirmFrame = confirm.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(confirmFrame));
+    confirmFrame.size.width += 20.0f;
+    confirm.frame = confirmFrame;
+    [confirm setShowsTouchWhenHighlighted:YES];
+    [confirm addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backBtn setCustomView:back];
+    [self.confirmBtn setCustomView:confirm];
+    
+    [self.confirmBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.backBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     self.view.backgroundColor = [UIColor colorWithHexString:MUSIC_BG_COLOR];
-    
-    
     
 }
 
