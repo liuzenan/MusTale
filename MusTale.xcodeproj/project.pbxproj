@@ -653,9 +653,9 @@
 		E4BD1EFE175662EF00518BDE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */,
 				E43972A617639E2500059DD5 /* Main */,
 				E43972A517639E1200059DD5 /* Navigation */,
-				E4BD1EF11756604900518BDE /* MainStoryboard.storyboard */,
 				E4AB9AD5175CF39100A4DCFA /* Components */,
 				E4AA8B6A1757AF61001FA121 /* Cells */,
 			);

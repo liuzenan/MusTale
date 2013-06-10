@@ -8,9 +8,12 @@
 
 #import "MTSongViewController.h"
 #import "MTPlaybackController.h"
-#import <SKBounceAnimation/SKBounceAnimation.h>
 
-@interface MTSongViewController ()
+@interface MTSongViewController (){
+    BOOL isMainControlBtnHide;
+    BOOL isOpenAnimationFinished;
+}
+
 @property (nonatomic,strong) NSTimer * timer;
 @end
 
@@ -33,7 +36,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         self.songmodel = m;
         isCircleControlOn = NO;
         self.controlButtons = [NSMutableArray array];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCircleWithNoAnimation:) name:MTSongScrollNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCircleWithNoAnimation) name:MTSongScrollNotification object:nil];
     }
     return self;
 }
@@ -49,6 +52,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    isMainControlBtnHide = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -57,6 +61,11 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [self addGestureRecognizersToView:self.songview.leftControl Selector:@selector(singleTap:)];
     [self addGestureRecognizersToView:self.songview.rightControl Selector:@selector(toggleCircleControl:)];
     [self addAllControlButtons];
+    if (isMainControlBtnHide) {
+        [self.songview.leftControl setAlpha:1.0f];
+        [self.songview.rightControl setAlpha:1.0f];
+        isMainControlBtnHide = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -227,7 +236,22 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 }
 
 - (void) recordVoice:(UIGestureRecognizer *)gesture{
-    [self.delegate recordVoice:self.songmodel];
+    
+    if (isOpenAnimationFinished) {
+        [self stopRotate];
+        
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            [self closeCircleWithNoAnimation];
+            [self.songview.leftControl setAlpha:0.0f];
+            [self.songview.rightControl setAlpha:0.0f];
+            [self.songview setTransform:CGAffineTransformMakeRotation(0.0f)];
+        } completion:^(BOOL finished) {
+            isMainControlBtnHide = YES;
+            [self.delegate recordVoice:self.songmodel];
+        }];
+    }
+    
 }
 
 - (void) writeMessage:(UIGestureRecognizer *)gesture{
@@ -281,9 +305,16 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
+    animation.delegate = self;
     button.layer.position = endPos;
-    [button.layer addAnimation:animation forKey:nil];
+    [button.layer addAnimation:animation forKey:ANIMATION_OPEN_CONTROL_KEY];
+    isOpenAnimationFinished = NO;
+}
+
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    isOpenAnimationFinished = YES;
 }
 
 - (void) otherControlCloseAnimation:(ControlButtonType)i
@@ -296,7 +327,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
     button.layer.position = endPos;
     [button.layer addAnimation:animation forKey:nil];
 }
@@ -311,7 +342,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
     button.layer.position = endPos;
     [button.layer addAnimation:animation forKey:nil];
 }
@@ -325,7 +356,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
     button.layer.position = endPos;
     [button.layer addAnimation:animation forKey:nil];
 }
@@ -340,7 +371,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
     button.layer.position = endPos;
     [button.layer addAnimation:animation forKey:nil];
 }
@@ -355,14 +386,14 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     animation.fromValue = [NSValue valueWithCGPoint:currentCenter];
     animation.toValue = [NSValue valueWithCGPoint:endPos];
-    animation.duration = 1.2f;
+    animation.duration = DEFAULT_CAANIMATION_DURATION;
     button.layer.position = endPos;
     [button.layer addAnimation:animation forKey:nil];
 }
 
-- (void) closeCircleWithNoAnimation:(NSNotification*)notification
+- (void) closeCircleWithNoAnimation
 {
-    if (isCircleControlOn && [[notification name] isEqualToString:MTSongScrollNotification]) {
+    if (isCircleControlOn) {
         for (int i = 0; i < NUM_OF_CONTROLS; i++) {
             UIView *button = [self.controlButtons objectAtIndex:i];
             [button setCenter:self.songview.center];

@@ -92,12 +92,10 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"scrolled");
     static NSInteger previousPage = 0;
     CGFloat pageWidth = scrollView.frame.size.width;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
     NSInteger page = lroundf(fractionalPage);
-    NSLog(@"previous:%d, page number %d", previousPage, page);
     if (previousPage != page && page < [self.songList count] && page >= 0) {
         // Page has changed
         [self setTitleAndName:page];
@@ -226,7 +224,6 @@
 
 - (IBAction)showMenu:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
-
 }
 
 - (IBAction)goBack:(id)sender {

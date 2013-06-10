@@ -16,6 +16,7 @@
 
 @interface MTRecordVoiceNoteViewController (){
     BOOL isRecording;
+    UIView *dark;
 }
 
 @end
@@ -40,18 +41,34 @@
     [self setStyling];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    
     [self.songCover setImageWithURL:self.currentSong.artworkUrl100];
     [self.songTitle setText:self.currentSong.trackName];
     [self.singerName setText:self.currentSong.artistName];
     [[MTFloatMusicViewController sharedInstance] changeSong:self.currentSong];
     [[MTFloatMusicViewController sharedInstance] showFloatSong];
+    
+    [self setToInitialStyle];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    [UIView animateWithDuration:0.2f animations:^{
+        [self setToFinalStyle];
+    }];
 }
 
 - (void)goBack{
-    [self dismissModalViewControllerAnimated:NO];
+    [UIView animateWithDuration:0.2f animations:^{
+        [self setToInitialStyle];
+    } completion:^(BOOL finished) {
+        [self dismissModalViewControllerAnimated:NO];
+    }];
 }
 
 - (void)confirm{
@@ -106,6 +123,26 @@
     [super viewDidUnload];
 }
 
+- (void)setToInitialStyle
+{
+    [self.songCover setTransform:CGAffineTransformMakeScale(0.8, 0.8)];
+    [self.recordBtn setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
+    dark.alpha = 0.0f;
+    self.recordBtn.alpha = 0.0f;
+    [self.singerName setTransform:CGAffineTransformMakeTranslation(0, 0)];
+    [[MTFloatMusicViewController sharedInstance].draggableView setAlpha:0.0f];
+}
+
+- (void)setToFinalStyle
+{
+    [self.songCover setTransform:CGAffineTransformMakeScale(1.0f, 1.0f)];
+    [self.recordBtn setTransform:CGAffineTransformMakeScale(1.0f, 1.0f)];
+    dark.alpha = 0.6f;
+    self.recordBtn.alpha = 1.0f;
+    [self.singerName setTransform:CGAffineTransformMakeTranslation(0, -30.0f)];
+    [[MTFloatMusicViewController sharedInstance].draggableView setAlpha:1.0f];
+}
+
 - (void)setStyling
 {
     CGPoint center = [self.songCover center];
@@ -114,7 +151,7 @@
     self.songCover.frame = frame;
     [self.songCover setCenter:center];
     self.songCover.layer.cornerRadius = RECORD_SONG_VIEW_RADIUS;
-    UIView *dark = [[UIView alloc] initWithFrame:self.songCover.frame];
+    dark = [[UIView alloc] initWithFrame:self.songCover.frame];
     CGRect darkFrame = dark.frame;
     darkFrame.origin.x = darkFrame.origin.y = 0.0f;
     dark.frame = darkFrame;

@@ -86,8 +86,7 @@
     } else if (state == kControlStateOn) {
         if (animated) {
             [UIView animateWithDuration:0.2f animations:^{
-                
-                
+                [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(M_PI_4)];
             }];
         } else {
             [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(M_PI_4)];
