@@ -11,7 +11,7 @@
 @interface MTControlCircle : UIView
 
 - (id) initWithRadius:(CGFloat) radius;
-- (void) showControlCircle;
-- (void) hideControlCircle;
+- (void)showControlCircle:(BOOL)animated;
+-(void)hideControlCircle:(BOOL)animated;
 
 @end

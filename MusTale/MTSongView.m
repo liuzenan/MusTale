@@ -64,7 +64,8 @@
     }
 }
 
-- (void)addControlButtonImage:(ControlState)state{
+- (void)addControlButtonImage:(ControlState)state Animated:(BOOL)animated
+{
     
     if (!self.controlCircleButtonImage) {
         self.controlCircleButtonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:DEFAULT_PLUS_IMAGE]];
@@ -73,15 +74,25 @@
     }
     
     if (state == kControlStateOff) {
-        [UIView animateWithDuration:0.2f animations:^{
+        if (animated) {
+            [UIView animateWithDuration:0.2f animations:^{
+                [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(0.0f)];
+            }];
+        } else {
             [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(0.0f)];
-            [self.circleView hideControlCircle];
-        }];
+        }
+        
+        [self.circleView hideControlCircle:animated];
     } else if (state == kControlStateOn) {
-        [UIView animateWithDuration:0.2f animations:^{
+        if (animated) {
+            [UIView animateWithDuration:0.2f animations:^{
+                
+                
+            }];
+        } else {
             [self.controlCircleButtonImage setTransform:CGAffineTransformMakeRotation(M_PI_4)];
-            [self.circleView showControlCircle];
-        }];
+        }
+        [self.circleView showControlCircle:animated];
     }
 }
 
@@ -167,7 +178,7 @@
 - (void)didMoveToSuperview {
     [self setUpControlButtons];
     [self addStateImage:kStateInit];
-    [self addControlButtonImage:kControlStateOff];
+    [self addControlButtonImage:kControlStateOff Animated:NO];
     [self setUpProgress];
 }
 

@@ -46,18 +46,28 @@
     return self;
 }
 
-- (void)showControlCircle
+- (void)showControlCircle:(BOOL)animated
 {
-    [UIView animateWithDuration:0.2f animations:^{
+    if (animated) {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.alpha = 0.4f;
+        }];
+    } else {
         self.alpha = 0.4f;
-    }];
+    }
+
 }
 
--(void)hideControlCircle
+-(void)hideControlCircle:(BOOL)animated
 {
-    [UIView animateWithDuration:0.2f animations:^{
+    if (animated) {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.alpha = 0.0f;
+        }];
+    } else {
         self.alpha = 0.0f;
-    }];
+    }
+
 }
 
 @end

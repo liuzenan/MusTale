@@ -33,6 +33,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         self.songmodel = m;
         isCircleControlOn = NO;
         self.controlButtons = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCircleWithNoAnimation:) name:MTSongScrollNotification object:nil];
     }
     return self;
 }
@@ -259,7 +260,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 #pragma mark - control circle open and close animations
 
 - (void) openCircle {
-    [self.songview addControlButtonImage:kControlStateOn];
+    [self.songview addControlButtonImage:kControlStateOn Animated:YES];
     isCircleControlOn = YES;
     
     for (int i = 0; i < 5; i++) {
@@ -359,8 +360,24 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [button.layer addAnimation:animation forKey:nil];
 }
 
+- (void) closeCircleWithNoAnimation:(NSNotification*)notification
+{
+    if (isCircleControlOn && [[notification name] isEqualToString:MTSongScrollNotification]) {
+        for (int i = 0; i < NUM_OF_CONTROLS; i++) {
+            UIView *button = [self.controlButtons objectAtIndex:i];
+            [button setCenter:self.songview.center];
+        }
+        [self.songview addControlButtonImage:kControlStateOff Animated:NO];
+        [self.songview.leftControl setCenter:CGPointMake(self.songview.center.x - self.songview.radius * 0.5f,
+                                                         self.songview.center.y + self.songview.radius)];
+        [self.songview.rightControl setCenter:CGPointMake(self.songview.center.x + self.songview.radius * 0.5f,
+                                                          self.songview.center.y + self.songview.radius)];
+        isCircleControlOn = NO;
+    }
+}
+
 - (void) closeCircle{
-    [self.songview addControlButtonImage:kControlStateOff];
+    [self.songview addControlButtonImage:kControlStateOff Animated:YES];
     isCircleControlOn = NO;
     [self leftControlCloseAnimation];
     [self rightControlCloseAnimation];

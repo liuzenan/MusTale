@@ -27,7 +27,7 @@ typedef enum {kControlStateOff, kControlStateOn} ControlState;
 
 - (id) initWithURLAndRadius:(NSURL*)url Radius:(CGFloat)p_radius;
 - (void)addStateImage:(PlayState)state;
-- (void)addControlButtonImage:(ControlState)state;
+- (void)addControlButtonImage:(ControlState)state Animated:(BOOL)animated;
 - (void)removeStateImage;
 - (CGFloat)radius;
 
