@@ -215,7 +215,7 @@
 #pragma mark - UIActionSheet Delegate
 
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-
+    disabled = NO;
     if (buttonIndex == 0) {
         UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
         loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

@@ -17,6 +17,7 @@
 #import "UIColor+i7HexColor.h"
 #import "MTRecordVoiceNoteViewController.h"
 #import "MTTalesViewController.h"
+#import "MTWriteTaleViewController.h"
 #import "MTPlaybackController.h"
 #import "MTFloatMusicViewController.h"
 
@@ -271,7 +272,12 @@
 
 -(void)writeMessage:(MTSongModel *)song
 {
-    
+    if (song) {
+        MTWriteTaleViewController *writeTale = [self.storyboard instantiateViewControllerWithIdentifier:@"WriteTaleView"];
+        writeTale.currentSong = song;
+        writeTale.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentModalViewController:writeTale animated:NO];
+    }
 }
 
 @end

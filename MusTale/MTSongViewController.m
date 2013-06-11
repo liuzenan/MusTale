@@ -78,6 +78,7 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 {
     [self stopRotate];
     [self removeAllControlButtons];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewWillUnload];
 }
 
@@ -255,7 +256,21 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 }
 
 - (void) writeMessage:(UIGestureRecognizer *)gesture{
-    [self.delegate writeMessage:self.songmodel];
+    
+    if (isOpenAnimationFinished) {
+        [self stopRotate];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            [self closeCircleWithNoAnimation];
+            [self.songview.leftControl setAlpha:0.0f];
+            [self.songview.rightControl setAlpha:0.0f];
+            [self.songview setTransform:CGAffineTransformMakeRotation(0.0f)];
+        } completion:^(BOOL finished) {
+            isMainControlBtnHide = YES;
+            [self.delegate writeMessage:self.songmodel];
+        }];
+    }
+    
 }
 
 - (void) likeSong:(UIGestureRecognizer *)gesture{

@@ -129,7 +129,6 @@
     [self.recordBtn setTransform:CGAffineTransformMakeScale(0.1, 0.1)];
     dark.alpha = 0.0f;
     self.recordBtn.alpha = 0.0f;
-    [self.singerName setTransform:CGAffineTransformMakeTranslation(0, 0)];
     [[MTFloatMusicViewController sharedInstance].draggableView setAlpha:0.0f];
 }
 
@@ -139,7 +138,6 @@
     [self.recordBtn setTransform:CGAffineTransformMakeScale(1.0f, 1.0f)];
     dark.alpha = 0.6f;
     self.recordBtn.alpha = 1.0f;
-    [self.singerName setTransform:CGAffineTransformMakeTranslation(0, -30.0f)];
     [[MTFloatMusicViewController sharedInstance].draggableView setAlpha:1.0f];
 }
 
@@ -215,9 +213,5 @@
     [self.singerName setBackgroundColor:[UIColor clearColor]];
 }
 
-- (IBAction)insertAtFront:(id)sender {
-}
 
-- (IBAction)insertAtBack:(id)sender {
-}
 @end
