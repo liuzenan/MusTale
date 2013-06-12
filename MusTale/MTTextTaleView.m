@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "MTReadTaleView.h"
+#import "MTTextTaleView.h"
 
-@implementation MTReadTaleView
+@implementation MTTextTaleView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,10 +26,10 @@
 
 -(void)setStyling
 {
-    [self setContentInset:UIEdgeInsetsMake(10, 22, 10, 22)];
+    [self setContentInset:UIEdgeInsetsMake(20.0f, 0.0f, 20.0f, 0.0f)];
     [self.userName setFont:[UIFont fontWithName:LATO_BOLD size:18.0f]];
-    [self.postDate setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
-    [self.tale setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    [self.postDate setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    [self.tale setFont:[UIFont fontWithName:LATO_REGULAR size:16.0f]];
     self.tale.lineBreakMode = NSLineBreakByWordWrapping;
     self.tale.numberOfLines = 0;
     CGRect currentFrame = self.tale.frame;
@@ -41,7 +41,11 @@
     commentFrame.origin.y = self.tale.frame.origin.y + self.tale.frame.size.height;
     self.numComments.frame = commentFrame;
     
-    [self.numComments setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
+    [self.numComments setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    [self setContentSize:CGSizeMake(self.frame.size.width, CGRectGetMaxY(self.numComments.frame))];
+    NSLog(@"content size: %@", NSStringFromCGSize(self.contentSize));
+    
+    
 }
 
 @end

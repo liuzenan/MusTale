@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MTReadTaleView : UIScrollView
+@interface MTTextTaleView : UIScrollView
 
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 @property (strong, nonatomic) IBOutlet UILabel *userName;

@@ -7,7 +7,7 @@
 //
 
 #import "MTTalesViewController.h"
-#import "MTReadTaleView.h"
+#import "MTTextTaleView.h"
 #import "UIViewController+SliderView.h"
 
 @interface MTTalesViewController ()
@@ -41,9 +41,10 @@
     [super viewDidAppear:animated];
     self.taleScrollView.contentSize = CGSizeMake(10 * self.taleScrollView.frame.size.width, self.taleScrollView.frame.size.height);
     for (int i = 0; i < 10; i++) {
-        NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"TaleView" owner:self options:nil];
-        MTReadTaleView *taleView = [views objectAtIndex:0];
+        NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTTextNoteView" owner:self options:nil];
+        MTTextTaleView *taleView = [views objectAtIndex:0];
         CGRect frame = self.taleScrollView.frame;
+        frame.origin.y = 0;
         frame.origin.x = i * frame.size.width;
         NSLog(@"frame for view %d: %@", i, NSStringFromCGRect(frame));
         taleView.frame = frame;
