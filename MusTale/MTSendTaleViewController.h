@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RCBlurredImageView.h"
 
-@interface MTSendTaleViewController : UIViewController
+@interface MTSendTaleViewController : UIViewController <UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (strong, nonatomic) UIImage *bgImg;
 @property (strong, nonatomic) RCBlurredImageView *bgImgView;

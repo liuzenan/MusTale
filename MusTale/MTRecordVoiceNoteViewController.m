@@ -12,6 +12,7 @@
 #import "UIColor+i7HexColor.h"
 #import "UIViewController+SliderView.h"
 #import "MTFloatMusicViewController.h"
+#import "ViewController+Snapshot.h"
 
 
 @interface MTRecordVoiceNoteViewController (){
@@ -39,6 +40,7 @@
     isRecording = NO;
     [[MTRecordingController sharedInstance] setDelegate:self];
     [self setStyling];
+    self.sendTale = [self.storyboard instantiateViewControllerWithIdentifier:@"SendTaleView"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -48,8 +50,8 @@
     [self.songCover setImageWithURL:self.currentSong.artworkUrl100];
     [self.songTitle setText:self.currentSong.trackName];
     [self.singerName setText:self.currentSong.artistName];
-    [[MTFloatMusicViewController sharedInstance] changeSong:self.currentSong];
-    [[MTFloatMusicViewController sharedInstance] showFloatSong];
+//    [[MTFloatMusicViewController sharedInstance] changeSong:self.currentSong];
+//    [[MTFloatMusicViewController sharedInstance] showFloatSong];
     
     [self setToInitialStyle];
 }
@@ -72,6 +74,10 @@
 }
 
 - (void)confirm{
+    [self.view endEditing:YES];
+    UIImage *snapshot = [self makeImage];
+    [self.sendTale setBgImg:snapshot];
+    [self presentModalViewController:self.sendTale animated:NO];
 }
 
 - (IBAction)toggleRecording:(id)sender {

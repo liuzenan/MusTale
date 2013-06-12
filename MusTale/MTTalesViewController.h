@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MTTalesViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIScrollView *taleScrollView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backbtn;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBtn;
+@property (strong, nonatomic) IBOutlet UIToolbar *commentBar;
 
 @end

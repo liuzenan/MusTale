@@ -20,7 +20,7 @@
 #import "MTWriteTaleViewController.h"
 #import "MTPlaybackController.h"
 #import "MTFloatMusicViewController.h"
-
+#import "MTTalesViewController.h"
 
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
@@ -262,7 +262,10 @@
 
 -(void)showTales:(MTSongModel *)song
 {
-    
+    if (song) {
+        MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
+        [self presentModalViewController:tale animated:YES];
+    }
 }
 
 -(void)likeSong:(MTSongModel *)song

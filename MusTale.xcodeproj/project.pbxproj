@@ -32,6 +32,9 @@
 		E4059AB11758F02000F4C351 /* icon-logout.png in Resources */ = {isa = PBXBuildFile; fileRef = E4059AAF1758F02000F4C351 /* icon-logout.png */; };
 		E4059AB21758F02000F4C351 /* icon-logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4059AB01758F02000F4C351 /* icon-logout@2x.png */; };
 		E4059AB41759063200F4C351 /* album-example.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4059AB31759063200F4C351 /* album-example.jpg */; };
+		E40F287B1768BCE500F584EC /* ViewController+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = E40F287A1768BCE500F584EC /* ViewController+Snapshot.m */; };
+		E40F287D1768C29500F584EC /* TaleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E40F287C1768C29500F584EC /* TaleView.xib */; };
+		E40F28861768C8CF00F584EC /* MTReadTaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E40F28851768C8CF00F584EC /* MTReadTaleView.m */; };
 		E4160E53176245760054EB37 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4160E52176245760054EB37 /* MarqueeLabel.m */; };
 		E439729717637DA900059DD5 /* button-record.png in Resources */ = {isa = PBXBuildFile; fileRef = E439729517637DA900059DD5 /* button-record.png */; };
 		E439729A1763839000059DD5 /* MTPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43972991763839000059DD5 /* MTPlaybackController.m */; };
@@ -167,6 +170,11 @@
 		E4059AAF1758F02000F4C351 /* icon-logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-logout.png"; sourceTree = "<group>"; };
 		E4059AB01758F02000F4C351 /* icon-logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-logout@2x.png"; sourceTree = "<group>"; };
 		E4059AB31759063200F4C351 /* album-example.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "album-example.jpg"; sourceTree = "<group>"; };
+		E40F28791768BCE500F584EC /* ViewController+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Snapshot.h"; sourceTree = "<group>"; };
+		E40F287A1768BCE500F584EC /* ViewController+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+Snapshot.m"; sourceTree = "<group>"; };
+		E40F287C1768C29500F584EC /* TaleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaleView.xib; sourceTree = "<group>"; };
+		E40F28841768C8CF00F584EC /* MTReadTaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTReadTaleView.h; sourceTree = "<group>"; };
+		E40F28851768C8CF00F584EC /* MTReadTaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTReadTaleView.m; sourceTree = "<group>"; };
 		E4160E51176245760054EB37 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		E4160E52176245760054EB37 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
 		E439729517637DA900059DD5 /* button-record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-record.png"; sourceTree = "<group>"; };
@@ -515,6 +523,8 @@
 				E4AA8B681757AA07001FA121 /* MTSendTaleViewController.m */,
 				E4F6767517662E1E00F22284 /* MTTweetsViewController.h */,
 				E4F6767617662E1E00F22284 /* MTTweetsViewController.m */,
+				E40F28791768BCE500F584EC /* ViewController+Snapshot.h */,
+				E40F287A1768BCE500F584EC /* ViewController+Snapshot.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -539,6 +549,9 @@
 		E4AA8B7E1757BA33001FA121 /* Tales */ = {
 			isa = PBXGroup;
 			children = (
+				E40F287C1768C29500F584EC /* TaleView.xib */,
+				E40F28841768C8CF00F584EC /* MTReadTaleView.h */,
+				E40F28851768C8CF00F584EC /* MTReadTaleView.m */,
 				E4AA8B5E1757A9B0001FA121 /* MTVoiceNoteViewController.h */,
 				E4AA8B5F1757A9B0001FA121 /* MTVoiceNoteViewController.m */,
 				E4AA8B611757A9BD001FA121 /* MTTextNoteViewController.h */,
@@ -844,6 +857,7 @@
 				E4EE2A491764DC8700FA28B0 /* icon-twitter@2x.png in Resources */,
 				E4EE2A4A1764DC8700FA28B0 /* icon-recorder.png in Resources */,
 				E4EE2A4B1764DC8700FA28B0 /* icon-recorder@2x.png in Resources */,
+				E40F287D1768C29500F584EC /* TaleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,6 +947,8 @@
 				E4F6767B176633DE00F22284 /* GCPlaceholderTextView.m in Sources */,
 				E4F6768617663B9C00F22284 /* MTTextView.m in Sources */,
 				E4AFEDF11767A31A003B1725 /* RCBlurredImageView.m in Sources */,
+				E40F287B1768BCE500F584EC /* ViewController+Snapshot.m in Sources */,
+				E40F28861768C8CF00F584EC /* MTReadTaleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

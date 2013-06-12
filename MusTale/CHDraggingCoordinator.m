@@ -106,7 +106,7 @@ typedef enum {
 
 - (void)draggableViewHold:(CHDraggableView *)view
 {
-    
+    NSLog(@"drag hold");
 }
 
 - (void)draggableView:(CHDraggableView *)view didMoveToPoint:(CGPoint)point
