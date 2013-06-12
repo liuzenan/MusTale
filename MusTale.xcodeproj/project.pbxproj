@@ -87,7 +87,8 @@
 		E4AB9AD4175CF25A00A4DCFA /* UIColor+i7HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AB9AD3175CF25A00A4DCFA /* UIColor+i7HexColor.m */; };
 		E4AB9ADD175CF96C00A4DCFA /* MTSearchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AB9ADC175CF96C00A4DCFA /* MTSearchBarController.m */; };
 		E4AB9ADF175CF97D00A4DCFA /* MTSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4AB9ADE175CF97D00A4DCFA /* MTSearchBar.xib */; };
-		E4AFEDB617678CD8003B1725 /* JFDepthView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AFEDB517678CD8003B1725 /* JFDepthView.m */; };
+		E4AFEDF11767A31A003B1725 /* RCBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AFEDF01767A31A003B1725 /* RCBlurredImageView.m */; };
+		E4AFEDF31767A32B003B1725 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4AFEDF21767A32B003B1725 /* CoreImage.framework */; };
 		E4BD1EDA1756604800518BDE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1ED91756604800518BDE /* UIKit.framework */; };
 		E4BD1EDC1756604800518BDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDB1756604800518BDE /* Foundation.framework */; };
 		E4BD1EDE1756604800518BDE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BD1EDD1756604800518BDE /* CoreGraphics.framework */; };
@@ -253,8 +254,9 @@
 		E4AB9ADB175CF96C00A4DCFA /* MTSearchBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSearchBarController.h; sourceTree = "<group>"; };
 		E4AB9ADC175CF96C00A4DCFA /* MTSearchBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSearchBarController.m; sourceTree = "<group>"; };
 		E4AB9ADE175CF97D00A4DCFA /* MTSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTSearchBar.xib; sourceTree = "<group>"; };
-		E4AFEDB417678CD8003B1725 /* JFDepthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFDepthView.h; sourceTree = "<group>"; };
-		E4AFEDB517678CD8003B1725 /* JFDepthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFDepthView.m; sourceTree = "<group>"; };
+		E4AFEDEF1767A31A003B1725 /* RCBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCBlurredImageView.h; sourceTree = "<group>"; };
+		E4AFEDF01767A31A003B1725 /* RCBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCBlurredImageView.m; sourceTree = "<group>"; };
+		E4AFEDF21767A32B003B1725 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E4BD1ED61756604800518BDE /* MusTale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusTale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BD1ED91756604800518BDE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4BD1EDB1756604800518BDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -327,6 +329,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4AFEDF31767A32B003B1725 /* CoreImage.framework in Frameworks */,
 				E4EE2A091764864100FA28B0 /* AudioToolbox.framework in Frameworks */,
 				E4EE2A071764863500FA28B0 /* AVFoundation.framework in Frameworks */,
 				E4CD25AF175E4F9D0042CF66 /* MediaPlayer.framework in Frameworks */,
@@ -559,14 +562,14 @@
 			name = Components;
 			sourceTree = "<group>";
 		};
-		E4AFEDB317678CD8003B1725 /* JFDepthView */ = {
+		E4AFEDEE1767A31A003B1725 /* RCBlurredImageView */ = {
 			isa = PBXGroup;
 			children = (
-				E4AFEDB417678CD8003B1725 /* JFDepthView.h */,
-				E4AFEDB517678CD8003B1725 /* JFDepthView.m */,
+				E4AFEDEF1767A31A003B1725 /* RCBlurredImageView.h */,
+				E4AFEDF01767A31A003B1725 /* RCBlurredImageView.m */,
 			);
-			name = JFDepthView;
-			path = MusTale/JFDepthView;
+			name = RCBlurredImageView;
+			path = MusTale/RCBlurredImageView;
 			sourceTree = "<group>";
 		};
 		E4BD1ECD1756604800518BDE = {
@@ -590,7 +593,8 @@
 		E4BD1ED81756604800518BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4AFEDB317678CD8003B1725 /* JFDepthView */,
+				E4AFEDF21767A32B003B1725 /* CoreImage.framework */,
+				E4AFEDEE1767A31A003B1725 /* RCBlurredImageView */,
 				E4F67678176633DD00F22284 /* GCPlaceholderTextView */,
 				E43FE60917645A0D00472986 /* CHDraggableView.h */,
 				E43FE60A17645A0D00472986 /* CHDraggableView.m */,
@@ -928,7 +932,7 @@
 				E4F6767717662E1F00F22284 /* MTTweetsViewController.m in Sources */,
 				E4F6767B176633DE00F22284 /* GCPlaceholderTextView.m in Sources */,
 				E4F6768617663B9C00F22284 /* MTTextView.m in Sources */,
-				E4AFEDB617678CD8003B1725 /* JFDepthView.m in Sources */,
+				E4AFEDF11767A31A003B1725 /* RCBlurredImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,6 +1022,10 @@
 				GCC_PREFIX_HEADER = "MusTale/MusTale-Prefix.pch";
 				INFOPLIST_FILE = "MusTale/MusTale-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MusTale-fsbclacqvjqhybghtjpzqahollgg/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1031,6 +1039,10 @@
 				GCC_PREFIX_HEADER = "MusTale/MusTale-Prefix.pch";
 				INFOPLIST_FILE = "MusTale/MusTale-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/MusTale-fsbclacqvjqhybghtjpzqahollgg/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

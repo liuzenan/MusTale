@@ -27,7 +27,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -35,4 +37,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.bgImg) {
+        self.bgImgView = [[RCBlurredImageView alloc] initWithImage:self.bgImg];
+        [self.view insertSubview:self.bgImgView belowSubview:self.overlayView];
+    } else {
+        NSLog(@"bg img is nil!");
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.bgImgView setBlurIntensity:0.6f];
+}
+
+- (void)viewDidUnload {
+    [self setOverlayView:nil];
+    [super viewDidUnload];
+}
 @end

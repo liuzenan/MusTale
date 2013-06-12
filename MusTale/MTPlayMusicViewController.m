@@ -275,8 +275,7 @@
     if (song) {
         MTWriteTaleViewController *writeTale = [self.storyboard instantiateViewControllerWithIdentifier:@"WriteTaleView"];
         writeTale.currentSong = song;
-        writeTale.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentModalViewController:writeTale animated:NO];
+        [self presentModalViewController:writeTale animated:YES];
     }
 }
 
