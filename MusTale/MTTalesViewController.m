@@ -32,13 +32,9 @@
     self.taleScrollView.pagingEnabled = YES;
     self.taleScrollView.showsHorizontalScrollIndicator = NO;
     
+    [self setStyling];
     //[self removeGestures];
-
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    
     self.taleScrollView.contentSize = CGSizeMake(10 * self.taleScrollView.frame.size.width, self.taleScrollView.frame.size.height);
     for (int i = 0; i < 10; i++) {
         NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTTextNoteView" owner:self options:nil];
@@ -52,6 +48,7 @@
         [taleView setStyling];
         [self.taleScrollView addSubview:taleView];
     }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,5 +63,45 @@
     [self setMenuBtn:nil];
     [self setCommentBar:nil];
     [super viewDidUnload];
+}
+
+- (void) setStyling {
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:DEFAULT_ICON_BACK] forState:UIControlStateNormal];
+    [back sizeToFit];
+    CGRect backFrame = back.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(backFrame));
+    backFrame.size.width += 20.0f;
+    back.frame = backFrame;
+    [back setShowsTouchWhenHighlighted:YES];
+    [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton *confirm = [UIButton buttonWithType:UIButtonTypeCustom];
+    [confirm setImage:[UIImage imageNamed:DEFAULT_ICON_CONFIRM] forState:UIControlStateNormal];
+    [confirm sizeToFit];
+    CGRect confirmFrame = confirm.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(confirmFrame));
+    confirmFrame.size.width += 20.0f;
+    confirm.frame = confirmFrame;
+    [confirm setShowsTouchWhenHighlighted:YES];
+    [confirm addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backbtn setCustomView:back];
+    [self.menuBtn setCustomView:confirm];
+    
+    [self.menuBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.backbtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+}
+
+
+- (void) goBack
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void) confirm
+{
+    
 }
 @end
