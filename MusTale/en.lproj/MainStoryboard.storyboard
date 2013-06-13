@@ -422,7 +422,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cno-bt-2Hb">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="cno-bt-2Hb">
                                 <rect key="frame" x="0.0" y="44" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
@@ -459,6 +459,7 @@
                     <connections>
                         <outlet property="backbtn" destination="HGK-2e-a8C" id="X9F-2o-1i2"/>
                         <outlet property="commentBar" destination="YDh-zl-j1e" id="LtQ-pp-dAN"/>
+                        <outlet property="commentField" destination="bwq-nn-AFg" id="BQr-ld-kyb"/>
                         <outlet property="menuBtn" destination="fa1-w0-9Gf" id="oqd-ey-Q1u"/>
                         <outlet property="taleScrollView" destination="cno-bt-2Hb" id="W1g-pl-6sT"/>
                     </connections>
@@ -710,6 +711,7 @@
             <relationships>
                 <relationship kind="outlet" name="backbtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="commentBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="taleScrollView" candidateClass="UIScrollView"/>
             </relationships>

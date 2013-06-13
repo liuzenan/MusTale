@@ -26,8 +26,9 @@
     
     OHParagraphStyle* paragraphStyle = [OHParagraphStyle defaultParagraphStyle];
     paragraphStyle.lineSpacing = 5.f; // increase space between lines by 5 points
+    paragraphStyle.paragraphSpacingBefore = 20.0f;
     [str setParagraphStyle:paragraphStyle];
-    [str setTextAlignment:kCTJustifiedTextAlignment lineBreakMode:kCTLineBreakByWordWrapping];
+    [str setTextAlignment:kCTTextAlignmentNatural lineBreakMode:kCTLineBreakByWordWrapping];
     
     [self.tale setAttributedText:str];
 }
@@ -39,7 +40,7 @@
     [self.numLikes setFont:[UIFont fontWithName:LATO_REGULAR size:18.0f]];
     [self.postDate setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
     CGRect currentFrame = self.tale.frame;
-    CGSize max = CGSizeMake(self.tale.frame.size.width, 500);
+    CGSize max = CGSizeMake(self.tale.frame.size.width, INFINITY);
     CGSize expected = [self.tale.attributedText sizeConstrainedToSize:max];
     currentFrame.size.height = expected.height;
     self.tale.frame = currentFrame;

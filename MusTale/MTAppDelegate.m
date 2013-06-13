@@ -22,6 +22,7 @@
 - (void) customizeAppearance
 {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
+
     
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
@@ -38,9 +39,11 @@
 
     // Remove shadow from iOS6.0
     UINavigationBar *navBar = [[UINavigationBar alloc] init];
-    if ([navBar respondsToSelector:@selector(shadowImage)])
+    if ([navBar respondsToSelector:@selector(shadowImage)]){
         [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    
+    }
+        
+     
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
