@@ -1,18 +1,18 @@
 //
-//  MTTextNoteViewController.m
+//  MTTweetsViewController.m
 //  MusTale
 //
-//  Created by Zenan on 30/5/13.
+//  Created by Zenan on 10/6/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "MTTextNoteViewController.h"
+#import "MTTweetsViewController.h"
 
-@interface MTTextNoteViewController ()
+@interface MTTweetsViewController ()
 
 @end
 
-@implementation MTTextNoteViewController
+@implementation MTTweetsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

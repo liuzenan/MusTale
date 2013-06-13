@@ -17,9 +17,10 @@
 #import "UIColor+i7HexColor.h"
 #import "MTRecordVoiceNoteViewController.h"
 #import "MTTalesViewController.h"
+#import "MTWriteTaleViewController.h"
 #import "MTPlaybackController.h"
 #import "MTFloatMusicViewController.h"
-
+#import "MTTalesViewController.h"
 
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
@@ -92,12 +93,10 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"scrolled");
     static NSInteger previousPage = 0;
     CGFloat pageWidth = scrollView.frame.size.width;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
     NSInteger page = lroundf(fractionalPage);
-    NSLog(@"previous:%d, page number %d", previousPage, page);
     if (previousPage != page && page < [self.songList count] && page >= 0) {
         // Page has changed
         [self setTitleAndName:page];
@@ -226,7 +225,6 @@
 
 - (IBAction)showMenu:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
-
 }
 
 - (IBAction)goBack:(id)sender {
@@ -264,7 +262,10 @@
 
 -(void)showTales:(MTSongModel *)song
 {
-    
+    if (song) {
+        MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
+        [self presentModalViewController:tale animated:YES];
+    }
 }
 
 -(void)likeSong:(MTSongModel *)song
@@ -274,7 +275,11 @@
 
 -(void)writeMessage:(MTSongModel *)song
 {
-    
+    if (song) {
+        MTWriteTaleViewController *writeTale = [self.storyboard instantiateViewControllerWithIdentifier:@"WriteTaleView"];
+        writeTale.currentSong = song;
+        [self presentModalViewController:writeTale animated:YES];
+    }
 }
 
 @end

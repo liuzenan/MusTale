@@ -48,9 +48,12 @@ extern NSString *const ICON_LIKE;
 
 extern NSString *const MTSongScrollNotification;
 
+extern NSString *const ANIMATION_OPEN_CONTROL_KEY;
+
 #define NAVBAR_HEIGHT 44.0f
 #define NUM_OF_CONTROLS 5
 #define CONTROL_BUTTON_RADIUS 20.0f
+#define DEFAULT_CAANIMATION_DURATION 0.8f
 #define PROGRESS_VIEW_WIDTH 10.0f
 #define kFLOAT_MUSIC_TAG 1345
 #define OUTER_CIRCLE_WIDTH 40.0f

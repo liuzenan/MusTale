@@ -12,8 +12,9 @@
 
 #define MENU_CELL_HEIGHT 60.0f
 
-@interface MTMenuViewController ()
-
+@interface MTMenuViewController (){
+    BOOL disabled;
+}
 @end
 
 @implementation MTMenuViewController
@@ -32,6 +33,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#2c3e50"];
     NSLog(@"menu did load");
+    disabled = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,6 +143,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (disabled) {
+        return;
+    }
+    
+    disabled = YES;
     currentSelected = indexPath;
     
     if (indexPath.section == kMenuSectionOthers) {
@@ -197,7 +204,9 @@
                 CGRect frame = self.slidingViewController.topViewController.view.frame;
                 self.slidingViewController.topViewController = viewController;
                 self.slidingViewController.topViewController.view.frame = frame;
-                [self.slidingViewController resetTopView];
+                [self.slidingViewController resetTopViewWithAnimations:nil onComplete:^{
+                    disabled = NO;
+                }];
             }];
         }
     }
@@ -206,7 +215,7 @@
 #pragma mark - UIActionSheet Delegate
 
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-
+    disabled = NO;
     if (buttonIndex == 0) {
         UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
         loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

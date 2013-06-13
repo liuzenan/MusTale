@@ -10,6 +10,8 @@
 #import "MTSongModel.h"
 #import "MarqueeLabel.h"
 #import "MTRecordingController.h"
+#import "MTSendTaleViewController.h"
+
 
 @interface MTRecordVoiceNoteViewController : UIViewController <MTRecorderDelegate>
 
@@ -18,12 +20,11 @@
 @property (strong, nonatomic) IBOutlet MarqueeLabel *singerName;
 @property (strong, nonatomic) IBOutlet UIButton *recordBtn;
 @property (strong, nonatomic) IBOutlet UIImageView *songCover;
-- (IBAction)insertAtFront:(id)sender;
-- (IBAction)insertAtBack:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *confirmBtn;
-- (IBAction)toggleRecording:(id)sender;
+@property (strong, nonatomic) MTSendTaleViewController *sendTale;
 
+- (IBAction)toggleRecording:(id)sender;
 
 - (void)setCurrentSong:(MTSongModel*)song;
 @end

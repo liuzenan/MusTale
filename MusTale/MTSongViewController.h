@@ -10,6 +10,7 @@
 #import "MTSongModel.h"
 #import "MTSongView.h"
 #import "MTConstants.h"
+#import <SKBounceAnimation/SKBounceAnimation.h>
 
 
 
@@ -29,7 +30,7 @@ extern CGFloat const UPDATE_INTERVAL;
 
 typedef enum {kButtonTweets, kButtonRecord, kButtonWrite, kButtonTale, kButtonLike, kButtonPlay, kButtonToggle} ControlButtonType;
 
-@interface MTSongViewController : UIViewController <UIGestureRecognizerDelegate> {
+@interface MTSongViewController : UIViewController <UIGestureRecognizerDelegate, UIApplicationDelegate> {
     BOOL isCircleControlOn;
 }
 
