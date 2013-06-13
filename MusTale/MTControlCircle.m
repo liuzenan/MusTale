@@ -34,10 +34,12 @@
 {
     if (self = [self initWithFrame:CGRectMake(0, 0, radius*2, radius*2)]){
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = radius;
         self.layer.masksToBounds = YES;
         self.alpha = 0.0f;
+        self.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.layer.borderWidth = 1.0f;
         self.opaque = NO;
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
@@ -50,10 +52,10 @@
 {
     if (animated) {
         [UIView animateWithDuration:0.2f animations:^{
-            self.alpha = 0.4f;
+            self.alpha = 0.8f;
         }];
     } else {
-        self.alpha = 0.4f;
+        self.alpha = 0.8f;
     }
 
 }

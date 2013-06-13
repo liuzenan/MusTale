@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OHAttributedLabel/OHAttributedLabel.h>
 
 @interface MTTextTaleView : UIScrollView
 
@@ -14,9 +15,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *userName;
 @property (strong, nonatomic) IBOutlet UILabel *postDate;
 @property (strong, nonatomic) IBOutlet UILabel *numLikes;
-@property (strong, nonatomic) IBOutlet UILabel *tale;
+@property (strong, nonatomic) IBOutlet OHAttributedLabel *tale;
 @property (strong, nonatomic) IBOutlet UILabel *numComments;
 @property (strong, nonatomic) IBOutlet UIImageView *likeTale;
+@property (strong, nonatomic) IBOutlet UIView *bottomDivider;
 
 - (void)setText:(NSString*)text;
 -(void)setStyling;

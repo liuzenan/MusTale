@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginView" title="Login" id="2" customClass="MTLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="4xC-z6-gnA">
@@ -48,7 +48,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MenuView" title="Menu" id="CMi-QF-q3i" customClass="MTMenuViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yRV-Bu-rdP">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -95,7 +95,7 @@
             <objects>
                 <viewController storyboardIdentifier="" id="GPp-es-PVf" customClass="MTPlaylistGridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i67-8G-7Uz" customClass="AQGridView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -120,7 +120,7 @@
             <objects>
                 <viewController storyboardIdentifier="RecordView" title="Record" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2Wq-qb-yGh" customClass="MTRecordVoiceNoteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lg5-vY-gqu" customClass="MTRecordView">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" id="jxd-hc-9QP">
@@ -188,11 +188,11 @@
             <objects>
                 <viewController storyboardIdentifier="WriteTaleView" title="Write" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NOz-Uk-VNa" customClass="MTWriteTaleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PLy-Ee-JIv">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="7ah-vG-neI" customClass="MTTextView">
-                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -226,11 +226,11 @@
             <objects>
                 <viewController storyboardIdentifier="SendTaleView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9bb-dr-eFL" customClass="MTSendTaleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QUe-Ub-QDJ">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" id="9bd-aS-EP3">
-                                <rect key="frame" x="0.0" y="90" width="320" height="370"/>
+                                <rect key="frame" x="0.0" y="178" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qsw-mN-rAH">
@@ -343,7 +343,7 @@
             <objects>
                 <viewController id="QYC-g1-0Jj" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wgA-N8-oAN">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" id="siL-nT-sap">
@@ -366,12 +366,12 @@
             <objects>
                 <viewController storyboardIdentifier="Playlist" title="Playlist" id="30y-XI-yvH" customClass="MTPlayMusicViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KMh-lz-gYP">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="9Co-GS-3nz">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </scrollView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yIx-Tc-0xq" customClass="MarqueeLabel">
                                 <rect key="frame" x="20" y="20" width="280" height="36"/>
@@ -419,11 +419,11 @@
             <objects>
                 <viewController storyboardIdentifier="TalesView" title="Tales" useStoryboardIdentifierAsRestorationIdentifier="YES" id="S6B-YW-tJ2" customClass="MTTalesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PDp-Eo-Xmu">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cno-bt-2Hb">
-                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
                             <navigationBar contentMode="scaleToFill" id="Tdu-RV-X3E">
@@ -437,7 +437,7 @@
                                 </items>
                             </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="YDh-zl-j1e">
-                                <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="504" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="QWE-uR-QSS"/>
@@ -472,7 +472,7 @@
             <objects>
                 <viewController storyboardIdentifier="SliderView" id="EEX-Wi-Sof" customClass="MTSliderViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YJ8-8e-lk1">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -486,7 +486,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="" id="ndE-ae-Ir4" customClass="MTPlaylistListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kt8-W3-Ifk">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -732,7 +732,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Zhy-zS-vvV"/>

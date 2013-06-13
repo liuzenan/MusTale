@@ -128,7 +128,7 @@
     self.CDScroll.frame = CGRectMake(self.view.frame.origin.x + delta,
                                      self.view.frame.origin.y,
                                      width,
-                                     self.view.frame.size.height);
+                                     self.CDScroll.frame.size.height);
     
     [self.CDScroll setContentSize:CGSizeMake(width * [self.songList count] ,self.CDScroll.frame.size.height - DEFAULT_SONG_VIEW_RADIUS)];
     
