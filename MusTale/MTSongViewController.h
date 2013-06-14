@@ -18,6 +18,7 @@ extern CGFloat const UPDATE_INTERVAL;
 
 @protocol SongPlayListDelegate <NSObject>
 - (void) didStartedPlaying:(id)sender;
+- (void) didContinuePlaying:(id)sender;
 - (void) didPausedPlaying:(id)sender;
 - (void) didFinishedPlaying:(id)sender;
 - (void) showTweets:(MTSongModel*)song;
@@ -38,11 +39,12 @@ typedef enum {kButtonTweets, kButtonRecord, kButtonWrite, kButtonTale, kButtonLi
 @property (nonatomic,weak) MTSongView* songview;
 @property (nonatomic,strong) MTSongModel* songmodel;
 @property (nonatomic,strong) NSMutableArray *controlButtons;
-
+@property (nonatomic,assign) NSInteger index;
 
 + (MTSongViewController*) songViewControllerWithViewAndModel:(MTSongView*)songview Model:(MTSongModel*)songmodel;
 
 - (void) play;
+- (void) continuePlay;
 - (void) startRotate;
 
 @end

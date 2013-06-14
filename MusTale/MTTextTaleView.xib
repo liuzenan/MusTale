@@ -49,7 +49,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">default-face.png</string>
+							<string key="NSResourceName">face2.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="687112720">
@@ -149,6 +149,7 @@
 						<string key="NSFrame">{{20, 430}, {280, 32}}</string>
 						<reference key="NSSuperview" ref="612304487"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -176,7 +177,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Andy Smith</string>
+						<string key="IBUIText">Andy Fries</string>
 						<reference key="IBUITextColor" ref="808911416"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -325,12 +326,12 @@
 							<reference ref="508027423"/>
 							<reference ref="712129630"/>
 							<reference ref="687112720"/>
-							<reference ref="126776373"/>
 							<reference ref="365942297"/>
 							<reference ref="985071511"/>
 							<reference ref="881832443"/>
 							<reference ref="343628588"/>
 							<reference ref="946224213"/>
+							<reference ref="126776373"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -488,7 +489,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="default-face.png">{44, 44}</string>
+			<string key="face2.png">{44, 44}</string>
 			<string key="icon-like-red.png">{36, 34}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

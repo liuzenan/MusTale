@@ -44,7 +44,8 @@
  NSString *const ICON_WRITE = @"icon-write.png";
  NSString *const ICON_TALE = @"icon-tale.png";
  NSString *const ICON_LIKE = @"icon-like.png";
- NSString *const MTSongScrollNotification = @"songScrollNotification";
+ NSString *const MTSongScrollNotification = @"songScroll";
+ NSString *const MTPlayNextSongNotification = @"playNextSong";
  NSString *const ANIMATION_OPEN_CONTROL_KEY = @"openControl";
 @implementation MTConstants
 

@@ -8,6 +8,7 @@
 
 #import "MTSongView.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIColor+i7HexColor.h"
 
 @interface MTSongView ()
 @property (nonatomic) CGFloat radius;
@@ -107,8 +108,8 @@
         roundCornerView.layer.masksToBounds = YES;
         roundCornerView.layer.opaque = NO;
         roundCornerView.layer.cornerRadius = self.radius;
-//        roundCornerView.layer.borderColor = [UIColor whiteColor].CGColor;
-//        roundCornerView.layer.borderWidth = 10.0f;
+        roundCornerView.layer.borderColor = [UIColor colorWithHexString:MUSIC_BG_COLOR].CGColor;
+        roundCornerView.layer.borderWidth = 0.5f;
         roundCornerView.contentMode = UIViewContentModeScaleAspectFill;
         roundCornerView.backgroundColor = [UIColor darkGrayColor];
         

@@ -8,6 +8,7 @@
 
 #import "MTFloatMusicViewController.h"
 #import "CHDraggableView.h"
+#import "MTPlaylistController.h"
 
 @interface MTFloatMusicViewController ()
 

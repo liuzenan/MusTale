@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MTSongModel.h"
 
 @interface MTPlaylistController : NSObject
 
+@property (nonatomic, strong) NSArray *songs;
++ (MTPlaylistController*) sharedInstance;
+- (void) playNextSong;
+- (void) playPreviousSong;
+- (void) playFirstSong;
+- (void) addSongToList:(MTSongModel*)song;
+- (void) removeSongFromList:(MTSongModel*)song;
+- (void)playSongAtIndex:(NSInteger)index;
+- (NSInteger)currentSongIndex;
 @end
