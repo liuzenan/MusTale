@@ -22,6 +22,8 @@
 
 
 
+#define OHATTRIBUTEDLABEL_DEDICATED_PROJECT
+
 
 #ifdef __OBJC__
 #import <CoreData/CoreData.h>

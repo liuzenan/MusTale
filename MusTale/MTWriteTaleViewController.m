@@ -108,7 +108,7 @@
 - (void)setStyling
 {
     
-    [self.view setOpaque:YES];    
+    [self.view setOpaque:YES];
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:DEFAULT_ICON_BACK] forState:UIControlStateNormal];
     [back sizeToFit];
@@ -135,7 +135,7 @@
     [self.confirmBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.cancelBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
-    [self.taleTextView setFont:[UIFont fontWithName:LATO_REGULAR size:18.0f]];
+    [self.taleTextView setFont:[UIFont fontWithName:LATO_REGULAR size:16.0f]];
     [self.taleTextView setPlaceholder:@"Write your own story..."];
     
     [self.taleTextView setOpaque:YES];

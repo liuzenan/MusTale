@@ -21,30 +21,42 @@
 
 - (void)setText:(NSString*)text
 {
-    [self.tale setText:text];
+    NSMutableAttributedString *str = [NSMutableAttributedString attributedStringWithString:text];
+    [str setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    
+    OHParagraphStyle* paragraphStyle = [OHParagraphStyle defaultParagraphStyle];
+    paragraphStyle.lineSpacing = 5.f; // increase space between lines by 5 points
+    paragraphStyle.paragraphSpacingBefore = 20.0f;
+    [str setParagraphStyle:paragraphStyle];
+    [str setTextAlignment:kCTTextAlignmentNatural lineBreakMode:kCTLineBreakByWordWrapping];
+    
+    [self.tale setAttributedText:str];
 }
 
 -(void)setStyling
 {
     [self setContentInset:UIEdgeInsetsMake(20.0f, 0.0f, 20.0f, 0.0f)];
-    [self.userName setFont:[UIFont fontWithName:LATO_BOLD size:18.0f]];
-    [self.postDate setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
-    [self.tale setFont:[UIFont fontWithName:LATO_REGULAR size:16.0f]];
-    self.tale.lineBreakMode = NSLineBreakByWordWrapping;
-    self.tale.numberOfLines = 0;
+    [self.userName setFont:[UIFont fontWithName:LATO_BOLD size:16.0f]];
+    [self.numLikes setFont:[UIFont fontWithName:LATO_REGULAR size:18.0f]];
+    [self.postDate setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
     CGRect currentFrame = self.tale.frame;
-    CGSize max = CGSizeMake(self.tale.frame.size.width, 500);
-    CGSize expected = [self.tale.text sizeWithFont:self.tale.font constrainedToSize:max lineBreakMode:self.tale.lineBreakMode];
+    CGSize max = CGSizeMake(self.tale.frame.size.width, INFINITY);
+    CGSize expected = [self.tale.attributedText sizeConstrainedToSize:max];
     currentFrame.size.height = expected.height;
     self.tale.frame = currentFrame;
-    CGRect commentFrame = self.numComments.frame;
-    commentFrame.origin.y = self.tale.frame.origin.y + self.tale.frame.size.height;
-    self.numComments.frame = commentFrame;
     
-    [self.numComments setFont:[UIFont fontWithName:LATO_REGULAR size:14.0f]];
+    CGRect dividerFrame = self.bottomDivider.frame;
+    dividerFrame.origin.y = self.tale.frame.origin.y + self.tale.frame.size.height + 20.0f;
+    self.bottomDivider.frame = dividerFrame;
+    
+    CGRect commentsFrame = self.numComments.frame;
+    commentsFrame.origin.y = self.bottomDivider.frame.origin.y + 16.0f;
+    self.numComments.frame = commentsFrame;
+    
+    [self.numComments setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
     [self setContentSize:CGSizeMake(self.frame.size.width, CGRectGetMaxY(self.numComments.frame))];
-    NSLog(@"content size: %@", NSStringFromCGSize(self.contentSize));
     
+    NSLog(@"content size: %@", NSStringFromCGSize(self.contentSize));
     
 }
 
