@@ -587,8 +587,8 @@
 		E4AB9AD5175CF39100A4DCFA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E4C67BE1176C5D2900B89A38 /* Comments */,
 				E4F6768317663B8A00F22284 /* TextView */,
-				E4AA8B771757B7C0001FA121 /* MTComments.xib */,
 				E43972A417639DF100059DD5 /* Bar Items */,
 				E4AA8B7E1757BA33001FA121 /* Tales */,
 				E4160E4C176234520054EB37 /* Song */,
@@ -731,6 +731,14 @@
 				E4AA8B6A1757AF61001FA121 /* Cells */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		E4C67BE1176C5D2900B89A38 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA8B771757B7C0001FA121 /* MTComments.xib */,
+			);
+			name = Comments;
 			sourceTree = "<group>";
 		};
 		E4F67678176633DD00F22284 /* GCPlaceholderTextView */ = {

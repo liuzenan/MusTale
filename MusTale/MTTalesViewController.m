@@ -116,7 +116,12 @@
     panGes.delegate = self;
     [self.taleScrollView addGestureRecognizer:tapGes];
     [self.taleScrollView addGestureRecognizer:panGes];
-    
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     for (int i = 0; i < 10; i++) {
         
         if ((i % 2) == 0) {
@@ -145,9 +150,8 @@
             [self.taleScrollView addSubview:taleView];
         }
         
-
+        
     }
-
 }
 
 - (void)didReceiveMemoryWarning
