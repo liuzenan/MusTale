@@ -9,6 +9,7 @@
 #import "CHDraggingCoordinator.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CHDraggableView.h"
+#import "MTFloatSongControlViewController.h"
 
 typedef enum {
     CHInteractionStateNormal,
@@ -21,7 +22,7 @@ typedef enum {
 @property (nonatomic, strong) NSMutableDictionary *edgePointDictionary;;
 @property (nonatomic, assign) CGRect draggableViewBounds;
 @property (nonatomic, assign) CHInteractionState state;
-@property (nonatomic, strong) UINavigationController *presentedNavigationController;
+@property (nonatomic, strong) UIViewController *presentedNavigationController;
 @property (nonatomic, strong) UIView *backgroundView;
 
 @end
@@ -193,66 +194,63 @@ typedef enum {
 
 - (void)_presentViewControllerForDraggableView:(CHDraggableView *)draggableView
 {
-//    UIViewController *viewController = [_delegate draggingCoordinator:self viewControllerForDraggableView:draggableView];
-//    
-//    _presentedNavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-//    _presentedNavigationController.view.layer.cornerRadius = 3;
-//    _presentedNavigationController.view.layer.masksToBounds = YES;
-//    _presentedNavigationController.view.layer.anchorPoint = CGPointMake(0.5f, 0);
-//    _presentedNavigationController.view.frame = [self _navigationControllerFrame];
-//    _presentedNavigationController.view.transform = CGAffineTransformMakeScale(0, 0);
-//    
-//    [self.window insertSubview:_presentedNavigationController.view belowSubview:draggableView];
-//    [self _unhidePresentedNavigationControllerCompletion:^{}];
+
+    _presentedNavigationController = [[MTFloatSongControlViewController alloc] initWithNibName:@"MTFloatSongControlView" bundle:[NSBundle mainBundle]];
+    _presentedNavigationController.view.layer.anchorPoint = CGPointMake(0.5f, 0);
+    _presentedNavigationController.view.frame = [self _navigationControllerFrame];
+    _presentedNavigationController.view.transform = CGAffineTransformMakeScale(0, 0);
+
+    [self.window insertSubview:_presentedNavigationController.view belowSubview:draggableView];
+    [self _unhidePresentedNavigationControllerCompletion:^{}];
 }
 
 - (void)_dismissPresentedNavigationController
 {
-//    UINavigationController *reference = _presentedNavigationController;
-//    [self _hidePresentedNavigationControllerCompletion:^{
-//        [reference.view removeFromSuperview];
-//    }];
-//    _presentedNavigationController = nil;
+    UIViewController *reference = _presentedNavigationController;
+    [self _hidePresentedNavigationControllerCompletion:^{
+        [reference.view removeFromSuperview];
+    }];
+    _presentedNavigationController = nil;
 }
 
 - (void)_unhidePresentedNavigationControllerCompletion:(void(^)())completionBlock
 {
-//    CGAffineTransform transformStep1 = CGAffineTransformMakeScale(1.1f, 1.1f);
-//    CGAffineTransform transformStep2 = CGAffineTransformMakeScale(1, 1);
-//    
-//    _backgroundView = [[UIView alloc] initWithFrame:[self.window bounds]];
-//    _backgroundView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.5f];
-//    _backgroundView.alpha = 0.0f;
-//    [self.window insertSubview:_backgroundView belowSubview:_presentedNavigationController.view];
-//    
-//    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        _presentedNavigationController.view.layer.affineTransform = transformStep1;
-//        _backgroundView.alpha = 1.0f;
-//    }completion:^(BOOL finished){
-//        if (finished) {
-//            [UIView animateWithDuration:0.3f animations:^{
-//                _presentedNavigationController.view.layer.affineTransform = transformStep2;
-//            }];
-//        }
-//    }];
+    CGAffineTransform transformStep1 = CGAffineTransformMakeScale(1.1f, 1.1f);
+    CGAffineTransform transformStep2 = CGAffineTransformMakeScale(1, 1);
+    
+    _backgroundView = [[UIView alloc] initWithFrame:[self.window bounds]];
+    _backgroundView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.5f];
+    _backgroundView.alpha = 0.0f;
+    [self.window insertSubview:_backgroundView belowSubview:_presentedNavigationController.view];
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _presentedNavigationController.view.layer.affineTransform = transformStep1;
+        _backgroundView.alpha = 1.0f;
+    }completion:^(BOOL finished){
+        if (finished) {
+            [UIView animateWithDuration:0.3f animations:^{
+                _presentedNavigationController.view.layer.affineTransform = transformStep2;
+            }];
+        }
+    }];
 }
 
 - (void)_hidePresentedNavigationControllerCompletion:(void(^)())completionBlock
 {
-//    UIView *viewToDisplay = _backgroundView;
-//    [UIView animateWithDuration:0.3f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        _presentedNavigationController.view.transform = CGAffineTransformMakeScale(0, 0);
-//        _presentedNavigationController.view.alpha = 0.0f;
-//        _backgroundView.alpha = 0.0f;
-//    } completion:^(BOOL finished){
-//        if (finished) {
-//            [viewToDisplay removeFromSuperview];
-//            if (viewToDisplay == _backgroundView) {
-//                _backgroundView = nil;
-//            }
-//            completionBlock();
-//        }
-//    }];
+    UIView *viewToDisplay = _backgroundView;
+    [UIView animateWithDuration:0.3f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _presentedNavigationController.view.transform = CGAffineTransformMakeScale(0, 0);
+        _presentedNavigationController.view.alpha = 0.0f;
+        _backgroundView.alpha = 0.0f;
+    } completion:^(BOOL finished){
+        if (finished) {
+            [viewToDisplay removeFromSuperview];
+            if (viewToDisplay == _backgroundView) {
+                _backgroundView = nil;
+            }
+            completionBlock();
+        }
+    }];
 }
 
 @end

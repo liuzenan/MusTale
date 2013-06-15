@@ -39,6 +39,17 @@
 		E40F28861768C8CF00F584EC /* MTTextTaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E40F28851768C8CF00F584EC /* MTTextTaleView.m */; };
 		E40F28891768D32800F584EC /* MTVoiceTaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E40F28881768D32800F584EC /* MTVoiceTaleView.m */; };
 		E4160E53176245760054EB37 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4160E52176245760054EB37 /* MarqueeLabel.m */; };
+		E42F1790176CD73E00328F5B /* MTFloatSongControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E42F178E176CD73D00328F5B /* MTFloatSongControlView.xib */; };
+		E42F17A5176CDAFA00328F5B /* MTFloatSongControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = E42F17A4176CDAF900328F5B /* MTFloatSongControlView.m */; };
+		E42F17A8176CDBD800328F5B /* MTFloatSongControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42F17A7176CDBD700328F5B /* MTFloatSongControlViewController.m */; };
+		E42F17B1176CDE8600328F5B /* control-next.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17A9176CDE6500328F5B /* control-next.png */; };
+		E42F17B2176CDE8600328F5B /* control-next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AA176CDE6600328F5B /* control-next@2x.png */; };
+		E42F17B3176CDE8600328F5B /* control-previous.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AB176CDE6700328F5B /* control-previous.png */; };
+		E42F17B4176CDE8600328F5B /* control-previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AC176CDE6A00328F5B /* control-previous@2x.png */; };
+		E42F17B5176CDE8600328F5B /* control-play.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AD176CDE6D00328F5B /* control-play.png */; };
+		E42F17B6176CDE8600328F5B /* control-play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AE176CDE7200328F5B /* control-play@2x.png */; };
+		E42F17B7176CDE8600328F5B /* control-pause.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17AF176CDE7700328F5B /* control-pause.png */; };
+		E42F17B8176CDE8600328F5B /* control-pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42F17B0176CDE7E00328F5B /* control-pause@2x.png */; };
 		E439729717637DA900059DD5 /* button-record.png in Resources */ = {isa = PBXBuildFile; fileRef = E439729517637DA900059DD5 /* button-record.png */; };
 		E439729A1763839000059DD5 /* MTPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43972991763839000059DD5 /* MTPlaybackController.m */; };
 		E439729D17639D2000059DD5 /* button-insert-front.png in Resources */ = {isa = PBXBuildFile; fileRef = E439729B17639D1D00059DD5 /* button-insert-front.png */; };
@@ -193,6 +204,19 @@
 		E40F28881768D32800F584EC /* MTVoiceTaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTVoiceTaleView.m; sourceTree = "<group>"; };
 		E4160E51176245760054EB37 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		E4160E52176245760054EB37 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
+		E42F178E176CD73D00328F5B /* MTFloatSongControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTFloatSongControlView.xib; sourceTree = "<group>"; };
+		E42F17A3176CDAF900328F5B /* MTFloatSongControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTFloatSongControlView.h; sourceTree = "<group>"; };
+		E42F17A4176CDAF900328F5B /* MTFloatSongControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFloatSongControlView.m; sourceTree = "<group>"; };
+		E42F17A6176CDBD700328F5B /* MTFloatSongControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTFloatSongControlViewController.h; sourceTree = "<group>"; };
+		E42F17A7176CDBD700328F5B /* MTFloatSongControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFloatSongControlViewController.m; sourceTree = "<group>"; };
+		E42F17A9176CDE6500328F5B /* control-next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-next.png"; sourceTree = "<group>"; };
+		E42F17AA176CDE6600328F5B /* control-next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-next@2x.png"; sourceTree = "<group>"; };
+		E42F17AB176CDE6700328F5B /* control-previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-previous.png"; sourceTree = "<group>"; };
+		E42F17AC176CDE6A00328F5B /* control-previous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-previous@2x.png"; sourceTree = "<group>"; };
+		E42F17AD176CDE6D00328F5B /* control-play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-play.png"; sourceTree = "<group>"; };
+		E42F17AE176CDE7200328F5B /* control-play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-play@2x.png"; sourceTree = "<group>"; };
+		E42F17AF176CDE7700328F5B /* control-pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-pause.png"; sourceTree = "<group>"; };
+		E42F17B0176CDE7E00328F5B /* control-pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "control-pause@2x.png"; sourceTree = "<group>"; };
 		E439729517637DA900059DD5 /* button-record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-record.png"; sourceTree = "<group>"; };
 		E43972981763839000059DD5 /* MTPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaybackController.h; sourceTree = "<group>"; };
 		E43972991763839000059DD5 /* MTPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPlaybackController.m; sourceTree = "<group>"; };
@@ -205,8 +229,8 @@
 		E43FE58E1764591200472986 /* MTFloatMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFloatMusicViewController.m; sourceTree = "<group>"; };
 		E43FE60917645A0D00472986 /* CHDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHDraggableView.h; path = MusTale/CHDraggableView.h; sourceTree = "<group>"; };
 		E43FE60A17645A0D00472986 /* CHDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHDraggableView.m; path = MusTale/CHDraggableView.m; sourceTree = "<group>"; };
-		E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHDraggingCoordinator.h; path = MusTale/CHDraggingCoordinator.h; sourceTree = "<group>"; };
-		E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHDraggingCoordinator.m; path = MusTale/CHDraggingCoordinator.m; sourceTree = "<group>"; };
+		E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHDraggingCoordinator.h; sourceTree = "<group>"; };
+		E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHDraggingCoordinator.m; sourceTree = "<group>"; };
 		E4431D231760E52B009ED59A /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
 		E4431D241760E52B009ED59A /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		E4472D93175A4712008BDE6C /* MTPlaylistViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistViewDelegate.h; sourceTree = "<group>"; };
@@ -424,6 +448,14 @@
 		E4059A941758E60300F4C351 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E42F17A9176CDE6500328F5B /* control-next.png */,
+				E42F17AA176CDE6600328F5B /* control-next@2x.png */,
+				E42F17AB176CDE6700328F5B /* control-previous.png */,
+				E42F17AC176CDE6A00328F5B /* control-previous@2x.png */,
+				E42F17AD176CDE6D00328F5B /* control-play.png */,
+				E42F17AE176CDE7200328F5B /* control-play@2x.png */,
+				E42F17AF176CDE7700328F5B /* control-pause.png */,
+				E42F17B0176CDE7E00328F5B /* control-pause@2x.png */,
 				E4EE2A2C1764C97300FA28B0 /* icon-pause.png */,
 				E4EE2A2D1764C97300FA28B0 /* icon-pause@2x.png */,
 				E4EE2A2E1764C97400FA28B0 /* icon-play.png */,
@@ -483,8 +515,15 @@
 			children = (
 				E47F174E175F7DDA00194CFC /* MTSongViewController.h */,
 				E47F174F175F7DDB00194CFC /* MTSongViewController.m */,
+				E42F17A6176CDBD700328F5B /* MTFloatSongControlViewController.h */,
+				E42F17A7176CDBD700328F5B /* MTFloatSongControlViewController.m */,
 				E43FE58D1764591200472986 /* MTFloatMusicViewController.h */,
 				E43FE58E1764591200472986 /* MTFloatMusicViewController.m */,
+				E42F17A3176CDAF900328F5B /* MTFloatSongControlView.h */,
+				E42F17A4176CDAF900328F5B /* MTFloatSongControlView.m */,
+				E42F178E176CD73D00328F5B /* MTFloatSongControlView.xib */,
+				E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */,
+				E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */,
 				E4CD25A9175E4D770042CF66 /* MTSongView.h */,
 				E4CD25AA175E4D770042CF66 /* MTSongView.m */,
 				E47F1743175F74A300194CFC /* MTProgressView.h */,
@@ -639,8 +678,6 @@
 				E4F67678176633DD00F22284 /* GCPlaceholderTextView */,
 				E43FE60917645A0D00472986 /* CHDraggableView.h */,
 				E43FE60A17645A0D00472986 /* CHDraggableView.m */,
-				E43FE60D17645A0E00472986 /* CHDraggingCoordinator.h */,
-				E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */,
 				E4160E51176245760054EB37 /* MarqueeLabel.h */,
 				E4160E52176245760054EB37 /* MarqueeLabel.m */,
 				E4AB9AD2175CF25A00A4DCFA /* UIColor+i7HexColor.h */,
@@ -907,6 +944,15 @@
 				E4766721176B562400AD5BA5 /* face1.png in Resources */,
 				E4766722176B562400AD5BA5 /* face2.png in Resources */,
 				E4766723176B562400AD5BA5 /* face2@2x.png in Resources */,
+				E42F1790176CD73E00328F5B /* MTFloatSongControlView.xib in Resources */,
+				E42F17B1176CDE8600328F5B /* control-next.png in Resources */,
+				E42F17B2176CDE8600328F5B /* control-next@2x.png in Resources */,
+				E42F17B3176CDE8600328F5B /* control-previous.png in Resources */,
+				E42F17B4176CDE8600328F5B /* control-previous@2x.png in Resources */,
+				E42F17B5176CDE8600328F5B /* control-play.png in Resources */,
+				E42F17B6176CDE8600328F5B /* control-play@2x.png in Resources */,
+				E42F17B7176CDE8600328F5B /* control-pause.png in Resources */,
+				E42F17B8176CDE8600328F5B /* control-pause@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +1045,8 @@
 				E40F28891768D32800F584EC /* MTVoiceTaleView.m in Sources */,
 				C50A92D0176C8A25006C5829 /* MTArtistModel.m in Sources */,
 				C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */,
+				E42F17A5176CDAFA00328F5B /* MTFloatSongControlView.m in Sources */,
+				E42F17A8176CDBD800328F5B /* MTFloatSongControlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

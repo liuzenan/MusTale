@@ -22,4 +22,8 @@
 - (void) pause;
 - (BOOL) isPlaying;
 - (void) togglePlayPause;
+- (void) interrupted;
+- (void)resetInterrupted;
+- (BOOL)isInterrupted;
+
 @end

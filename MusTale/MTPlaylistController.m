@@ -44,6 +44,11 @@
     return currentSongIndex;
 }
 
+- (MTSongModel*)currentSong
+{
+    return [self.songs objectAtIndex:currentSongIndex];
+}
+
 - (void)playSongAtIndex:(NSInteger)index
 {
     if ([self.songs count] > 0 && index >=0 && index < [self.songs count]) {
@@ -64,28 +69,52 @@
     }
 }
 
-- (void)songDidStopPlaying:(NSNotification*)notification
-{
-    if ([self.songs count] > 0 && currentSongIndex < [self.songs count] - 1) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MTPlayNextSongNotification object:self];
-    }
-}
-
 -(void)playNextSong
 {
     currentSongIndex += 1;
+    NSLog(@"play next song: %d", currentSongIndex);
     if ([self.songs count] > 0 && [self.songs count] > currentSongIndex) {
-        [[MTPlaybackController sharedInstance] stop];
+        
         [[MTPlaybackController sharedInstance] setCurrentSong:[self.songs objectAtIndex:currentSongIndex]];
         [[MTPlaybackController sharedInstance] play];
+    }
+}
+
+- (void)togglePlay
+{
+    if ([[MTPlaybackController sharedInstance] currentSong]) {
+        if ([[MTPlaybackController sharedInstance] isPlaying]) {
+            [[MTPlaybackController sharedInstance] pause];
+        } else {
+            [[MTPlaybackController sharedInstance] play];
+        }
+    }
+}
+
+- (BOOL) hasNextSong
+{
+    if ([self.songs count] > 0 && currentSongIndex >= 0 && currentSongIndex < [self.songs count] - 1) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL) hasPreviousSong
+{
+    if ([self.songs count] > 0 && currentSongIndex > 0 && currentSongIndex < [self.songs count]) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 
 -(void)playPreviousSong
 {
     currentSongIndex -= 1;
-    if ([self.songs count] > 0 && currentSongIndex > 0 && currentSongIndex < [self.songs count]) {
-        [[MTPlaybackController sharedInstance] stop];
+    NSLog(@"play previous song: %d", currentSongIndex);
+    if ([self.songs count] > 0 && currentSongIndex >= 0 && currentSongIndex < [self.songs count]) {
+        
         [[MTPlaybackController sharedInstance] setCurrentSong:[self.songs objectAtIndex:currentSongIndex]];
         [[MTPlaybackController sharedInstance] play];
     }
@@ -94,12 +123,23 @@
 
 -(void)addSongToList:(MTSongModel *)song
 {
-
+    
 }
 
 -(void)removeSongFromList:(MTSongModel *)song
 {
     
 }
+
+- (void)songDidStopPlaying:(NSNotification*)notification
+{
+    NSLog(@"song did stop playing");
+    if (![[MTPlaybackController sharedInstance] isInterrupted]) {
+        if ([self.songs count] > 0 && currentSongIndex < [self.songs count] - 1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:MTPlayNextSongNotification object:self];
+        }
+    }
+}
+
 
 @end

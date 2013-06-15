@@ -17,7 +17,6 @@
 @property (strong, nonatomic) CHDraggableView *draggableView;
 
 + (MTFloatMusicViewController*) sharedInstance;
-- (void) changeSong:(MTSongModel *)song;
 - (void) showFloatSong;
 - (void) removeFloatSong;
 

@@ -306,7 +306,9 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         [self pause];
     } else {
         NSLog(@"tap play");
+        [[MTPlaybackController sharedInstance] interrupted];
         [self play];
+        [[MTPlaybackController sharedInstance] resetInterrupted];
     }
 }
 

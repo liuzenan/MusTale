@@ -29,6 +29,8 @@
 
 - (void) showFloatSong
 {
+    NSLog(@"show float song");
+    [self setViewToCurrentSong];
     UIScreen *screen = [UIScreen mainScreen];
     [self.draggableView setCenter:CGPointMake(CGRectGetMidX(screen.bounds), CGRectGetMidY(screen.bounds) - 60.0f)];
     [[[UIApplication sharedApplication] keyWindow] addSubview:self.draggableView];
@@ -39,8 +41,9 @@
     [self.draggableView removeFromSuperview];
 }
 
-- (void) changeSong:(MTSongModel *)song
+- (void) setViewToCurrentSong
 {
+    MTSongModel *song = [[MTPlaylistController sharedInstance] currentSong];
     self.draggableView = [[CHDraggableView alloc] draggableViewWithImageURL:song.artworkUrl100];
     self.draggableView.tag = kFLOAT_MUSIC_TAG;
     
