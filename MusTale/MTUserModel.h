@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface MTUserModel : NSObject
-
+#import <RestKit/RestKit.h>  
+@interface MTUserModel:NSObject
+@property (nonatomic,strong) NSString* ID;
+@property (nonatomic,strong) NSString* fbID;
+@property (nonatomic,strong) NSString* email;
+@property (nonatomic,strong) NSString* name;
+@property (nonatomic,strong) NSString* gender;
+@property (nonatomic,strong) NSString* profileURL;
+@property (nonatomic,strong) NSString* fbLocationID;
+@property (nonatomic,strong) NSString* link;
++ (MTUserModel*)new;
 @end

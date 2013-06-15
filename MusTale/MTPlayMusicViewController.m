@@ -22,7 +22,7 @@
 #import "MTFloatMusicViewController.h"
 #import "MTTalesViewController.h"
 #import "MTPlaylistController.h"
-
+#import "MTItuneNetworkController.h"
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
 
@@ -90,7 +90,7 @@
 
 - (void) loadSongsWithCompletion:(void(^)())callback
 {
-    [MTNetworkController testLoadSongWithResult:^(NSArray *songs) {
+    [[MTItuneNetworkController sharedInstance] testLoadSongWithResult:^(NSArray *songs) {
         self.songList = songs;
         [[MTPlaylistController sharedInstance] setSongs:songs];
         [self loadSongCDViews];

@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "MTUserModel.h"
+#import "MTArtistModel.h"
 @interface MTNetworkController : NSObject
 
-+ (void) testLoadSongWithResult:(void(^)(NSArray* songs))callback;
-
++ (MTNetworkController*) sharedInstance;
+- (void) getUserWithID:(MTUserModel*)user completeHandler:(NetworkCompleteHandler)handler;
 @end

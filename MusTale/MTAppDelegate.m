@@ -7,8 +7,9 @@
 //
 
 #import "MTAppDelegate.h"
-
-
+#import "MTNetworkController.h"
+#import "MTUserModel.h"
+#import "MTItuneNetworkController.h"
 @implementation MTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -66,6 +67,29 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    /*[[MTItuneNetworkController sharedInstance] searchSongWithTerm:@"jack+johnson" completeHandler:^(id data, NSError *error) {
+        NSArray* songs =(NSArray*)data;
+    }];*/
+    /*[[MTItuneNetworkController sharedInstance] getArtistSongsWithArtistId:@"909253" completeHandler:^(id data, NSError *error) {
+        NSArray* songs = (NSArray*)data;
+    }];
+    */
+    /*[[MTItuneNetworkController sharedInstance] getArtistWithArtistId:@"909253" completeHandler:^(id data, NSError *error) {
+        NSArray* songs = (NSArray*)data;
+    }];*/
+    /*[[MTItuneNetworkController sharedInstance] getSongWithSongId:@"120954025" completeHandler:^(id data, NSError *error) {
+        NSArray* songs = (NSArray*)data;
+    }];*/
+    /*
+    MTUserModel* user = [MTUserModel new];
+    user.ID = @"1";
+    [[MTNetworkController sharedInstance] getUserWithID:user completeHandler:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"%@",[error localizedDescription]);
+        } else {
+            
+        }
+    }];*/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
