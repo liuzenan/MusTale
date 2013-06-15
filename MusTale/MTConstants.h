@@ -61,6 +61,10 @@ extern NSString *const ANIMATION_OPEN_CONTROL_KEY;
 #define REMOVABLE_BUTTON_TAG 243
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
+#define PATH_BASE_URL @"http://jiaojingping.com/mustale/index.php/api/example"
+
+typedef void (^NetworkCompleteHandler)(id data,NSError* error);
+
 @interface MTConstants : NSObject
 
 @end

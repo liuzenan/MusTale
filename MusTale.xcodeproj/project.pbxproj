@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		09411BB5A67E48069539D12E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 482151283D684C95BE4FAA66 /* libPods.a */; };
+		C50A92D0176C8A25006C5829 /* MTArtistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A92CF176C8A25006C5829 /* MTArtistModel.m */; };
+		C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */; };
 		E4059A681758E16A00F4C351 /* MTMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4059A671758E16A00F4C351 /* MTMenuTableCell.m */; };
 		E4059A891758E49B00F4C351 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4059A7F1758E49B00F4C351 /* Lato-Black.ttf */; };
 		E4059A8A1758E49B00F4C351 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4059A801758E49B00F4C351 /* Lato-BlackItalic.ttf */; };
@@ -153,6 +155,10 @@
 /* Begin PBXFileReference section */
 		391B5BE28835412F87F8FE0B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		482151283D684C95BE4FAA66 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50A92CE176C8A25006C5829 /* MTArtistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTArtistModel.h; sourceTree = "<group>"; };
+		C50A92CF176C8A25006C5829 /* MTArtistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTArtistModel.m; sourceTree = "<group>"; };
+		C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTItuneNetworkController.h; sourceTree = "<group>"; };
+		C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTItuneNetworkController.m; sourceTree = "<group>"; };
 		E4059A661758E16A00F4C351 /* MTMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMenuTableCell.h; sourceTree = "<group>"; };
 		E4059A671758E16A00F4C351 /* MTMenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTMenuTableCell.m; sourceTree = "<group>"; };
 		E4059A7F1758E49B00F4C351 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -686,6 +692,8 @@
 			children = (
 				E4BD1EFF1756632300518BDE /* MTNetworkController.h */,
 				E4BD1F001756632300518BDE /* MTNetworkController.m */,
+				C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */,
+				C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */,
 				E4BD1F031756634F00518BDE /* MTPlaylistController.h */,
 				E4BD1F041756634F00518BDE /* MTPlaylistController.m */,
 				E4BD1F06175663D100518BDE /* MTCommentsController.h */,
@@ -717,6 +725,8 @@
 				E4AA8B561757A236001FA121 /* MTTextNoteModel.m */,
 				E4AA8B581757A276001FA121 /* MTUserModel.h */,
 				E4AA8B591757A276001FA121 /* MTUserModel.m */,
+				C50A92CE176C8A25006C5829 /* MTArtistModel.h */,
+				C50A92CF176C8A25006C5829 /* MTArtistModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -979,6 +989,8 @@
 				E40F287B1768BCE500F584EC /* ViewController+Snapshot.m in Sources */,
 				E40F28861768C8CF00F584EC /* MTTextTaleView.m in Sources */,
 				E40F28891768D32800F584EC /* MTVoiceTaleView.m in Sources */,
+				C50A92D0176C8A25006C5829 /* MTArtistModel.m in Sources */,
+				C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

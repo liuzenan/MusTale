@@ -10,6 +10,7 @@
 
 @interface MTSongModel : NSObject
 
+
 @property (nonatomic, strong) NSString *trackName;
 @property (nonatomic, strong) NSString *artistName;
 @property (nonatomic, strong) NSString *trackId;
