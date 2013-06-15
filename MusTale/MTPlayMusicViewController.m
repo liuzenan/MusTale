@@ -21,6 +21,7 @@
 #import "MTPlaybackController.h"
 #import "MTFloatMusicViewController.h"
 #import "MTTalesViewController.h"
+#import "MTPlaylistController.h"
 
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
@@ -64,10 +65,11 @@
     [self loadSongsWithCompletion:^{
         if ([self.songList count]>0) {
             [self setTitleAndName:0];
-            MTSongViewController *first = [self.childViewControllers objectAtIndex:0];
-            [first play];
+            [self activateSongViewAtIndex:0];
         }
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextSong) name:MTPlayNextSongNotification object:nil];
 }
 
 - (void)addSubControllerAndView:(UIViewController *)subcontroller ToView:(UIView*) view{
@@ -80,12 +82,17 @@
     return (int)self.CDScroll.contentOffset.x / self.CDScroll.frame.size.width;
 }
 
-
+- (void) activateSongViewAtIndex:(NSInteger)index
+{
+    MTSongViewController *songView = [self.childViewControllers objectAtIndex:index];
+    [songView play];
+}
 
 - (void) loadSongsWithCompletion:(void(^)())callback
 {
     [MTNetworkController testLoadSongWithResult:^(NSArray *songs) {
         self.songList = songs;
+        [[MTPlaylistController sharedInstance] setSongs:songs];
         [self loadSongCDViews];
         callback();
     }];
@@ -140,12 +147,12 @@
 
 
 
-- (void) loadSongAtIndex:(CGFloat)index {
+- (void) loadSongAtIndex:(NSInteger)index {
     MTSongModel * model = (MTSongModel*)[self.songList objectAtIndex:index];
 
     MTSongView* view = [[MTSongView alloc] initWithURLAndRadius:model.artworkUrl100 Radius:DEFAULT_SONG_VIEW_RADIUS];
     MTSongViewController *svc = [MTSongViewController songViewControllerWithViewAndModel:view Model:model];
-    
+    [svc setIndex:index];
     view.center = CGPointMake(self.CDScroll.bounds.size.width / 2 + index * (self.CDScroll.frame.size.width),
                               self.CDScroll.bounds.size.height / 2);
     svc.delegate = self;
@@ -181,6 +188,7 @@
     [self setBackBtn:nil];
     [self setSongTitle:nil];
     [self setSingerName:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
 
@@ -234,15 +242,36 @@
 #pragma mark - SongPlayListDelegate methods
 
 - (void) didStartedPlaying:(id)sender {
+    MTSongViewController *song = (MTSongViewController*)sender;
+    
+    NSLog(@"song index: %d, play list song index:%d", song.index, [[MTPlaylistController sharedInstance] currentSongIndex]);
+    if (song.index == [[MTPlaylistController sharedInstance] currentSongIndex]) {
+        [song continuePlay];
+    } else {
+        [[MTPlaylistController sharedInstance] playSongAtIndex:song.index];
+        [song play];
+    }
+}
+
+- (void) didContinuePlaying:(id)sender
+{
+    NSLog(@"did continue playing");
 }
 
 - (void) didPausedPlaying:(id)sender {
-    
+    NSLog(@"did paused playing");
 }
 - (void) didFinishedPlaying:(id)sender {
-    
+    NSLog(@"did finished playing");
 }
 
+
+- (void) playNextSong
+{
+    NSLog(@"play next song");
+    [[MTPlaylistController sharedInstance] playNextSong];
+    [self activateSongViewAtIndex:[[MTPlaylistController sharedInstance] currentSongIndex]];
+}
 
 #pragma mark - control button delegate methods
 

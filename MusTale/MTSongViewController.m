@@ -74,12 +74,12 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [super viewWillDisappear:animated];
 }
 
-- (void)viewWillUnload
+-(void)viewDidUnload
 {
     [self stopRotate];
     [self removeAllControlButtons];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super viewWillUnload];
+    [super viewDidUnload];
 }
 
 - (void) addAllControlButtons
@@ -508,28 +508,29 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     [self stopRotate];
     self.songview.transform = CGAffineTransformMakeRotation(0.0);
     [self.delegate didFinishedPlaying:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:MPMoviePlayerPlaybackDidFinishNotification
-                                                  object:[[MTPlaybackController sharedInstance] player]];
+
 }
 
 - (void)play
 {
-
-    if (![[[MTPlaybackController sharedInstance] currentSong] isEqual:self.songmodel]) {
-        [[MTPlaybackController sharedInstance] stop];
-        [[MTPlaybackController sharedInstance] setCurrentSong:self.songmodel];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlayBackDidFinish:)
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification
-                                                   object:[[MTPlaybackController sharedInstance] player]];
-    }
-
+ 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:[[MTPlaybackController sharedInstance] player]];
     [self.songview removeStateImage];
     [self.songview addStateImage:kStatePause];
     [self startRotate];
-    [[MTPlaybackController sharedInstance] play];
     [self.delegate didStartedPlaying:self];
+}
+
+- (void)continuePlay
+{
+    [[MTPlaybackController sharedInstance] play];
+    [self.songview removeStateImage];
+    [self.songview addStateImage:kStatePause];
+    [self startRotate];
+    [self.delegate didContinuePlaying:self];
 }
 
 

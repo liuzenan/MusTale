@@ -47,6 +47,7 @@ extern NSString *const ICON_TALE;
 extern NSString *const ICON_LIKE;
 
 extern NSString *const MTSongScrollNotification;
+extern NSString *const MTPlayNextSongNotification;
 
 extern NSString *const ANIMATION_OPEN_CONTROL_KEY;
 
