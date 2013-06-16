@@ -36,7 +36,10 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         self.songmodel = m;
         isCircleControlOn = NO;
         self.controlButtons = [NSMutableArray array];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCircleWithNoAnimation) name:MTSongScrollNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(closeCircleWithNoAnimation)
+                                                     name:MTSongScrollNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -111,7 +114,6 @@ CGFloat const UPDATE_INTERVAL = 0.01;
     @finally {
         [self.controlButtons removeAllObjects];
     }
-    
 }
 
 - (void)loadView {
@@ -233,7 +235,20 @@ CGFloat const UPDATE_INTERVAL = 0.01;
 }
 
 - (void) showTales:(UIGestureRecognizer *)gesture{
-    [self.delegate showTales:self.songmodel];
+    if (isOpenAnimationFinished) {
+        [self stopRotate];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            [self closeCircleWithNoAnimation];
+            [self.songview.leftControl setAlpha:0.0f];
+            [self.songview.rightControl setAlpha:0.0f];
+            [self.songview setTransform:CGAffineTransformMakeRotation(0.0f)];
+        } completion:^(BOOL finished) {
+            isMainControlBtnHide = YES;
+            [self.delegate showTales:self.songmodel];
+        }];
+        
+    }
 }
 
 - (void) recordVoice:(UIGestureRecognizer *)gesture{
@@ -291,7 +306,9 @@ CGFloat const UPDATE_INTERVAL = 0.01;
         [self pause];
     } else {
         NSLog(@"tap play");
+        [[MTPlaybackController sharedInstance] interrupted];
         [self play];
+        [[MTPlaybackController sharedInstance] resetInterrupted];
     }
 }
 

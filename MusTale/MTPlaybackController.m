@@ -9,7 +9,9 @@
 #import "MTPlaybackController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
-@implementation MTPlaybackController
+@implementation MTPlaybackController{
+    BOOL interrupted;
+}
 
 - (id)init
 {
@@ -100,6 +102,21 @@
     } else {
         [self pause];
     }
+}
+
+- (void)interrupted
+{
+    interrupted = YES;
+}
+
+- (void)resetInterrupted
+{
+    interrupted = NO;
+}
+
+- (BOOL)isInterrupted
+{
+    return interrupted;
 }
 
 @end

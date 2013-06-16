@@ -265,12 +265,12 @@
     NSLog(@"did finished playing");
 }
 
-
 - (void) playNextSong
 {
     NSLog(@"play next song");
     [[MTPlaylistController sharedInstance] playNextSong];
     [self activateSongViewAtIndex:[[MTPlaylistController sharedInstance] currentSongIndex]];
+
 }
 
 #pragma mark - control button delegate methods
@@ -286,6 +286,8 @@
         MTRecordVoiceNoteViewController *recording = [self.storyboard instantiateViewControllerWithIdentifier:@"RecordView"];
         recording.currentSong = song;
         [self presentModalViewController:recording animated:NO];
+        NSLog(@"record voice presented");
+        [[MTFloatMusicViewController sharedInstance] showFloatSong];
     }
 }
 
@@ -294,6 +296,7 @@
     if (song) {
         MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
         [self presentModalViewController:tale animated:YES];
+        [[MTFloatMusicViewController sharedInstance] showFloatSong];
     }
 }
 
@@ -308,6 +311,7 @@
         MTWriteTaleViewController *writeTale = [self.storyboard instantiateViewControllerWithIdentifier:@"WriteTaleView"];
         writeTale.currentSong = song;
         [self presentModalViewController:writeTale animated:YES];
+        [[MTFloatMusicViewController sharedInstance] showFloatSong];
     }
 }
 

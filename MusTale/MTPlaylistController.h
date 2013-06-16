@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) NSArray *songs;
 + (MTPlaylistController*) sharedInstance;
+- (BOOL) hasNextSong;
+- (BOOL) hasPreviousSong;
 - (void) playNextSong;
 - (void) playPreviousSong;
 - (void) playFirstSong;
@@ -20,4 +22,6 @@
 - (void) removeSongFromList:(MTSongModel*)song;
 - (void)playSongAtIndex:(NSInteger)index;
 - (NSInteger)currentSongIndex;
+- (MTSongModel*)currentSong;
+- (void)togglePlay;
 @end

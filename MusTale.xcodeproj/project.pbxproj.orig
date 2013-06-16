@@ -1062,9 +1062,6 @@
 				C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */,
 				E42F17A5176CDAFA00328F5B /* MTFloatSongControlView.m in Sources */,
 				E42F17A8176CDBD800328F5B /* MTFloatSongControlViewController.m in Sources */,
-				C5D43F63176D573400BE1C7A /* MTTaleModel.m in Sources */,
-				C5D43F66176D5F9100BE1C7A /* MTServerClient.m in Sources */,
-				C5D43F69176D633F00BE1C7A /* MTFBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
