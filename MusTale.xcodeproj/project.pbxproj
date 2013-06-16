@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		09411BB5A67E48069539D12E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 482151283D684C95BE4FAA66 /* libPods.a */; };
 		C50A92D0176C8A25006C5829 /* MTArtistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A92CF176C8A25006C5829 /* MTArtistModel.m */; };
+		C5D43F63176D573400BE1C7A /* MTTaleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D43F62176D573400BE1C7A /* MTTaleModel.m */; };
+		C5D43F66176D5F9100BE1C7A /* MTServerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D43F65176D5F9000BE1C7A /* MTServerClient.m */; };
+		C5D43F69176D633F00BE1C7A /* MTFBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D43F68176D633F00BE1C7A /* MTFBHelper.m */; };
 		C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */; };
 		E4059A681758E16A00F4C351 /* MTMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4059A671758E16A00F4C351 /* MTMenuTableCell.m */; };
 		E4059A891758E49B00F4C351 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4059A7F1758E49B00F4C351 /* Lato-Black.ttf */; };
@@ -157,6 +160,12 @@
 		482151283D684C95BE4FAA66 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50A92CE176C8A25006C5829 /* MTArtistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTArtistModel.h; sourceTree = "<group>"; };
 		C50A92CF176C8A25006C5829 /* MTArtistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTArtistModel.m; sourceTree = "<group>"; };
+		C5D43F61176D573400BE1C7A /* MTTaleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTaleModel.h; sourceTree = "<group>"; };
+		C5D43F62176D573400BE1C7A /* MTTaleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTaleModel.m; sourceTree = "<group>"; };
+		C5D43F64176D5F9000BE1C7A /* MTServerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTServerClient.h; sourceTree = "<group>"; };
+		C5D43F65176D5F9000BE1C7A /* MTServerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTServerClient.m; sourceTree = "<group>"; };
+		C5D43F67176D633F00BE1C7A /* MTFBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTFBHelper.h; sourceTree = "<group>"; };
+		C5D43F68176D633F00BE1C7A /* MTFBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFBHelper.m; sourceTree = "<group>"; };
 		C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTItuneNetworkController.h; sourceTree = "<group>"; };
 		C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTItuneNetworkController.m; sourceTree = "<group>"; };
 		E4059A661758E16A00F4C351 /* MTMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMenuTableCell.h; sourceTree = "<group>"; };
@@ -690,8 +699,12 @@
 		E4BD1EFC175662E300518BDE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C5D43F64176D5F9000BE1C7A /* MTServerClient.h */,
+				C5D43F65176D5F9000BE1C7A /* MTServerClient.m */,
 				E4BD1EFF1756632300518BDE /* MTNetworkController.h */,
 				E4BD1F001756632300518BDE /* MTNetworkController.m */,
+				C5D43F67176D633F00BE1C7A /* MTFBHelper.h */,
+				C5D43F68176D633F00BE1C7A /* MTFBHelper.m */,
 				C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */,
 				C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */,
 				E4BD1F031756634F00518BDE /* MTPlaylistController.h */,
@@ -715,18 +728,20 @@
 			children = (
 				E4BD1F151756679700518BDE /* MTCommentsModel.h */,
 				E4BD1F161756679700518BDE /* MTCommentsModel.m */,
+				C50A92CE176C8A25006C5829 /* MTArtistModel.h */,
+				C50A92CF176C8A25006C5829 /* MTArtistModel.m */,
 				E4AA8B4C1757A1A3001FA121 /* MTSongModel.h */,
 				E4AA8B4D1757A1A3001FA121 /* MTSongModel.m */,
 				E4AA8B4F1757A1C8001FA121 /* MTPlaylistModel.h */,
 				E4AA8B501757A1C8001FA121 /* MTPlaylistModel.m */,
+				C5D43F61176D573400BE1C7A /* MTTaleModel.h */,
+				C5D43F62176D573400BE1C7A /* MTTaleModel.m */,
 				E4AA8B521757A22A001FA121 /* MTVoiceNoteModel.h */,
 				E4AA8B531757A22A001FA121 /* MTVoiceNoteModel.m */,
 				E4AA8B551757A236001FA121 /* MTTextNoteModel.h */,
 				E4AA8B561757A236001FA121 /* MTTextNoteModel.m */,
 				E4AA8B581757A276001FA121 /* MTUserModel.h */,
 				E4AA8B591757A276001FA121 /* MTUserModel.m */,
-				C50A92CE176C8A25006C5829 /* MTArtistModel.h */,
-				C50A92CF176C8A25006C5829 /* MTArtistModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -991,6 +1006,9 @@
 				E40F28891768D32800F584EC /* MTVoiceTaleView.m in Sources */,
 				C50A92D0176C8A25006C5829 /* MTArtistModel.m in Sources */,
 				C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */,
+				C5D43F63176D573400BE1C7A /* MTTaleModel.m in Sources */,
+				C5D43F66176D5F9100BE1C7A /* MTServerClient.m in Sources */,
+				C5D43F69176D633F00BE1C7A /* MTFBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
