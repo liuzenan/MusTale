@@ -7,11 +7,15 @@
 //
 
 #import "MTNetworkController.h"
-#import "MTSongModel.h"
 #import "SVProgressHUD.h"
 #import <RestKit/RestKit.h>
 #import "MTServerClient.h"
 #import <EGOCache/EGOCache.h>
+
+#define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
+#define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with data %@",tag,error.localizedDescription)
+#define int2string(i) [NSString stringWithFormat:@"%d",i]
+
 #define FB_PROFILE_URL_FORMAT @"http://graph.facebook.com/%@/picture?type=square"
 
 
@@ -19,8 +23,21 @@
 #define MT_PATH_LOGOUT @"logout"
 #define MT_PATH_SIGNUP @"general/signup"
 
+#define MT_PATH_USER @"users" //uid
+#define MT_PATH_SONG @"songs" //songid
+
+#define MT_PATH_TALE @"songs/id/%@/tales" //uid-songid
+
+#define MT_PATH_LISTEN @"listens"  //songid-userid
+#define MT_PATH_LISTEN_POPULAR @"listens/popular"
+
+#define MT_PATH_DEDICATION @"dedications" // songid-userid(from)-userid(to)
+#define MT_PATH_COMMENT @"tales/comments" // uid-songid (tale)-songid (from)
+
 static RKObjectMapping* userMapping;
 static RKObjectMapping* taleMapping;
+static RKObjectMapping* songMapping;
+static RKObjectMapping* listenMapping;
 
 @interface MTNetworkController ()
 @property (nonatomic,strong) NSString* fbToken;
@@ -28,7 +45,7 @@ static RKObjectMapping* taleMapping;
 @end
 
 @implementation MTNetworkController {
-    RKObjectManager *objectManager;
+    //RKObjectManager *objectManager;
     MTServerClient* serverClient;
     MTFBHelper* fbHelper;
 }
@@ -45,9 +62,8 @@ static RKObjectMapping* taleMapping;
 
 - (id) init {
     if (self = [super init]) {
-        [RKMIMETypeSerialization registerClass:[RKNSJSONSerialization class] forMIMEType:@"application/json"];
-        objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:PATH_BASE_URL]];
-        [self addErrorResponseDescriptor];
+        //[self addErrorResponseDescriptor];
+        self.isDebugMode = YES;
         self.currentUser = [MTUserModel new];
         serverClient = [MTServerClient sharedInstance];
         fbHelper = [MTFBHelper sharedFBHelper];
@@ -73,18 +89,52 @@ static RKObjectMapping* taleMapping;
          @"voice_url":@"voiceUrl",
          @"create_at":@"createdAt"
          }];
-        
-        [objectManager.router.routeSet addRoute:[RKRoute routeWithClass:[MTUserModel class] pathPattern:@"user/uid/:ID" method:RKRequestMethodGET]];
-        NSIndexSet *statusCodes = RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful);
-        RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userMapping
-                                                                                           pathPattern:nil
-                                                                                               keyPath:@"user"
-                                                                                           statusCodes:statusCodes];
-        [objectManager addResponseDescriptor:responseDescriptor];
+        // Song mapping
+        songMapping = [RKObjectMapping mappingForClass:[MTSongModel class]];
+        [songMapping addAttributeMappingsFromDictionary:@{
+         @"song_id":@"ID",
+         @"listen_count":@"listenCount",
+         @"itune_track_id":@"trackId",
+         @"trackName":@"trackName",
+         @"artistName":@"artistName",
+         @"trackViewUrl":@"trackViewUrl",
+         @"artistId":@"artistId",
+         @"artworkUrl100":@"artworkUrl100",
+         @"collectionName":@"collectionName",
+         @"collectionId":@"collectionId",
+         @"country":@"country",
+         @"previewUrl":@"previewUrl",
+         @"primaryGenreName":@"primaryGenreName"
+         
+         }];
+        listenMapping = [RKObjectMapping mappingForClass:[MTListenModel class]];
+        [listenMapping addAttributeMappingsFromDictionary:@{
+         @"song_id":@"songID",
+         @"uid":@"userID",
+         @"listen_count":@"listenCount"
+         }];
     }
     return self;
 }
 
+/*
+
+- (void) addErrorResponseDescriptor {
+    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
+    
+    [errorMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:nil toKeyPath:@"errorMessage"]];
+    
+    RKResponseDescriptor *errorDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
+                                                                                    pathPattern:nil
+                                                                                        keyPath:@"error"
+                                                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
+    
+    [objectManager addResponseDescriptorsFromArray:@[errorDescriptor]];
+    
+}*/
+
+
+#pragma mark login/out/signup
 - (BOOL) isLoggedIn {
     return (_currentUser && self.mtToken);
 }
@@ -139,7 +189,6 @@ static RKObjectMapping* taleMapping;
     [fbHelper openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *   session, FBSessionState state, NSError *error) {
         switch (state) {
             case FBSessionStateOpen: {
-            
                 [self loadUserInfo:^(void){
                     [self loginWithFBToServer:completeHandler];
                 }];
@@ -152,11 +201,9 @@ static RKObjectMapping* taleMapping;
             default:
                 break;
         }
-        
         if (error) {
             completeHandler(NO,error);
         }
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:FBSessionStateChangedNotification object:session];
         
     }];
@@ -251,35 +298,65 @@ static RKObjectMapping* taleMapping;
     return [NSString stringWithFormat:FB_PROFILE_URL_FORMAT,ID];
 }
 
-
-
-- (void) addErrorResponseDescriptor {
-    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
-    
-    [errorMapping addPropertyMapping:[RKAttributeMapping attributeMappingFromKeyPath:nil toKeyPath:@"errorMessage"]];
-    
-    RKResponseDescriptor *errorDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
-                                                                                    pathPattern:nil
-                                                                                        keyPath:@"error"
-                                                                                    statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
-    
-    [objectManager addResponseDescriptorsFromArray:@[errorDescriptor]];
-
-}
-
-- (void) searchUser:(NSString*)term completeHandler:(NetworkCompleteHandler)handler {
-    
-}
-
-
-- (void) getUserWithID:(MTUserModel*)user completeHandler:(NetworkCompleteHandler)handler
-{
-    
-    [objectManager getObject:user path:nil parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        handler(result.array,nil);
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+#pragma mark songs
+- (void) postSong:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
+    NSDictionary* songData = [self objectToDictionary:song inverseMapping:songMapping.inverseMapping rootPath:nil];
+    [serverClient postSecure:songData token:self.mtToken path:MT_PATH_SONG success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        song.ID = [responseObject objectForKey:@"song_id"];
+        LOG_S(@"postSong", responseObject);
+        handler(song,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"postSong", error);
         handler(nil,error);
     }];
+}
+
+- (void) postListenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
+    [self postSong:song completeHandler:^(id data, NSError *error) {
+        if (data) {
+            MTSongModel* song = (MTSongModel*)data;
+            assert(song!=nil);
+            [serverClient postSecure:@{@"song_id":song.ID} token:self.mtToken path:MT_PATH_LISTEN success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                assert(song.ID != nil);
+                LOG_S(@"post listen", responseObject);
+                MTListenModel* listenTo = [MTListenModel new];
+                [self dictionaryToObject:responseObject destination:listenTo objectMapping:listenMapping];
+                handler(listenTo,nil);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                LOG_F(@"post listen", error);
+                handler(nil,error);
+            }];
+        } else {
+            handler(nil,error);
+        }
+    }];
+}
+
+- (void) getPopularSongs:(NSInteger)limit completeHandler:(NetworkCompleteHandler)handler {
+    [serverClient getSecure:@{@"limit":int2string(limit)} token:self.mtToken path:MT_PATH_LISTEN_POPULAR success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"get popular", responseObject);
+        NSMutableArray* songs = [NSMutableArray array];
+        [self dictionaryToObject:responseObject destination:songs objectMapping:songMapping];
+        handler(songs,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"get popular", error);
+    }];
+}
+
+- (NSDictionary*) objectToDictionary:(id)obj inverseMapping:(RKObjectMapping*)mapping rootPath:(NSString*)root{
+    RKRequestDescriptor * requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:mapping objectClass:[obj class] rootKeyPath:root];
+    NSError *error = nil;
+    return [RKObjectParameterization parametersWithObject:obj requestDescriptor:requestDescriptor error:&error];
+}
+
+- (BOOL) dictionaryToObject:(NSDictionary*)representation destination:(id)obj objectMapping:(RKObjectMapping*)objMapping{
+    RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:representation destinationObject:obj mapping:objMapping];
+    NSError *error = nil;
+    BOOL success = [mappingOperation performMapping:&error];
+    if (!success) {
+        LOG_F(@"Mappign fail", error);
+    }
+    return success;
 }
 
 

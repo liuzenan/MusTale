@@ -11,14 +11,17 @@
 #import "MTArtistModel.h"
 #import "MTTaleModel.h"
 #import "MTFBHelper.h"
+#import "MTSongModel.h"
+#import "MTListenModel.h"
 @interface MTNetworkController : NSObject
 @property (nonatomic,strong) MTUserModel* currentUser;
+@property (nonatomic) BOOL isDebugMode;
 + (MTNetworkController*) sharedInstance;
 - (BOOL) isLoggedIn;
 - (void) fbLogin:(FBLoginCompleteHandler)completeHandler;
 - (void) signUpViaFacebook:(NetworkCompleteHandler)handler;
 - (void) logout:(NetworkCompleteHandler)completeHandler;
 
-- (void) getUserWithID:(MTUserModel*)user completeHandler:(NetworkCompleteHandler)handler;
-
+- (void) postListenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+- (void) getPopularSongs:(NSInteger)limit completeHandler:(NetworkCompleteHandler)handler;
 @end

@@ -9,7 +9,7 @@
 
 #import "MTServerClient.h"
 
-#define SG_SERVER_TERM_AUTHTOKEN @"auth_token"
+#define MT_SERVER_TERM_AUTHTOKEN @"auth_token"
 
 @implementation MTServerClient
 
@@ -49,18 +49,19 @@
     [self getPath:path parameters:data success:successBlock failure:failBlock];
 }
 
-- (void) postSecure:(NSMutableDictionary*)data
+- (void) postSecure:(NSDictionary*)data
               token:token
                path:(NSString*)path
             success:(AFHTTPSuccessBlock)successBlock
             failure:(AFHTTPFailBlock)failBlock {
+    data = [NSMutableDictionary dictionaryWithDictionary:data];
     
     if (data) {
-        [data setValue:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        [data setValue:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     } else {
-        data = [NSDictionary dictionaryWithObject:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
-    
+    NSLog(@"%@",data);
     [self postPath:path parameters:data success:successBlock failure:failBlock];
 }
 /*
@@ -76,9 +77,9 @@
                    progress:(ProgressBlock)progressBlock{
     
     if (data) {
-        [data setValue:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        [data setValue:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     } else {
-        data = [NSDictionary dictionaryWithObject:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
     
     NSURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:path parameters:data constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
@@ -93,46 +94,50 @@
     [operation start];
 }*/
 
-- (void) getSecure:(NSMutableDictionary*)data
+- (void) getSecure:(NSDictionary*)data
              token:(NSString*)token
               path:(NSString*)path
            success:(AFHTTPSuccessBlock)successBlock
            failure:(AFHTTPFailBlock)failBlock {
-    
+    data = [NSMutableDictionary dictionaryWithDictionary:data];
     if (data) {
-        [data setValue:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        [data setValue:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     } else {
-        data = [NSDictionary dictionaryWithObject:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
     
     [self getPath:path parameters:data success:successBlock failure:failBlock];
     
 }
 
-- (void) putSecure:(NSMutableDictionary*)data
+- (void) putSecure:(NSDictionary*)data
              token:(NSString*)token
               path:(NSString*)path
            success:(AFHTTPSuccessBlock)successBlock
            failure:(AFHTTPFailBlock)failBlock {
+    data = [NSMutableDictionary dictionaryWithDictionary:data];
     if (data) {
-        [data setValue:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        [data setValue:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     } else {
-        data = [NSDictionary dictionaryWithObject:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
     [self putPath:path parameters:data success:successBlock failure:failBlock];
 }
 
-- (void) deleteSecure:(NSMutableDictionary*)data
+- (void) deleteSecure:(NSDictionary*)data
                 token:(NSString*)token
                  path:(NSString*)path
               success:(AFHTTPSuccessBlock)successBlock
               failure:(AFHTTPFailBlock)failBlock {
+    data = [NSMutableDictionary dictionaryWithDictionary:data];
     if (data) {
-        [data setValue:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        [data setValue:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     } else {
-        data = [NSDictionary dictionaryWithObject:token forKey:SG_SERVER_TERM_AUTHTOKEN];
+        data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
     [self deletePath:path parameters:data success:successBlock failure:failBlock];
 }
+
+
 
 @end

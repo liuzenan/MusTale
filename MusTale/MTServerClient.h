@@ -32,25 +32,25 @@ typedef void (^AFHTTPFailBlock)(AFHTTPRequestOperation *operation, NSError *erro
      success:(AFHTTPSuccessBlock)successBlock
      failure:(AFHTTPFailBlock)failBlock;
 
-- (void) postSecure:(NSMutableDictionary*)data
+- (void) postSecure:(NSDictionary*)data
               token:token
                path:(NSString*)path
             success:(AFHTTPSuccessBlock)successBlock
             failure:(AFHTTPFailBlock)failBlock;
 
-- (void) getSecure:(NSMutableDictionary*)data
+- (void) getSecure:(NSDictionary*)data
              token:(NSString*)token
               path:(NSString*)path
            success:(AFHTTPSuccessBlock)successBlock
            failure:(AFHTTPFailBlock)failBlock;
 
-- (void) putSecure:(NSMutableDictionary*)data
+- (void) putSecure:(NSDictionary*)data
              token:(NSString*)token
               path:(NSString*)path
            success:(AFHTTPSuccessBlock)successBlock
            failure:(AFHTTPFailBlock)failBlock;
 
-- (void) deleteSecure:(NSMutableDictionary*)data
+- (void) deleteSecure:(NSDictionary*)data
                 token:(NSString*)token
                  path:(NSString*)path
               success:(AFHTTPSuccessBlock)successBlock

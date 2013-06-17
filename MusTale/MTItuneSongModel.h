@@ -1,18 +1,16 @@
 //
-//  MTSongModel.h
+//  MTItuneSongModel.h
 //  MusTale
 //
-//  Created by Zenan on 30/5/13.
+//  Created by Jiao Jing Ping on 18/6/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "MTItuneSongModel.h"
-@interface MTSongModel : NSObject
+
+@interface MTItuneSongModel : NSObject
 
 @property (nonatomic, strong) NSString* ID;
-@property (nonatomic) NSInteger listenCount;
-
 @property (nonatomic, strong) NSString *trackName;
 @property (nonatomic, strong) NSString *artistName;
 @property (nonatomic, strong) NSString *trackId;
@@ -24,6 +22,5 @@
 @property (nonatomic, strong) NSString *country;
 @property (nonatomic, strong) NSURL *previewUrl;
 @property (nonatomic, strong) NSString *primaryGenreName;
-
 
 @end

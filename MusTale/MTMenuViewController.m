@@ -10,6 +10,7 @@
 #import "MTMenuTableCell.h"
 #import "UIColor+i7HexColor.h"
 #import "MTNetworkController.h"
+#import "MTItuneNetworkController.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -217,6 +218,7 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
+        /*
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
             if (!error){
                 UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
@@ -226,8 +228,20 @@
                 // some error
             }
         }];
-        
-        
+        */
+        /*
+        [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
+            
+            if (!error){
+                MTSongModel* song = [(NSArray*)data objectAtIndex:0];
+                [[MTNetworkController sharedInstance] postListenTo:song completeHandler:^(id data, NSError *error) {
+                    
+                }];
+            }
+        }];*/
+        [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
+           
+        }];
     }
 }
 
