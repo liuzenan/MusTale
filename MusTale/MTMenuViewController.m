@@ -218,7 +218,7 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        /*
+        
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
             if (!error){
                 UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
@@ -228,7 +228,6 @@
                 // some error
             }
         }];
-        */
         /*
         [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
             
@@ -239,9 +238,9 @@
                 }];
             }
         }];*/
-        [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
+        /*[[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
            
-        }];
+        }];*/
     }
 }
 
