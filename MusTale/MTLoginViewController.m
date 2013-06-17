@@ -7,7 +7,7 @@
 //
 
 #import "MTLoginViewController.h"
-
+#import "MTNetworkController.h"
 @interface MTLoginViewController ()
 
 @end
@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,13 +40,36 @@
     [super viewDidUnload];
 }
 
+- (void) viewDidAppear:(BOOL)animated{
+    if ([[MTNetworkController sharedInstance] isLoggedIn]){
+        [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
+    }
+}
 
 - (IBAction)loginBtnPressed:(id)sender {
     
-    [SVProgressHUD showSuccessWithStatus:@"Successfully logged in!"];
-    [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
+    [[MTNetworkController sharedInstance] fbLogin:^(BOOL isExistingUser, NSError *error) {
+        if (error) {
+            //Some error happens
+        } else if(isExistingUser) {
+            // Go ahead and enter main page;
+            [SVProgressHUD showSuccessWithStatus:@"Successfully logged in!"];
+            [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
+        } else {
+            [[MTNetworkController sharedInstance] signUpViaFacebook:^(id data, NSError *error) {
+                if (!error) {
+                    // Successfully signup
+                    [SVProgressHUD showSuccessWithStatus:@"Welcome to mustale!"];
+                    [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
+                } else {
+                    // error
+                }
+            }];
+        }
+    }];
 
 }
+
 
 
 #pragma mark - Facebook Login Delegates

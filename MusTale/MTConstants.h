@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+// Notifications
+extern NSString *const APP_STATUS_WILL_INACTIVE;
+extern NSString *const APP_STATUS_WILL_TERMINATE;
+extern NSString *const APP_STATUS_DID_ENTER_FOREGROUND;
+extern NSString *const APP_STATUS_DID_ENTER_BACKGROUND ;
+extern NSString *const APP_STATUS_DID_ACTIVE;
+extern NSString *const APP_NETWORK_REACHABLE ;
+extern NSString *const APP_NETWORK_DOWN;
+extern NSString *const APP_NETWORK_REACHABLE ;
+extern NSString *const APP_NETWORK_DOWN;
+
+
 extern NSString *const LATO_BLACK;
 extern NSString *const LATO_BLACKITALIC;
 extern NSString *const LATO_BOLD;
@@ -61,9 +73,10 @@ extern NSString *const ANIMATION_OPEN_CONTROL_KEY;
 #define REMOVABLE_BUTTON_TAG 243
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
-#define PATH_BASE_URL @"http://jiaojingping.com/mustale/index.php/api/example"
+#define PATH_BASE_URL @"http://jiaojingping.com/mustale/index.php/api"
 
 typedef void (^NetworkCompleteHandler)(id data,NSError* error);
+typedef void (^FBLoginCompleteHandler)(BOOL isExistingUser, NSError* error);
 
 @interface MTConstants : NSObject
 

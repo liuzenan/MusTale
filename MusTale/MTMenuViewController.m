@@ -9,7 +9,7 @@
 #import "MTMenuViewController.h"
 #import "MTMenuTableCell.h"
 #import "UIColor+i7HexColor.h"
-
+#import "MTNetworkController.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -217,9 +217,17 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-        loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentModalViewController:loginView animated:YES];
+        [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
+            if (!error){
+                UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
+                loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                [self presentModalViewController:loginView animated:YES];
+            } else {
+                // some error
+            }
+        }];
+        
+        
     }
 }
 

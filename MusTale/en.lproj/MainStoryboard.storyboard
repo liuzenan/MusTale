@@ -637,6 +637,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTLoginViewController.h"/>
             <relationships>
                 <relationship kind="action" name="loginBtnPressed:"/>
+                <relationship kind="action" name="logoutBtnPressed:"/>
             </relationships>
         </class>
         <class className="MTMenuTableCell" superclassName="UITableViewCell">
