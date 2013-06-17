@@ -50,7 +50,7 @@ NSString *const FBSessionStateChangedNotification = @"com.streetgaga.Login:FBSes
  */
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
                   completionHandler:(FBOpenSessionHandler)handler {
-    NSArray* permissions = [NSArray arrayWithObjects:@"email", nil];
+    NSArray* permissions = [NSArray arrayWithObjects:@"basic_info", @"email", nil];
     return [FBSession openActiveSessionWithReadPermissions:permissions
                                               allowLoginUI:allowLoginUI
                                          completionHandler:handler];

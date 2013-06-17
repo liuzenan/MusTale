@@ -59,7 +59,7 @@
             [[MTNetworkController sharedInstance] signUpViaFacebook:^(id data, NSError *error) {
                 if (!error) {
                     // Successfully signup
-                    [SVProgressHUD showSuccessWithStatus:@"Welcome to mustale!"];
+                    [SVProgressHUD showSuccessWithStatus:@"Welcome to MusTale!"];
                     [self performSegueWithIdentifier:@"kLoadSliderView" sender:self];
                 } else {
                     // error
