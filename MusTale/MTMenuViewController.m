@@ -249,12 +249,12 @@
         [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
            
         }];*/
-        /*
+        
         MTUserModel* user = [MTUserModel new];
         user.ID = @"28";
         [[MTNetworkController sharedInstance] getUserInfo:user completehandler:^(id data, NSError *error) {
             
-        }];*/
+        }];
         /*
         MTCommentsModel* comment = [MTCommentsModel new];
         comment.content = @"test";
@@ -262,6 +262,10 @@
         [[MTNetworkController sharedInstance] postCommentToTale:comment completeHandler:^(id data, NSError *error) {
             
         }];*/
+        NSString* taleID = @"10";
+        [[MTNetworkController sharedInstance] likeTale:taleID compeleteHandler:^(id data, NSError *error) {
+            
+        }];
         
     }
 }

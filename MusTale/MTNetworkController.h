@@ -34,4 +34,6 @@
 #pragma mark tale
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler;
+- (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
+- (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 @end

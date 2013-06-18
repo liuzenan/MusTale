@@ -28,6 +28,8 @@
 
 #define MT_PATH_SONG_TALE @"songs/tales/song_id/%@" //uid-songid
 #define MT_PATH_TALE @"tales"
+#define MT_PATH_TALE_LIKE @"tales/likes/tale_id/%@"
+#define MT_PATH_TALE_UNLIKE @"tales/unlikes/tale_id/%@"
 
 #define MT_PATH_LISTEN @"listens"  //songid-userid
 #define MT_PATH_LISTEN_POPULAR @"listens/popular"
@@ -361,18 +363,6 @@ static RKObjectMapping* commentMapping;
     }];
 }
 
-- (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler {
-    assert(comment.taleID!=nil);
-    NSDictionary* commentData = [self objectToDictionary:comment inverseMapping:commentMapping.inverseMapping rootPath:nil];
-    [serverClient postSecure:commentData token:self.mtToken path:MT_PATH_COMMENT success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LOG_S(@"post comment", responseObject);
-        [self dictionaryToObject:responseObject destination:comment objectMapping:commentMapping];
-        handler(comment,nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LOG_F(@"post comment", error);
-        handler(nil,error);
-    }];
-}
 
 #pragma mark tale
 - (void) postTale:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler {
@@ -388,6 +378,40 @@ static RKObjectMapping* commentMapping;
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          LOG_F(@"post tale", error);
                      }];
+}
+
+- (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler {
+    assert(taleID!=nil);
+    [serverClient postSecure:nil token:self.mtToken path:[NSString stringWithFormat:MT_PATH_TALE_LIKE,taleID] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"like", responseObject);
+        //NSInteger likeCount = [ intValue];
+        //handler(likeCount,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"like", error);
+        handler(nil,error);
+    }];
+}
+
+- (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler {
+    assert(taleID!=nil);
+    [serverClient postSecure:nil token:self.mtToken path:[NSString stringWithFormat:MT_PATH_TALE_UNLIKE,taleID] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"unlike", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"unlike", error);
+    }];
+}
+
+- (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler {
+    assert(comment.taleID!=nil);
+    NSDictionary* commentData = [self objectToDictionary:comment inverseMapping:commentMapping.inverseMapping rootPath:nil];
+    [serverClient postSecure:commentData token:self.mtToken path:MT_PATH_COMMENT success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"post comment", responseObject);
+        [self dictionaryToObject:responseObject destination:comment objectMapping:commentMapping];
+        handler(comment,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"post comment", error);
+        handler(nil,error);
+    }];
 }
 
 
