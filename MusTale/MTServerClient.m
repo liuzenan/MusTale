@@ -61,7 +61,6 @@
     } else {
         data = [NSDictionary dictionaryWithObject:token forKey:MT_SERVER_TERM_AUTHTOKEN];
     }
-    NSLog(@"%@",data);
     [self postPath:path parameters:data success:successBlock failure:failBlock];
 }
 /*

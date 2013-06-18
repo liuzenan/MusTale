@@ -9,5 +9,4 @@
 #import "MTTaleModel.h"
 
 @implementation MTTaleModel
-@synthesize ID,songID,text,createdAt,voiceUrl,userID;
 @end
