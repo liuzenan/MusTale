@@ -218,7 +218,10 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
+        
+        /*API Examples*/
        /*
+        // Logout
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
             if (!error){
                 UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
@@ -229,6 +232,8 @@
             }
         }];*/
         /*
+         // Get song info from itune and register the song to the server, return the same song model with songId filled.
+         // Then post a tale to this song
         [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
             
             if (!error){
@@ -246,27 +251,49 @@
             }
         }];*/
         /*
+         // Get popular song with limit 50
         [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
            
         }];*/
-        
+        /*
+         // Get a infomation of a user given its ID, return the same model with info filled
         MTUserModel* user = [MTUserModel new];
         user.ID = @"28";
         [[MTNetworkController sharedInstance] getUserInfo:user completehandler:^(id data, NSError *error) {
             
-        }];
+        }];*/
         /*
+         // Post comment to a tale, return the same comments model with info filled
         MTCommentsModel* comment = [MTCommentsModel new];
         comment.content = @"test";
         comment.taleID = @"10";
         [[MTNetworkController sharedInstance] postCommentToTale:comment completeHandler:^(id data, NSError *error) {
             
         }];*/
+        /*
+         // like a tale, return the count of like for the tale as NSInteger
         NSString* taleID = @"10";
         [[MTNetworkController sharedInstance] likeTale:taleID compeleteHandler:^(id data, NSError *error) {
             
         }];
+         [[MTNetworkController sharedInstance] unlikeTale:taleID compeleteHandler:^(id data, NSError *error) {
+         
+         }];*/
         
+        /*
+         // Get tales of a song, return array of tales model
+        [[MTNetworkController sharedInstance] getTalesOfSong:@"5" completeHandler:^(id data, NSError *error) {
+            
+        }];*/
+        
+        /*
+         // Get comments of a tale, return array of comment model
+         [[MTNetworkController sharedInstance] getCommentsOfTale:@"11" completeHandler:^(id data, NSError *error) {
+             
+         }];*/
+        
+        
+         
     }
 }
 

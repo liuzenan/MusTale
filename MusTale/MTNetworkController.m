@@ -11,6 +11,7 @@
 #import <RestKit/RestKit.h>
 #import "MTServerClient.h"
 #import <EGOCache/EGOCache.h>
+#import "RKObjectMappingOperationDataSource.h"
 
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
 #define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with data %@",tag,error.localizedDescription)
@@ -36,7 +37,7 @@
 
 #define MT_PATH_DEDICATION @"dedications" // songid-userid(from)-userid(to)
 #define MT_PATH_COMMENT @"tales/comments" // uid-songid (tale)-songid (from)
-
+#define MT_PATH_COMMENT_TALE @"tales/comments/tale_id/%@"
 static RKObjectMapping* userMapping;
 static RKObjectMapping* taleMapping;
 static RKObjectMapping* songMapping;
@@ -71,8 +72,7 @@ static RKObjectMapping* commentMapping;
         self.currentUser = [MTUserModel new];
         serverClient = [MTServerClient sharedInstance];
         fbHelper = [MTFBHelper sharedFBHelper];
-        
-    
+           
         // User mapping
         userMapping = [RKObjectMapping mappingForClass:[MTUserModel class]];
         [userMapping addAttributeMappingsFromDictionary:@{
@@ -87,15 +87,19 @@ static RKObjectMapping* commentMapping;
         taleMapping = [RKObjectMapping mappingForClass:[MTTaleModel class]];
         [taleMapping addAttributeMappingsFromDictionary:@{
          @"tale_id":@"ID",
-         @"uid":@"userID",
          @"song_id":@"songID",
          @"text":@"text",
          @"is_public":@"isPublic",
          @"is_anonymous":@"isAnonymous",
          @"is_front":@"isFront",
          @"voice_url":@"voiceUrl",
-         @"create_at":@"createdAt"
+         @"create_at":@"createdAt",
+         @"is_liked":@"isLikedByCurrentUser",
+         @"like_count":@"likeCount",
+         @"comment_count":@"commentCount"
          }];
+        [taleMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"from_user" toKeyPath:@"user" withMapping:userMapping]];
+        
         // Song mapping
         songMapping = [RKObjectMapping mappingForClass:[MTSongModel class]];
         [songMapping addAttributeMappingsFromDictionary:@{
@@ -237,7 +241,6 @@ static RKObjectMapping* commentMapping;
                     }];
 }
 
-// Talk to server to login with facebook
 - (void) loginWithFBToServer:(FBLoginCompleteHandler)completeHanlder {
     NSMutableDictionary* data = [NSMutableDictionary dictionary];
     [data setValue:self.fbToken forKey:@"fb_token"];
@@ -394,9 +397,13 @@ static RKObjectMapping* commentMapping;
 
 - (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler {
     assert(taleID!=nil);
-    [serverClient postSecure:nil token:self.mtToken path:[NSString stringWithFormat:MT_PATH_TALE_UNLIKE,taleID] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [serverClient postSecure:nil
+                       token:self.mtToken
+                        path:[NSString stringWithFormat:MT_PATH_TALE_UNLIKE,taleID]
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
         LOG_S(@"unlike", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         LOG_F(@"unlike", error);
     }];
 }
@@ -404,16 +411,50 @@ static RKObjectMapping* commentMapping;
 - (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler {
     assert(comment.taleID!=nil);
     NSDictionary* commentData = [self objectToDictionary:comment inverseMapping:commentMapping.inverseMapping rootPath:nil];
-    [serverClient postSecure:commentData token:self.mtToken path:MT_PATH_COMMENT success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LOG_S(@"post comment", responseObject);
-        [self dictionaryToObject:responseObject destination:comment objectMapping:commentMapping];
-        handler(comment,nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LOG_F(@"post comment", error);
-        handler(nil,error);
-    }];
+    [serverClient postSecure:commentData
+                       token:self.mtToken
+                        path:MT_PATH_COMMENT
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         LOG_S(@"post comment", responseObject);
+                         
+                         [self dictionaryToObject:responseObject destination:comment objectMapping:commentMapping];
+                         handler(comment,nil);
+                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         LOG_F(@"post comment", error);
+                         handler(nil,error);
+                     }];
 }
 
+- (void) getTalesOfSong:(NSString*)songId completeHandler:(NetworkCompleteHandler)handler {
+    assert(songId!=nil);
+    [serverClient getSecure:nil
+                      token:self.mtToken
+                       path:[NSString stringWithFormat:MT_PATH_SONG_TALE,songId]
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        LOG_S(@"get tale", responseObject);
+                        NSArray* tales = [self arrayToObjects:responseObject class:[MTTaleModel class] objectMapping:taleMapping];
+                        handler(tales,nil);
+                    }
+                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        LOG_F(@"get tale", error);
+                        handler(nil,error);
+                    }];
+}
+
+- (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler {
+    assert(taleId!=nil);
+    [serverClient getSecure:nil token:self.mtToken
+                       path:[NSString stringWithFormat:MT_PATH_COMMENT_TALE,taleId]
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        LOG_S(@"get tale", responseObject);
+                        NSArray* comments = [self arrayToObjects:responseObject class:[MTCommentsModel class] objectMapping:commentMapping];
+                        handler(comments,nil);
+                    }
+                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        LOG_F(@"get tale", error);
+                        handler(nil,error);
+                    }];
+}
 
 #pragma mark user 
 - (void) getUserInfo:(MTUserModel*)user completehandler:(NetworkCompleteHandler)handler {
@@ -426,14 +467,18 @@ static RKObjectMapping* commentMapping;
         NSError* error = [NSError errorWithDomain:@"MT" code:1000 userInfo:@{@"error":@"missing parameter to get user"}];
         handler(nil,error);
     }
-    [serverClient getSecure:nil token:self.mtToken path:path success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        LOG_S(@"Get user info", responseObject);
-        [self dictionaryToObject:responseObject destination:user objectMapping:userMapping];
-        handler(user,nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        LOG_F(@"Get user info", error);
-        handler(nil,error);
-    }];
+    [serverClient getSecure:nil
+                      token:self.mtToken
+                       path:path
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        LOG_S(@"Get user info", responseObject);
+                        [self dictionaryToObject:responseObject destination:user objectMapping:userMapping];
+                        handler(user,nil);
+                    }
+                    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        LOG_F(@"Get user info", error);
+                        handler(nil,error);
+                    }];
 }
 
 
@@ -445,15 +490,29 @@ static RKObjectMapping* commentMapping;
 }
 
 - (BOOL) dictionaryToObject:(NSDictionary*)representation destination:(id)obj objectMapping:(RKObjectMapping*)objMapping{
+    
     RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:representation destinationObject:obj mapping:objMapping];
+
+    RKObjectMappingOperationDataSource *dataSource = [RKObjectMappingOperationDataSource new];
+    mappingOperation.dataSource = dataSource;
     NSError *error = nil;
     BOOL success = [mappingOperation performMapping:&error];
     if (!success) {
         LOG_F(@"Mappign fail", error);
     }
     return success;
+   //[mappingOperation start];
 }
 
+- (NSArray*) arrayToObjects:(NSArray*)array class:(Class)class objectMapping:(RKObjectMapping*)objMapping {
+    NSMutableArray* result = [NSMutableArray array];
+    for (NSDictionary* data in array) {
+        id obj = [[class alloc] init];
+        [self dictionaryToObject:data destination:obj objectMapping:objMapping];
+        [result addObject:obj];
+    }
+    return result;
+}
 
 - (void) registerNotifications{
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -473,7 +532,13 @@ static RKObjectMapping* commentMapping;
 
 - (void) handleNetworkDown:(NSNotification*)notif  {
     NSLog(@"Networkclient handling network down",nil);
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+                                                    message:@"You must be connected to the internet to use this app."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+
 }
 
 @end
