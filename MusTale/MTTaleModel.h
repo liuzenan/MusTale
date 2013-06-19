@@ -14,5 +14,8 @@
 @property (nonatomic,strong) NSString* songID;
 @property (nonatomic,strong) NSString* text;
 @property (nonatomic,strong) NSString* voiceUrl;
+@property (nonatomic) BOOL isPublic;
+@property (nonatomic) BOOL isAnonymous;
+@property (nonatomic) BOOL isFront;
 @property (nonatomic,strong) NSDate* createdAt;
 @end

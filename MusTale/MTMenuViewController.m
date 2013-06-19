@@ -218,7 +218,7 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        
+       /*
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
             if (!error){
                 UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
@@ -227,20 +227,46 @@
             } else {
                 // some error
             }
-        }];
+        }];*/
         /*
         [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
             
             if (!error){
                 MTSongModel* song = [(NSArray*)data objectAtIndex:0];
                 [[MTNetworkController sharedInstance] postListenTo:song completeHandler:^(id data, NSError *error) {
-                    
+                    MTTaleModel* tale = [MTTaleModel new];
+                    tale.isAnonymous=YES;
+                    tale.isPublic = YES;
+                    tale.text = @"Test tale";
+                    tale.isFront = NO;
+                    [[MTNetworkController sharedInstance] postTale:tale to:song completeHandler:^(id data, NSError *error) {
+                        
+                    }];
                 }];
             }
         }];*/
-        /*[[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
+        /*
+        [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {
            
         }];*/
+        
+        MTUserModel* user = [MTUserModel new];
+        user.ID = @"28";
+        [[MTNetworkController sharedInstance] getUserInfo:user completehandler:^(id data, NSError *error) {
+            
+        }];
+        /*
+        MTCommentsModel* comment = [MTCommentsModel new];
+        comment.content = @"test";
+        comment.taleID = @"10";
+        [[MTNetworkController sharedInstance] postCommentToTale:comment completeHandler:^(id data, NSError *error) {
+            
+        }];*/
+        NSString* taleID = @"10";
+        [[MTNetworkController sharedInstance] likeTale:taleID compeleteHandler:^(id data, NSError *error) {
+            
+        }];
+        
     }
 }
 

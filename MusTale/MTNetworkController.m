@@ -26,7 +26,10 @@
 #define MT_PATH_USER @"users" //uid
 #define MT_PATH_SONG @"songs" //songid
 
-#define MT_PATH_TALE @"songs/id/%@/tales" //uid-songid
+#define MT_PATH_SONG_TALE @"songs/tales/song_id/%@" //uid-songid
+#define MT_PATH_TALE @"tales"
+#define MT_PATH_TALE_LIKE @"tales/likes/tale_id/%@"
+#define MT_PATH_TALE_UNLIKE @"tales/unlikes/tale_id/%@"
 
 #define MT_PATH_LISTEN @"listens"  //songid-userid
 #define MT_PATH_LISTEN_POPULAR @"listens/popular"
@@ -38,6 +41,7 @@ static RKObjectMapping* userMapping;
 static RKObjectMapping* taleMapping;
 static RKObjectMapping* songMapping;
 static RKObjectMapping* listenMapping;
+static RKObjectMapping* commentMapping;
 
 @interface MTNetworkController ()
 @property (nonatomic,strong) NSString* fbToken;
@@ -86,6 +90,9 @@ static RKObjectMapping* listenMapping;
          @"uid":@"userID",
          @"song_id":@"songID",
          @"text":@"text",
+         @"is_public":@"isPublic",
+         @"is_anonymous":@"isAnonymous",
+         @"is_front":@"isFront",
          @"voice_url":@"voiceUrl",
          @"create_at":@"createdAt"
          }];
@@ -112,6 +119,14 @@ static RKObjectMapping* listenMapping;
          @"song_id":@"songID",
          @"uid":@"userID",
          @"listen_count":@"listenCount"
+         }];
+        
+        commentMapping = [RKObjectMapping mappingForClass:[MTCommentsModel class]];
+        [commentMapping addAttributeMappingsFromDictionary:@{
+         @"uid":@"userID",
+         @"tale_id":@"taleID",
+         @"content":@"content",
+         @"created_at":@"createdAt"
          }];
     }
     return self;
@@ -336,13 +351,93 @@ static RKObjectMapping* listenMapping;
     [serverClient getSecure:@{@"limit":int2string(limit)} token:self.mtToken path:MT_PATH_LISTEN_POPULAR success:^(AFHTTPRequestOperation *operation, id responseObject) {
         LOG_S(@"get popular", responseObject);
         NSMutableArray* songs = [NSMutableArray array];
-        [self dictionaryToObject:responseObject destination:songs objectMapping:songMapping];
+        for (NSDictionary* songInfo in responseObject) {
+            MTSongModel* song = [MTSongModel new];
+            [self dictionaryToObject:songInfo destination:song objectMapping:songMapping];
+            [songs addObject:song];
+        }
+        
         handler(songs,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         LOG_F(@"get popular", error);
     }];
 }
 
+
+#pragma mark tale
+- (void) postTale:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler {
+    NSDictionary* taleData = [self objectToDictionary:tale inverseMapping:taleMapping.inverseMapping rootPath:nil];
+    assert(songID!=nil);
+    [serverClient postSecure:taleData token:self.mtToken
+                        path:[NSString stringWithFormat:MT_PATH_SONG_TALE,songID]
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         LOG_S(@"post tale", responseObject);
+                         [self dictionaryToObject:responseObject destination:tale objectMapping:taleMapping];
+                         handler(tale,nil);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         LOG_F(@"post tale", error);
+                     }];
+}
+
+- (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler {
+    assert(taleID!=nil);
+    [serverClient postSecure:nil token:self.mtToken path:[NSString stringWithFormat:MT_PATH_TALE_LIKE,taleID] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"like", responseObject);
+        //NSInteger likeCount = [ intValue];
+        //handler(likeCount,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"like", error);
+        handler(nil,error);
+    }];
+}
+
+- (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler {
+    assert(taleID!=nil);
+    [serverClient postSecure:nil token:self.mtToken path:[NSString stringWithFormat:MT_PATH_TALE_UNLIKE,taleID] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"unlike", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"unlike", error);
+    }];
+}
+
+- (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler {
+    assert(comment.taleID!=nil);
+    NSDictionary* commentData = [self objectToDictionary:comment inverseMapping:commentMapping.inverseMapping rootPath:nil];
+    [serverClient postSecure:commentData token:self.mtToken path:MT_PATH_COMMENT success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"post comment", responseObject);
+        [self dictionaryToObject:responseObject destination:comment objectMapping:commentMapping];
+        handler(comment,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"post comment", error);
+        handler(nil,error);
+    }];
+}
+
+
+#pragma mark user 
+- (void) getUserInfo:(MTUserModel*)user completehandler:(NetworkCompleteHandler)handler {
+    NSString* path = @"%@/user/%@/%@";
+    if (user.ID) {
+        path = [NSString stringWithFormat:path,MT_PATH_USER,@"uid",user.ID];
+    } else if (user.fbID){
+        path = [NSString stringWithFormat:path,MT_PATH_USER,@"fb_id",user.fbID];
+    } else {
+        NSError* error = [NSError errorWithDomain:@"MT" code:1000 userInfo:@{@"error":@"missing parameter to get user"}];
+        handler(nil,error);
+    }
+    [serverClient getSecure:nil token:self.mtToken path:path success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(@"Get user info", responseObject);
+        [self dictionaryToObject:responseObject destination:user objectMapping:userMapping];
+        handler(user,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(@"Get user info", error);
+        handler(nil,error);
+    }];
+}
+
+
+#pragma mark helper
 - (NSDictionary*) objectToDictionary:(id)obj inverseMapping:(RKObjectMapping*)mapping rootPath:(NSString*)root{
     RKRequestDescriptor * requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:mapping objectClass:[obj class] rootKeyPath:root];
     NSError *error = nil;

@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MTCommentsModel : NSObject
-
+@property (nonatomic,strong) NSString* userID;
+@property (nonatomic,strong) NSString* taleID;
+@property (nonatomic,strong) NSString* content;
+@property (nonatomic,strong) NSDate* createdAt;
 @end
