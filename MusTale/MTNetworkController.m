@@ -526,8 +526,7 @@ static RKObjectMapping* dedicationMapping;
     }
     [serverClient getSecure:data token:self.mtToken path:MT_PATH_DEDICATION success:^(AFHTTPRequestOperation *operation, id responseObject) {
         LOG_S(tag, responseObject);
-        NSMutableArray* dedications = [NSMutableArray array];
-        [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
+        NSArray* dedications = [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
         handler(dedications,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         LOG_F(tag, error);
