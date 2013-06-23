@@ -103,6 +103,7 @@
     
     NSLog(@"App became active",nil);
     [[NSNotificationCenter defaultCenter] postNotificationName:APP_STATUS_DID_ACTIVE object:nil];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

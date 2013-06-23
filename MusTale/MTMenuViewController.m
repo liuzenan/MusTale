@@ -218,6 +218,23 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
+        /* Send dedication,return the same dedication model
+        MTDedicationModel* dedication = [MTDedicationModel new];
+        dedication.taleId = @"10";
+        dedication.isPublic = YES;
+        dedication.isAnonymous = NO;
+        [[MTNetworkController sharedInstance] postDedication:dedication toUser:@"29" completeHandler:^(id data, NSError *error) {
+            
+        }];*/
+        // get my inbox, return list of dedication
+        [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
+            
+        }];
+        // get my outbox,return list of dedication
+
+        [[MTNetworkController sharedInstance] getDedicationsFromUser:@"28" toUser:nil completeHandler:^(id data, NSError *error) {
+            
+        }];
         
         /*API Examples*/
        /*
@@ -234,7 +251,7 @@
         
          // Get song info from itune and register the song to the server, return the same song model with songId filled.
          // Then post a tale to this song
-        [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
+        /*[[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
             
             if (!error){
                 MTSongModel* song = [(NSArray*)data objectAtIndex:0];
@@ -251,7 +268,8 @@
             } else {
                 NSLog(@"Error %@",error);
             }
-        }];
+        }];*/
+     
         /*
          // Get popular song with limit 50
         [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {

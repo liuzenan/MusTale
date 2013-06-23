@@ -41,5 +41,6 @@
 - (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
 
 #pragma mark dedication
-- (void) dedicate:(NSString*)taleId toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler;
+- (void) postDedication:(MTDedicationModel*)dedication toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler;
+- (void) getDedicationsFromUser:(NSString*)from toUser:(NSString*)to completeHandler:(NetworkCompleteHandler)handler;
 @end

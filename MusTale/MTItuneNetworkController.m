@@ -92,7 +92,8 @@ static RKObjectMapping* artistMapping;
 
 
 - (void) searchWithTerm:(NSString*)term params:(NSDictionary*)params mapping:(RKObjectMapping*)mapping completeHandler:(NetworkCompleteHandler)handler {
-    NSString* base = [NSString stringWithFormat:NETWORK_PATH_ITUNE_SEARCH,term];
+    NSString* encodedTerm = [term urlEncodeUsingEncoding:NSUTF8StringEncoding];
+    NSString* base = [NSString stringWithFormat:NETWORK_PATH_ITUNE_SEARCH,encodedTerm];
     NSString* path = [self constructRequestUrlString:base :params];
     [self getWithPath:path mapping:mapping handler:handler];
 }
