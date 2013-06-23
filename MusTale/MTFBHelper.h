@@ -20,6 +20,6 @@ extern NSString *const FBSessionStateChangedNotification;
 - (BOOL)handleOpenURL:(NSURL*)url;
 - (void)closeSession;
 - (BOOL)isOpen;
-
+- (void)searchFriendMatchingTerm:(NSString*)term completeHandler:(NetworkCompleteHandler)handler;
 + (MTFBHelper*) sharedFBHelper;
 @end

@@ -11,6 +11,7 @@
 #import "UIColor+i7HexColor.h"
 #import "MTNetworkController.h"
 #import "MTItuneNetworkController.h"
+#import "MTFBHelper.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -227,13 +228,16 @@
             
         }];*/
         // get my inbox, return list of dedication
-        [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
+        /*[[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
             
         }];
         // get my outbox,return list of dedication
 
         [[MTNetworkController sharedInstance] getDedicationsFromUser:@"28" toUser:nil completeHandler:^(id data, NSError *error) {
             
+        }];*/
+        [[MTFBHelper sharedFBHelper] searchFriendMatchingTerm:@"jim" completeHandler:^(id data, NSError *error) {
+                
         }];
         
         /*API Examples*/

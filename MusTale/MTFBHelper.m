@@ -56,6 +56,53 @@ NSString *const FBSessionStateChangedNotification = @"com.streetgaga.Login:FBSes
                                          completionHandler:handler];
 }
 
+- (void) searchFriendMatchingTerm:(NSString*)term completeHandler:(NetworkCompleteHandler)handler{
+    NSString *query =
+    @"{"
+    @"'friends':'SELECT uid2 FROM friend WHERE uid1 = me() LIMIT 25',"
+    @"'friendinfo':'SELECT uid, name, pic_square FROM user WHERE name Like 'jim' AND uid IN (SELECT uid2 FROM #friends)',"
+    @"}";
+    //  query = [NSString stringWithFormat:query,term];
+    NSLog(query,nil);
+    // Set up the query parameter
+    NSDictionary *queryParam = @{ @"q": query };
+    // Make the API request that uses FQL
+    
+    if ([self isOpen]) {
+        [FBRequestConnection startWithGraphPath:@"/fql"
+                                     parameters:queryParam
+                                     HTTPMethod:@"GET"
+                              completionHandler:^(FBRequestConnection *connection,
+                                                  id result,
+                                                  NSError *error) {
+                                  if (error) {
+                                      NSLog(@"Error: %@", [error localizedDescription]);
+                                      handler(nil,error);
+                                  } else {
+                                      NSLog(@"Result: %@", result);
+                                      handler(result,nil);
+                                  }
+                              }];
+    } else {
+        [self openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            [FBRequestConnection startWithGraphPath:@"/fql"
+                                         parameters:queryParam
+                                         HTTPMethod:@"GET"
+                                  completionHandler:^(FBRequestConnection *connection,
+                                                      id result,
+                                                      NSError *error) {
+                                      if (error) {
+                                          NSLog(@"Error: %@", [error localizedDescription]);
+                                          handler(nil,error);
+                                      } else {
+                                          NSLog(@"Result: %@", result);
+                                          handler(result,nil);
+                                      }
+                                  }];
+        }];
+    }
+}
+
 - (BOOL)handleOpenURL:(NSURL*)url {
     NSLog(@"FBHelper handleOpenURL");
     return [FBSession.activeSession handleOpenURL:url];
