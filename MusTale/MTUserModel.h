@@ -17,5 +17,4 @@
 @property (nonatomic,strong) NSString* profileURL;
 @property (nonatomic,strong) NSString* fbLocationID;
 @property (nonatomic,strong) NSString* link;
-+ (MTUserModel*)new;
 @end

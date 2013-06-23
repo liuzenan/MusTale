@@ -10,8 +10,4 @@
 
 @implementation MTUserModel
 
-+ (MTUserModel*)new {
-    return [[MTUserModel alloc] init];
-}
-
 @end

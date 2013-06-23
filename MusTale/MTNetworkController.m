@@ -137,7 +137,6 @@ static RKObjectMapping* commentMapping;
 }
 
 /*
-
 - (void) addErrorResponseDescriptor {
     RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
     
@@ -368,11 +367,11 @@ static RKObjectMapping* commentMapping;
 
 
 #pragma mark tale
-- (void) postTale:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler {
+- (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
     NSDictionary* taleData = [self objectToDictionary:tale inverseMapping:taleMapping.inverseMapping rootPath:nil];
-    assert(songID!=nil);
+    assert(song.ID!=nil);
     [serverClient postSecure:taleData token:self.mtToken
-                        path:[NSString stringWithFormat:MT_PATH_SONG_TALE,songID]
+                        path:[NSString stringWithFormat:MT_PATH_SONG_TALE,song.ID]
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          LOG_S(@"post tale", responseObject);
                          [self dictionaryToObject:responseObject destination:tale objectMapping:taleMapping];
@@ -479,6 +478,11 @@ static RKObjectMapping* commentMapping;
                         LOG_F(@"Get user info", error);
                         handler(nil,error);
                     }];
+}
+
+#pragma mark dedication 
+- (void) dedicate:(NSString*)taleId toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler {
+    
 }
 
 
