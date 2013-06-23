@@ -370,7 +370,7 @@
         <!--Play Music View Controller - Playlist-->
         <scene sceneID="ynx-zG-t5g">
             <objects>
-                <viewController storyboardIdentifier="Playlist" title="Playlist" id="30y-XI-yvH" customClass="MTPlayMusicViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Playlist" title="Playlist" useStoryboardIdentifierAsRestorationIdentifier="YES" id="30y-XI-yvH" customClass="MTPlayMusicViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KMh-lz-gYP">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

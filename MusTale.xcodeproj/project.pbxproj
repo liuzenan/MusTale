@@ -72,6 +72,8 @@
 		E45198D917704484003C7BDB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198D817704484003C7BDB /* Icon.png */; };
 		E45198DB17704488003C7BDB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198DA17704488003C7BDB /* Icon@2x.png */; };
 		E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */ = {isa = PBXBuildFile; fileRef = E452F0461776ABAD003C1024 /* MTTaleController.m */; };
+		E452F0561776FBB3003C1024 /* S3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = E452F0551776FBB3003C1024 /* S3Controller.m */; };
+		E452F0591776FC76003C1024 /* MTInboxOutboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E452F0581776FC75003C1024 /* MTInboxOutboxViewController.m */; };
 		E45C1443175B7A1E00EE709D /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E45C1441175B7A1E00EE709D /* navbar@2x.png */; };
 		E45C1444175B7A1E00EE709D /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = E45C1442175B7A1E00EE709D /* navbar.png */; };
 		E45C1447175B7AA800EE709D /* MTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E45C1446175B7AA800EE709D /* MTConstants.m */; };
@@ -262,6 +264,11 @@
 		E45198DA17704488003C7BDB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E452F0451776ABAD003C1024 /* MTTaleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTaleController.h; sourceTree = "<group>"; };
 		E452F0461776ABAD003C1024 /* MTTaleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTaleController.m; sourceTree = "<group>"; };
+		E452F0531776FBB3003C1024 /* NetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkConfig.h; sourceTree = "<group>"; };
+		E452F0541776FBB3003C1024 /* S3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = S3Controller.h; sourceTree = "<group>"; };
+		E452F0551776FBB3003C1024 /* S3Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = S3Controller.m; sourceTree = "<group>"; };
+		E452F0571776FC75003C1024 /* MTInboxOutboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTInboxOutboxViewController.h; sourceTree = "<group>"; };
+		E452F0581776FC75003C1024 /* MTInboxOutboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTInboxOutboxViewController.m; sourceTree = "<group>"; };
 		E45C1441175B7A1E00EE709D /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		E45C1442175B7A1E00EE709D /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		E45C1445175B7AA800EE709D /* MTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTConstants.h; sourceTree = "<group>"; };
@@ -614,6 +621,8 @@
 				E4AA8B31175798DF001FA121 /* MTLoginViewController.h */,
 				E4AA8B32175798DF001FA121 /* MTLoginViewController.m */,
 				E4472D93175A4712008BDE6C /* MTPlaylistViewDelegate.h */,
+				E452F0571776FC75003C1024 /* MTInboxOutboxViewController.h */,
+				E452F0581776FC75003C1024 /* MTInboxOutboxViewController.m */,
 				E4AA8B431757A117001FA121 /* MTPlaylistListViewController.h */,
 				E4AA8B441757A117001FA121 /* MTPlaylistListViewController.m */,
 				E4AA8B461757A13E001FA121 /* MTPlaylistGridViewController.h */,
@@ -767,6 +776,9 @@
 		E4BD1EFC175662E300518BDE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E452F0531776FBB3003C1024 /* NetworkConfig.h */,
+				E452F0541776FBB3003C1024 /* S3Controller.h */,
+				E452F0551776FBB3003C1024 /* S3Controller.m */,
 				C5D43F64176D5F9000BE1C7A /* MTServerClient.h */,
 				C5D43F65176D5F9000BE1C7A /* MTServerClient.m */,
 				E4BD1EFF1756632300518BDE /* MTNetworkController.h */,
@@ -1111,6 +1123,8 @@
 				C50D6606177708A8002B3FDE /* MTDedicationModel.m in Sources */,
 				C58098891776E2EC003E498B /* NSString+URLEncoding.m in Sources */,
 				E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */,
+				E452F0561776FBB3003C1024 /* S3Controller.m in Sources */,
+				E452F0591776FC76003C1024 /* MTInboxOutboxViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

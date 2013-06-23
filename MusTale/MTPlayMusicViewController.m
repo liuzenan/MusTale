@@ -64,14 +64,24 @@
     self.CDScroll.delegate = self;
 
     [self removeGestures];
-    [self loadSongsWithCompletion:^{
-        if ([self.songList count]>0) {
-            [self setTitleAndName:0];
-            [self activateSongViewAtIndex:0];
-        }
-    }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextSong) name:MTPlayNextSongNotification object:nil];
+}
+
+- (void)loadPlaylist:(NSArray*)playlist
+{
+
+    self.songList = playlist;
+    [[MTPlaylistController sharedInstance] setSongs:playlist];
+    [self loadSongCDViews];
+}
+
+- (void)playSongWithIndex:(NSInteger)index
+{
+    if ([self.songList count] > 0 && index >= 0 && index < [self.songList count]) {
+        [self setTitleAndName:index];
+        [self activateSongViewAtIndex:index];
+    }
 }
 
 - (void)addSubControllerAndView:(UIViewController *)subcontroller ToView:(UIView*) view{
@@ -88,16 +98,6 @@
 {
     MTSongViewController *songView = [self.childViewControllers objectAtIndex:index];
     [songView play];
-}
-
-- (void) loadSongsWithCompletion:(void(^)())callback
-{
-    [[MTItuneNetworkController sharedInstance] testLoadSongWithResult:^(NSArray *songs) {
-        self.songList = songs;
-        [[MTPlaylistController sharedInstance] setSongs:songs];
-        [self loadSongCDViews];
-        callback();
-    }];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -238,6 +238,7 @@
 }
 
 - (IBAction)goBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

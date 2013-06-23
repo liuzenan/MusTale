@@ -112,10 +112,10 @@
                 imageString = @"icon-featured";
                 break;
             
-            case kOthersSectionTypePlaylist:
-                labelString = @"Playlist";
-                imageString = @"icon-playlist";
-                break;
+//            case kOthersSectionTypePlaylist:
+//                labelString = @"Playlist";
+//                imageString = @"icon-playlist";
+//                break;
             
             case kOthersSectionTypeLogout:
                 labelString = @"Logout";
@@ -179,13 +179,13 @@
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
                 break;
             }
-            case kOthersSectionTypePlaylist:
-            {
-                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
-                UIViewController *playlist = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
-                [viewController pushViewController:playlist animated:NO];
-                break;
-            }
+//            case kOthersSectionTypePlaylist:
+//            {
+//                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+//                UIViewController *playlist = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
+//                [viewController pushViewController:playlist animated:NO];
+//                break;
+//            }
             case kOthersSectionTypeLogout:
             {
                 actionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure to log out?"

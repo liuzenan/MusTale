@@ -16,6 +16,8 @@
 #import "MTFloatMusicViewController.h"
 #import "MTSongModel.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "MTPlayMusicViewController.h"
+#import "MTNetworkController.h"
 
 
 #define PLAY_LIST_CELL_HEIGHT 124.0f
@@ -65,6 +67,31 @@
     self.searchController.searchBarDelegate = self;
 
     self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+}
+
+
+- (void)loadInbox
+{
+    [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
+                                                          toUser:[MTNetworkController sharedInstance].currentUser.ID
+                                                 completeHandler:^(id data, NSError *error) {
+                                                     
+                                                 }];
+}
+
+- (void)loadOutbox
+{
+    
+}
+
+- (void)loadPopular
+{
+    
+}
+
+- (void)loadFeatured
+{
     
 }
 
@@ -125,13 +152,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    MTPlayMusicViewController *play = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
+    [self.navigationController pushViewController:play animated:YES];
+    [play loadPlaylist:self.playlist];
+    
+    [play playSongWithIndex:indexPath.row];
 }
 
 - (IBAction)showGridView:(id)sender {
