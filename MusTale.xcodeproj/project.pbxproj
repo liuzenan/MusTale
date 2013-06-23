@@ -69,6 +69,7 @@
 		E4431D261760E52B009ED59A /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D241760E52B009ED59A /* icon-back@2x.png */; };
 		E45198D917704484003C7BDB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198D817704484003C7BDB /* Icon.png */; };
 		E45198DB17704488003C7BDB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198DA17704488003C7BDB /* Icon@2x.png */; };
+		E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */ = {isa = PBXBuildFile; fileRef = E452F0461776ABAD003C1024 /* MTTaleController.m */; };
 		E45C1443175B7A1E00EE709D /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E45C1441175B7A1E00EE709D /* navbar@2x.png */; };
 		E45C1444175B7A1E00EE709D /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = E45C1442175B7A1E00EE709D /* navbar.png */; };
 		E45C1447175B7AA800EE709D /* MTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E45C1446175B7AA800EE709D /* MTConstants.m */; };
@@ -253,6 +254,8 @@
 		E4472D93175A4712008BDE6C /* MTPlaylistViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistViewDelegate.h; sourceTree = "<group>"; };
 		E45198D817704484003C7BDB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		E45198DA17704488003C7BDB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		E452F0451776ABAD003C1024 /* MTTaleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTaleController.h; sourceTree = "<group>"; };
+		E452F0461776ABAD003C1024 /* MTTaleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTaleController.m; sourceTree = "<group>"; };
 		E45C1441175B7A1E00EE709D /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
 		E45C1442175B7A1E00EE709D /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
 		E45C1445175B7AA800EE709D /* MTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTConstants.h; sourceTree = "<group>"; };
@@ -764,6 +767,8 @@
 				E4BD1F0A175664E200518BDE /* MTRecordingController.m */,
 				E43972981763839000059DD5 /* MTPlaybackController.h */,
 				E43972991763839000059DD5 /* MTPlaybackController.m */,
+				E452F0451776ABAD003C1024 /* MTTaleController.h */,
+				E452F0461776ABAD003C1024 /* MTTaleController.m */,
 				E4BD1F0F1756673200518BDE /* MTUserController.h */,
 				E4BD1F101756673200518BDE /* MTUserController.m */,
 				E4BD1F121756676B00518BDE /* MTS3Controller.h */,
@@ -1085,6 +1090,7 @@
 				C5D43F69176D633F00BE1C7A /* MTFBHelper.m in Sources */,
 				C5D37313176F813B00094FEE /* MTListenModel.m in Sources */,
 				C5D37316176F8D2100094FEE /* MTItuneSongModel.m in Sources */,
+				E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

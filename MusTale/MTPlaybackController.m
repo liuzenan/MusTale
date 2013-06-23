@@ -8,6 +8,7 @@
 
 #import "MTPlaybackController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "MTNetworkController.h"
 
 @implementation MTPlaybackController{
     BOOL interrupted;
@@ -47,7 +48,16 @@
     [[AVAudioSession sharedInstance] setActive: YES error: nil];
     
     [self.player prepareToPlay];
-
+    
+    [[MTNetworkController sharedInstance] postListenTo:currentSong completeHandler:^(id data, NSError *error) {
+        
+        if (!error) {
+            NSLog(@"listened to current sing:%@, data:%@", currentSong, data);
+        } else {
+            NSLog(@"error: %@", error);
+        }
+        
+    }];
     
 
     UIImageView *art = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 400, 400)];
