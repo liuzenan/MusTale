@@ -35,14 +35,19 @@
 #define MT_PATH_LISTEN @"listens"  //songid-userid
 #define MT_PATH_LISTEN_POPULAR @"listens/popular"
 
-#define MT_PATH_DEDICATION @"dedications" // songid-userid(from)-userid(to)
+#define MT_PATH_USER_DEDICATION @"users/dedications/uid/%@" // songid-userid(from)-userid(to)
+#define MT_PATH_DEDICATION @"users/dedications"
+
 #define MT_PATH_COMMENT @"tales/comments" // uid-songid (tale)-songid (from)
 #define MT_PATH_COMMENT_TALE @"tales/comments/tale_id/%@"
+
+
 static RKObjectMapping* userMapping;
 static RKObjectMapping* taleMapping;
 static RKObjectMapping* songMapping;
 static RKObjectMapping* listenMapping;
 static RKObjectMapping* commentMapping;
+static RKObjectMapping* dedicationMapping;
 
 @interface MTNetworkController ()
 @property (nonatomic,strong) NSString* fbToken;
@@ -132,6 +137,15 @@ static RKObjectMapping* commentMapping;
          @"content":@"content",
          @"created_at":@"createdAt"
          }];
+        dedicationMapping = [RKObjectMapping mappingForClass:[MTDedicationModel class]];
+        [dedicationMapping addAttributeMappingsFromDictionary:@{
+         @"is_public":@"isPublic",
+         @"is_anonymous":@"isAnonymous",
+         @"created_at":@"createdAt",
+         @"tale_id":@"taleId"
+         }];
+        [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"from" mapping:userMapping];
+        [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"to" mapping:userMapping];
     }
     return self;
 }
@@ -481,9 +495,45 @@ static RKObjectMapping* commentMapping;
 }
 
 #pragma mark dedication 
-- (void) dedicate:(NSString*)taleId toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler {
-    
+- (void) postDedication:(MTDedicationModel*)dedication toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler {
+    assert(userId!=nil);
+    NSString *tag = @"post dedication";
+    NSDictionary* dedicationData = [self objectToDictionary:dedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
+    [serverClient postSecure:dedicationData
+                       token:self.mtToken
+                        path:[NSString stringWithFormat:MT_PATH_USER_DEDICATION,userId]
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         LOG_S(tag, responseObject);
+                         [self dictionaryToObject:dedicationData destination:dedication objectMapping:dedicationMapping];
+                         handler(dedication,nil);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         LOG_F(tag, error);
+                         handler(nil,error);
+                     }];
 }
+
+- (void) getDedicationsFromUser:(NSString*)from toUser:(NSString*)to completeHandler:(NetworkCompleteHandler)handler {
+    assert(!(from==nil && to==nil));
+    NSString* tag = @"get dedication";
+    NSDictionary* data;
+    if (from && to) {
+        data =@{@"from":from,@"to":to};
+    } else if(from){
+        data =@{@"from":from};
+    } else {
+        data =@{@"to":to};
+    }
+    [serverClient getSecure:data token:self.mtToken path:MT_PATH_DEDICATION success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(tag, responseObject);
+        NSArray* dedications = [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
+        handler(dedications,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(tag, error);
+        handler(nil,error);
+    }];
+}
+
 
 
 #pragma mark helper
