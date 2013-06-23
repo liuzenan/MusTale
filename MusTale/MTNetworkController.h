@@ -29,6 +29,7 @@
 - (void) getUserInfo:(MTUserModel*)user completehandler:(NetworkCompleteHandler)handler;
 
 #pragma mark songs
+- (void) postSong:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postListenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) getPopularSongs:(NSInteger)limit completeHandler:(NetworkCompleteHandler)handler;
 

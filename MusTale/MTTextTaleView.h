@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTTaleModel.h"
 #import <OHAttributedLabel/OHAttributedLabel.h>
 
 @interface MTTextTaleView : UIScrollView
@@ -22,5 +23,6 @@
 
 - (void)setText:(NSString*)text;
 -(void)setStyling;
+- (void)setCurrentTale:(MTTaleModel*)tale;
 
 @end

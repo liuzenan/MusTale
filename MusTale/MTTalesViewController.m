@@ -11,7 +11,9 @@
 #import "MTVoiceTaleView.h"
 #import "UIViewController+SliderView.h"
 #import "UIColor+i7HexColor.h"
+#import "MTNetworkController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MTTaleModel.h"
 
 @interface MTTalesViewController ()
 
@@ -107,8 +109,6 @@
     [self setStyling];
     //[self removeGestures];
     
-    self.taleScrollView.contentSize = CGSizeMake(10 * self.taleScrollView.frame.size.width, self.taleScrollView.frame.size.height);
-    
     UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(finishEdit)];
     UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(finishEdit)];
     tapGes.numberOfTapsRequired = 1;
@@ -122,36 +122,49 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    for (int i = 0; i < 10; i++) {
-        
-        if ((i % 2) == 0) {
-            NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTVoiceTaleView" owner:self options:nil];
-            MTVoiceTaleView *taleView = [views objectAtIndex:0];
-            CGRect frame = self.taleScrollView.frame;
-            frame.origin.y = 0;
-            frame.origin.x = i * frame.size.width;
-            NSLog(@"frame for view %d: %@", i, NSStringFromCGRect(frame));
-            taleView.frame = frame;
+}
+
+- (void)loadTalesOfSong:(NSString*)songID
+{
+    
+    [[MTNetworkController sharedInstance] getTalesOfSong:songID completeHandler:^(id data, NSError *error) {
+        NSArray *tales = (NSArray*) data;
+        for (int i = 0; i < [tales count]; i++) {
             
-            [taleView setStyling];
-            [self.taleScrollView addSubview:taleView];
-        } else {
-            NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTTextTaleView" owner:self options:nil];
-            MTTextTaleView *taleView = [views objectAtIndex:0];
+            MTTaleModel *tale = [tales objectAtIndex:i];
             
-            CGRect frame = self.taleScrollView.frame;
-            frame.origin.y = 0;
-            frame.origin.x = i * frame.size.width;
-            NSLog(@"frame for view %d: %@", i, NSStringFromCGRect(frame));
-            taleView.frame = frame;
-            
-            [taleView setText:@"Edison was the master of combination and rearrangement. One of his signature technological revolutions, the phonograph, entailed little more than taking previous inventions and combining them.\nThe telegraph repeater was an invention that Edison patented to record, store and later play back telegraphic messages. The phonautograph was an invention by Leon Scott that recorded the vibration of a diaphragm moving to waves of sound. Scott’s invention used a sheet of paper coated with lampblack and fixed to a rotating cylinder to record sound’s visual pattern. Edison’s phonograph joined the two: the recording on a rotating cylinder and the storage and later playback of messages. A stylus attached to a diaphragm recorded auditory vibrations onto the phonograph’s rotating cylinder, which was covered with a sheet of tin foil. A second diaphragm played sound back just as it was originally recorded. It was the phonoautograph version of the telegraph repeater—a technological sensation."];
-            [taleView setStyling];
-            [self.taleScrollView addSubview:taleView];
+            if (![tale.voiceUrl isEqualToString:@""]) {
+                NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTVoiceTaleView" owner:self options:nil];
+                MTVoiceTaleView *taleView = [views objectAtIndex:0];
+                CGRect frame = self.taleScrollView.frame;
+                frame.origin.y = 0;
+                frame.origin.x = i * frame.size.width;
+                NSLog(@"frame for view %d: %@", i, NSStringFromCGRect(frame));
+                taleView.frame = frame;
+                
+                [taleView setStyling];
+                [self.taleScrollView addSubview:taleView];
+            } else {
+                NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"MTTextTaleView" owner:self options:nil];
+                MTTextTaleView *taleView = [views objectAtIndex:0];
+                
+                CGRect frame = self.taleScrollView.frame;
+                frame.origin.y = 0;
+                frame.origin.x = i * frame.size.width;
+                NSLog(@"frame for view %d: %@", i, NSStringFromCGRect(frame));
+                taleView.frame = frame;
+                
+                [taleView setCurrentTale:tale];
+                [taleView setStyling];
+    
+                [self.taleScrollView addSubview:taleView];
+            }
         }
         
-        
-    }
+        self.taleScrollView.contentSize = CGSizeMake([tales count] * self.taleScrollView.frame.size.width,
+                                                     self.taleScrollView.frame.size.height);
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning

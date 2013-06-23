@@ -7,6 +7,7 @@
 //
 
 #import "MTTextTaleView.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @implementation MTTextTaleView
 
@@ -31,6 +32,16 @@
     [str setTextAlignment:kCTTextAlignmentNatural lineBreakMode:kCTLineBreakByWordWrapping];
     
     [self.tale setAttributedText:str];
+}
+
+- (void)setCurrentTale:(MTTaleModel*)tale
+{
+    [self.userName setText:tale.user.name];
+    [self.numLikes setText:[NSString stringWithFormat:@"%d", tale.likeCount]];
+    [self.numComments setText:[NSString stringWithFormat:@"%d comments", tale.commentCount]];
+    [self setText:tale.text];
+    [self.profilePic setImageWithURL:[NSURL URLWithString:tale.user.profileURL]];
+    
 }
 
 -(void)setStyling

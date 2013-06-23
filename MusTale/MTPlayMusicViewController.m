@@ -23,6 +23,8 @@
 #import "MTTalesViewController.h"
 #import "MTPlaylistController.h"
 #import "MTItuneNetworkController.h"
+#import "MTNetworkController.h"
+
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
 
@@ -294,9 +296,13 @@
 -(void)showTales:(MTSongModel *)song
 {
     if (song) {
-        MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
-        [self presentModalViewController:tale animated:YES];
-        [[MTFloatMusicViewController sharedInstance] showFloatSong];
+        [[MTNetworkController sharedInstance] postSong:song completeHandler:^(id data, NSError *error) {
+            MTSongModel *song = data;
+            MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
+            [self presentModalViewController:tale animated:YES];
+            [tale loadTalesOfSong:song.ID];
+            [[MTFloatMusicViewController sharedInstance] showFloatSong];
+        }];
     }
 }
 

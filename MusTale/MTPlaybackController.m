@@ -44,7 +44,7 @@
         self.player.contentURL = currentSong.previewUrl;
     }
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive: YES error: nil];
     
     [self.player prepareToPlay];

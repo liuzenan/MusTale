@@ -11,10 +11,11 @@
 #import "MTSearchBarController.h"
 
 
-@interface MTPlaylistListViewController : UITableViewController
+@interface MTPlaylistListViewController : UITableViewController <UISearchDisplayDelegate, MTSearchBarDelegate>
 @property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *gridButton;
 @property (strong, nonatomic) MTSearchBarController *searchController;
+@property (strong, nonatomic) NSMutableArray *playlist;
 
 - (IBAction)showGridView:(id)sender;
 

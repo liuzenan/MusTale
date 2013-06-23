@@ -13,7 +13,7 @@
 #import "UIViewController+SliderView.h"
 #import "MTFloatMusicViewController.h"
 #import "ViewController+Snapshot.h"
-
+#import "MTNetworkController.h"
 
 @interface MTRecordVoiceNoteViewController (){
     BOOL isRecording;
@@ -219,5 +219,9 @@
     [self.singerName setBackgroundColor:[UIColor clearColor]];
 }
 
+-(void)sendCurrentTale
+{
+    
+}
 
 @end

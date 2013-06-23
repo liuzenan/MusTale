@@ -23,4 +23,5 @@
 @property (strong, nonatomic) RCBlurredImageView *bgImgView;
 - (IBAction)sendTale:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (void)dismiss;
 @end

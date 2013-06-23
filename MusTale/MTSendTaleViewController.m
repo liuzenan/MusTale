@@ -99,5 +99,6 @@
 }
 
 - (IBAction)cancel:(id)sender {
+    [self dismiss];
 }
 @end

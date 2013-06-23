@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBtn;
 @property (strong, nonatomic) IBOutlet UIToolbar *commentBar;
 @property (strong, nonatomic) IBOutlet UITextField *commentField;
+- (void)loadTalesOfSong:(NSString*)songID;
 
 @end
