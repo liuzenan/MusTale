@@ -1109,6 +1109,7 @@
 				C5D37313176F813B00094FEE /* MTListenModel.m in Sources */,
 				C5D37316176F8D2100094FEE /* MTItuneSongModel.m in Sources */,
 				C50D6606177708A8002B3FDE /* MTDedicationModel.m in Sources */,
+				C58098891776E2EC003E498B /* NSString+URLEncoding.m in Sources */,
 				E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
