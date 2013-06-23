@@ -32,8 +32,10 @@
 - (void) getPopularSongs:(NSInteger)limit completeHandler:(NetworkCompleteHandler)handler;
 
 #pragma mark tale
+- (void) getTalesOfSong:(NSString*)songId completeHandler:(NetworkCompleteHandler)handler;
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler;
 - (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 - (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
+- (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
 @end
