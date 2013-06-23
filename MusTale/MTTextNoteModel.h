@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface MTTextNoteModel : NSObject
-
+@property (nonatomic,strong) NSString* text;
 @end

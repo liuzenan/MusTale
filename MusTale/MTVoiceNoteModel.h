@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface MTVoiceNoteModel : NSObject
-
+@property (nonatomic,strong) NSString* voiceURL;
 @end

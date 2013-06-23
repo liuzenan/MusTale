@@ -231,7 +231,7 @@
                 // some error
             }
         }];*/
-        /*
+        
          // Get song info from itune and register the song to the server, return the same song model with songId filled.
          // Then post a tale to this song
         [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
@@ -245,11 +245,13 @@
                     tale.text = @"Test tale";
                     tale.isFront = NO;
                     [[MTNetworkController sharedInstance] postTale:tale to:song completeHandler:^(id data, NSError *error) {
-                        
+                        NSLog(data,nil);
                     }];
                 }];
+            } else {
+                NSLog(@"Error %@",error);
             }
-        }];*/
+        }];
         /*
          // Get popular song with limit 50
         [[MTNetworkController sharedInstance] getPopularSongs:50 completeHandler:^(id data, NSError *error) {

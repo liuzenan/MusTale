@@ -14,6 +14,7 @@
 #import "MTSongModel.h"
 #import "MTListenModel.h"
 #import "MTCommentsModel.h"
+#import "MTDedicationModel.h"
 @interface MTNetworkController : NSObject
 @property (nonatomic,strong) MTUserModel* currentUser;
 @property (nonatomic) BOOL isDebugMode;
@@ -38,4 +39,7 @@
 - (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 - (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 - (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
+
+#pragma mark dedication
+- (void) dedicate:(NSString*)taleId toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler;
 @end
