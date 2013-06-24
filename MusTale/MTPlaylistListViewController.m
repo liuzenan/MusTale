@@ -14,6 +14,10 @@
 #import "UIColor+i7HexColor.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MTFloatMusicViewController.h"
+#import "MTSongModel.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "MTPlayMusicViewController.h"
+#import "MTNetworkController.h"
 
 
 #define PLAY_LIST_CELL_HEIGHT 124.0f
@@ -50,6 +54,8 @@
     [self setupRightNavBarItems];
     [self setStyling];
     
+    self.playlist = [NSMutableArray array];
+    
     MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
     self.delegate = sliderController;
     
@@ -57,8 +63,35 @@
     // set up search bar
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:@"MTSearchBar" owner:self options:nil];
     self.searchController = (MTSearchBarController*)[objects objectAtIndex:1];
+    self.searchController.delegate = self;
+    self.searchController.searchBarDelegate = self;
 
     self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+}
+
+
+- (void)loadInbox
+{
+    [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
+                                                          toUser:[MTNetworkController sharedInstance].currentUser.ID
+                                                 completeHandler:^(id data, NSError *error) {
+                                                     
+                                                 }];
+}
+
+- (void)loadOutbox
+{
+    
+}
+
+- (void)loadPopular
+{
+    
+}
+
+- (void)loadFeatured
+{
     
 }
 
@@ -72,16 +105,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 5;
+    return [self.playlist count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,6 +135,11 @@
     cell.contentWrapper.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     // Configure the cell...
     
+    MTSongModel *song = [self.playlist objectAtIndex:indexPath.row];
+    [cell.songTitle setText:song.trackName];
+    [cell.songCoverImage setImageWithURL:song.artworkUrl100];
+    [cell.singerName setText:song.artistName];
+    
     return cell;
 }
 
@@ -116,13 +152,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    MTPlayMusicViewController *play = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
+    [self.navigationController pushViewController:play animated:YES];
+    [play loadPlaylist:self.playlist];
+    
+    [play playSongWithIndex:indexPath.row];
 }
 
 - (IBAction)showGridView:(id)sender {
@@ -162,4 +196,28 @@
 {
     [self.slidingViewController anchorTopViewTo:ECLeft];
 }
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller
+{
+    NSLog(@"begin search");
+    [self.playlist removeAllObjects];
+    [self.tableView reloadData];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView
+{
+    NSLog(@"load results table view");
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    NSLog(@"end search");
+}
+
+-(void)didLoadSearchResult:(NSArray *)result
+{
+    self.playlist = [NSMutableArray arrayWithArray:result];
+    [self.tableView reloadData];
+}
+
 @end

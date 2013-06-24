@@ -94,4 +94,11 @@
     [self setOverlayView:nil];
     [super viewDidUnload];
 }
+- (IBAction)sendTale:(id)sender {
+    [self.delegate sendCurrentTale];
+}
+
+- (IBAction)cancel:(id)sender {
+    [self dismiss];
+}
 @end

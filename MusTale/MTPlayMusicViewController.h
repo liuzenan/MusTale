@@ -22,4 +22,7 @@
 @property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *singerName;
 
+- (void)loadPlaylist:(NSArray*)playlist;
+- (void)playSongWithIndex:(NSInteger)index;
+
 @end

@@ -12,6 +12,7 @@
 #import "MTNetworkController.h"
 #import "MTItuneNetworkController.h"
 #import "MTFBHelper.h"
+#import "S3Controller.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -113,10 +114,10 @@
                 imageString = @"icon-featured";
                 break;
             
-            case kOthersSectionTypePlaylist:
-                labelString = @"Playlist";
-                imageString = @"icon-playlist";
-                break;
+//            case kOthersSectionTypePlaylist:
+//                labelString = @"Playlist";
+//                imageString = @"icon-playlist";
+//                break;
             
             case kOthersSectionTypeLogout:
                 labelString = @"Logout";
@@ -180,13 +181,13 @@
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
                 break;
             }
-            case kOthersSectionTypePlaylist:
-            {
-                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
-                UIViewController *playlist = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
-                [viewController pushViewController:playlist animated:NO];
-                break;
-            }
+//            case kOthersSectionTypePlaylist:
+//            {
+//                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+//                UIViewController *playlist = [self.storyboard instantiateViewControllerWithIdentifier:@"Playlist"];
+//                [viewController pushViewController:playlist animated:NO];
+//                break;
+//            }
             case kOthersSectionTypeLogout:
             {
                 actionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure to log out?"
@@ -219,6 +220,15 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
+        NSError* err;
+        NSData* soundData = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/MySound.caf", DOCUMENTS_FOLDER] options: 0 error:&err];
+        [[S3Controller sharedInstance] uploadSoundToS3Bucket:soundData Completion:^(BOOL success, NSString *soundPath) {
+            NSLog(@"%@",soundPath);
+            [[S3Controller sharedInstance] getSoundURLByFilePath:soundPath Completion:^(NSURL *url, NSError *error) {
+                NSLog(@"%@",url);
+            }];
+        }];
+        
         /* Send dedication,return the same dedication model
         MTDedicationModel* dedication = [MTDedicationModel new];
         dedication.taleId = @"10";
@@ -236,9 +246,9 @@
         [[MTNetworkController sharedInstance] getDedicationsFromUser:@"28" toUser:nil completeHandler:^(id data, NSError *error) {
             
         }];*/
-        [[MTFBHelper sharedFBHelper] searchFriendMatchingTerm:@"jim" completeHandler:^(id data, NSError *error) {
+        /*[[MTFBHelper sharedFBHelper] searchFriendMatchingTerm:@"jim" completeHandler:^(id data, NSError *error) {
                 
-        }];
+        }];*/
         
         /*API Examples*/
        /*

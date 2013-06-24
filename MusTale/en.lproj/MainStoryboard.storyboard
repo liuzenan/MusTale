@@ -302,6 +302,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="9bb-dr-eFL" eventType="touchUpInside" id="p7i-FS-lCn"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="s5p-kL-ReV">
                                         <rect key="frame" x="233" y="0.0" width="61" height="44"/>
@@ -314,6 +317,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="sendTale:" destination="9bb-dr-eFL" eventType="touchUpInside" id="QBu-lo-DRF"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -364,7 +370,7 @@
         <!--Play Music View Controller - Playlist-->
         <scene sceneID="ynx-zG-t5g">
             <objects>
-                <viewController storyboardIdentifier="Playlist" title="Playlist" id="30y-XI-yvH" customClass="MTPlayMusicViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Playlist" title="Playlist" useStoryboardIdentifierAsRestorationIdentifier="YES" id="30y-XI-yvH" customClass="MTPlayMusicViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KMh-lz-gYP">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -616,6 +622,123 @@
         <image name="icon-list.png" width="16" height="16"/>
         <image name="icon-menu.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="AQGridView" superclassName="UIScrollView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="AQGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AQGridViewController.h"/>
+        </class>
+        <class className="ECSlidingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ECSlidingViewController.h"/>
+        </class>
+        <class className="GCPlaceholderTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCPlaceholderTextView.h"/>
+        </class>
+        <class className="MTLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginBtnPressed:"/>
+            </relationships>
+        </class>
+        <class className="MTMenuTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="iconImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="menuLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MTMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTMenuViewController.h"/>
+        </class>
+        <class className="MTPlayMusicViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlayMusicViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="showMenu:"/>
+                <relationship kind="outlet" name="CDScroll" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="singerName" candidateClass="MarqueeLabel"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="MarqueeLabel"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistGridViewController" superclassName="AQGridViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showListView:"/>
+                <relationship kind="outlet" name="listButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentWrapper" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="singerName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="songCoverImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MTPlaylistListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTPlaylistListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showGridView:"/>
+                <relationship kind="outlet" name="gridButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MTRecordVoiceNoteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTRecordVoiceNoteViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="toggleRecording:"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="confirmBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="recordBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="singerName" candidateClass="MarqueeLabel"/>
+                <relationship kind="outlet" name="songCover" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="MarqueeLabel"/>
+            </relationships>
+        </class>
+        <class className="MTSendTaleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTSendTaleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="sendTale:"/>
+                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="MTSliderViewController" superclassName="ECSlidingViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTSliderViewController.h"/>
+        </class>
+        <class className="MTTalesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTTalesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backbtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="commentBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="menuBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="taleScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="MTTextView" superclassName="GCPlaceholderTextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTTextView.h"/>
+        </class>
+        <class className="MTWriteTaleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MTWriteTaleViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cancelBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="confirmBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="taleTextView" candidateClass="MTTextView"/>
+            </relationships>
+        </class>
+        <class className="MarqueeLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MarqueeLabel.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

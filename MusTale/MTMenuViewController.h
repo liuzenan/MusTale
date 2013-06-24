@@ -19,7 +19,7 @@ typedef enum {
     kOthersSectionTypeOutbox,
     kOthersSectionTypePopular,
     kOthersSectionTypeFeatured,
-    kOthersSectionTypePlaylist,
+    //kOthersSectionTypePlaylist,
     kOthersSectionTypeLogout,
     kOthersSectionTypeCount
 } kOthersSectionType;

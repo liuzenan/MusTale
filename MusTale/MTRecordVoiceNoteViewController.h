@@ -13,7 +13,7 @@
 #import "MTSendTaleViewController.h"
 
 
-@interface MTRecordVoiceNoteViewController : UIViewController <MTRecorderDelegate>
+@interface MTRecordVoiceNoteViewController : UIViewController <MTRecorderDelegate, MTSendTaleDelegate>
 
 @property (nonatomic, strong) MTSongModel *currentSong;
 @property (strong, nonatomic) IBOutlet MarqueeLabel *songTitle;

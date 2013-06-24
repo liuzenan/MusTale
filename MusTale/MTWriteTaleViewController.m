@@ -9,6 +9,9 @@
 #import "MTWriteTaleViewController.h"
 #import "UIColor+i7HexColor.h"
 #import "ViewController+Snapshot.h"
+#import "MTTaleModel.h"
+#import "MTNetworkController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MTWriteTaleViewController ()
 
@@ -31,6 +34,7 @@
 	// Do any additional setup after loading the view.
     [self setStyling];
     self.sendTale = [self.storyboard instantiateViewControllerWithIdentifier:@"SendTaleView"];
+    self.sendTale.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -101,8 +105,34 @@
 - (void)confirm{
     [self.view endEditing:YES];
     UIImage *snapshot = [self makeImage];
+    
     [self.sendTale setBgImg:snapshot];
     [self presentModalViewController:self.sendTale animated:NO];
+}
+
+- (void)sendCurrentTale
+{
+    MTTaleModel* tale = [MTTaleModel new];
+    tale.isAnonymous = NO;
+    tale.isPublic = YES;
+    tale.text = self.taleTextView.text;
+    tale.isFront = NO;
+    
+    [SVProgressHUD showWithStatus:@"Posting your tale..." maskType:SVProgressHUDMaskTypeBlack];
+    [[MTNetworkController sharedInstance] postSong:self.currentSong completeHandler:^(id data, NSError *error) {
+        [[MTNetworkController sharedInstance] postTale:tale to:data completeHandler:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"posted tale to server: %@", data);
+                [SVProgressHUD showSuccessWithStatus:@"Tale posted!"];
+                [self.sendTale dismiss];
+                [self goBack];
+            } else {
+                NSLog(@"error: %@", error);
+                [SVProgressHUD showErrorWithStatus:@"Something is wrong..."];
+                
+            }
+        }];
+    }];
 }
 
 - (void)setStyling

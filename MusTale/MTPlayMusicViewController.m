@@ -23,6 +23,8 @@
 #import "MTTalesViewController.h"
 #import "MTPlaylistController.h"
 #import "MTItuneNetworkController.h"
+#import "MTNetworkController.h"
+
 // Assume the part of next|last album expose p to the current system
 // Then 2 * p * radius + 2 * radius + 2 * speration = UIScreen mainscreen].bounds.width
 
@@ -62,14 +64,24 @@
     self.CDScroll.delegate = self;
 
     [self removeGestures];
-    [self loadSongsWithCompletion:^{
-        if ([self.songList count]>0) {
-            [self setTitleAndName:0];
-            [self activateSongViewAtIndex:0];
-        }
-    }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextSong) name:MTPlayNextSongNotification object:nil];
+}
+
+- (void)loadPlaylist:(NSArray*)playlist
+{
+
+    self.songList = playlist;
+    [[MTPlaylistController sharedInstance] setSongs:playlist];
+    [self loadSongCDViews];
+}
+
+- (void)playSongWithIndex:(NSInteger)index
+{
+    if ([self.songList count] > 0 && index >= 0 && index < [self.songList count]) {
+        [self setTitleAndName:index];
+        [self activateSongViewAtIndex:index];
+    }
 }
 
 - (void)addSubControllerAndView:(UIViewController *)subcontroller ToView:(UIView*) view{
@@ -86,16 +98,6 @@
 {
     MTSongViewController *songView = [self.childViewControllers objectAtIndex:index];
     [songView play];
-}
-
-- (void) loadSongsWithCompletion:(void(^)())callback
-{
-    [[MTItuneNetworkController sharedInstance] testLoadSongWithResult:^(NSArray *songs) {
-        self.songList = songs;
-        [[MTPlaylistController sharedInstance] setSongs:songs];
-        [self loadSongCDViews];
-        callback();
-    }];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -236,6 +238,7 @@
 }
 
 - (IBAction)goBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -294,9 +297,13 @@
 -(void)showTales:(MTSongModel *)song
 {
     if (song) {
-        MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
-        [self presentModalViewController:tale animated:YES];
-        [[MTFloatMusicViewController sharedInstance] showFloatSong];
+        [[MTNetworkController sharedInstance] postSong:song completeHandler:^(id data, NSError *error) {
+            MTSongModel *song = data;
+            MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
+            [self presentModalViewController:tale animated:YES];
+            [tale loadTalesOfSong:song.ID];
+            [[MTFloatMusicViewController sharedInstance] showFloatSong];
+        }];
     }
 }
 

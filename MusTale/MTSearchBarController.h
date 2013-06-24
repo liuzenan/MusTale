@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MTSearchBarController : UISearchDisplayController
+@protocol MTSearchBarDelegate
 
+-(void)didLoadSearchResult:(NSArray*)result;
+
+@end
+
+@interface MTSearchBarController : UISearchDisplayController<UISearchBarDelegate>
+
+@property (nonatomic, weak) id<MTSearchBarDelegate> searchBarDelegate;
 - (void) setStyling;
 
 @end

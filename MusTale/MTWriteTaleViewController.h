@@ -11,7 +11,7 @@
 #import "MTSongModel.h"
 #import "MTSendTaleViewController.h"
 
-@interface MTWriteTaleViewController : UIViewController
+@interface MTWriteTaleViewController : UIViewController<MTSendTaleDelegate>
 
 @property (nonatomic, strong) MTSongModel *currentSong;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
