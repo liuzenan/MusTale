@@ -12,11 +12,13 @@
 #import "MTNetworkController.h"
 #import "MTItuneNetworkController.h"
 #import "MTFBHelper.h"
-#import "S3Controller.h"
+#import "MTS3Controller.h"
+#import "MTFBFriendPickerViewController.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
     BOOL disabled;
+    MTFBFriendPickerViewController* fbpickerVC;
 }
 @end
 
@@ -222,13 +224,14 @@
     if (buttonIndex == 0) {
         NSError* err;
         NSData* soundData = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/MySound.caf", DOCUMENTS_FOLDER] options: 0 error:&err];
-        [[S3Controller sharedInstance] uploadSoundToS3Bucket:soundData Completion:^(BOOL success, NSString *soundPath) {
+        [[MTS3Controller sharedInstance] uploadSoundToS3Bucket:soundData Completion:^(BOOL success, NSString *soundPath) {
             NSLog(@"%@",soundPath);
-            [[S3Controller sharedInstance] getSoundURLByFilePath:soundPath Completion:^(NSURL *url, NSError *error) {
+            [[MTS3Controller sharedInstance] getSoundURLByFilePath:soundPath Completion:^(NSURL *url, NSError *error) {
                 NSLog(@"%@",url);
             }];
         }];
-        
+        fbpickerVC = [[MTFBFriendPickerViewController alloc] init];
+        [self presentViewController:fbpickerVC animated:YES completion:nil];
         /* Send dedication,return the same dedication model
         MTDedicationModel* dedication = [MTDedicationModel new];
         dedication.taleId = @"10";

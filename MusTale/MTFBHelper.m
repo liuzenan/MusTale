@@ -1,9 +1,9 @@
 //
-//  SGFBHelper.m
-//  StreetGaGaApp
+//  MTFBHelper.h
+//  MusTale
 //
-//  Created by Xujie Song on 29/05/13.
-//  Copyright (c) 2013 StreetGaGa. All rights reserved.
+//  Created by Jiao Jing Ping on 15/6/13.
+//  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
 #import "MTFBHelper.h"

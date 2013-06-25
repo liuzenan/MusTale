@@ -14,7 +14,7 @@
  */
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
-require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/libraries/MY_REST_Controller.php';
 /*
  200: Success (OK)
  400: Invalid widget was requested (Bad Request)
@@ -24,183 +24,106 @@ require APPPATH . '/libraries/REST_Controller.php';
  *
  */
 
-class Users extends REST_Controller {
+class Tales extends MY_REST_Controller {
 
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
-		$this -> load -> model('User_model');
-		$this -> load -> model('Song_model');
-		$this -> load -> model('Dedication_model');
-		$this -> load -> model('Tale_model');
-		$this -> load -> model('User_like_tale_model');
 	}
 
-	/**
-	 *  Tale
-	 */
-	// Get a tale
-	function tale_get() {
-		$getableParams = array('tale_id');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 1) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
+	function comments_post() {
+		$user = self::_authenticate();
+		$params = array('tale_id', 'content');
+		$tale = $this -> Tale_model -> get_with(array('tale_id' => $tale_id));
+		if (!$tale) {
+			$this -> response(array('error' => 'Invalid arguments2'), 400);
 		}
-		$tale = $this -> Tale_model -> get_with($values);
-		if ($tale) {
-			$this -> response($tale, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	// Get tales matching query
-	function index_get() {
-		$getableParams = array('song_id', 'uid');
-		$values = self::_formGetParams($getableParams);
-		$tale = $this -> Tale_model -> get_with($values);
-		if ($tale) {
-			$this -> response(array('tales' => $tale), 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	// Create a tale
-	function index_post() {
-		$params = array('uid', 'song_id', 'is_public', 'is_anonymous', 'text', 'voice_url');
 		$default_values = array();
 		$result = self::_checkPostParams($params, $default_values);
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
+		self::_validatePostParams($result);
+		$result['uid'] = $user -> uid;
+		$comment = $this -> Comment_model -> insert_entry($result);
+		$this -> response($comment, 200);
+	}
+
+	function comments_get() {
+		$user = self::_authenticate();
+		if (!$this -> get('tale_id')) {
 			$this -> response(array('error' => 'Invalid arguments1'), 400);
 		}
-		// assure at either voice_url or text isset
-		if ($result['text'] == '' && $result['voice_url'] == '') {
-			$this -> response(array('error' => "Tale content is not set"), 400);
-		}
-
-		// assure foreign keys constrains
-		$user = $this -> User_model -> get_with(array('uid' => $result['uid']));
-		$song = $this -> Song_model -> get_with(array('song_id' => $result['song_id']));
-
-		if (!$user || !$song) {
+		$taleId = $this -> get('tale_id');
+		$tale = $this -> Tale_model -> get_with(array('tale_id' => $taleId));
+		if (!$tale) {
 			$this -> response(array('error' => 'Invalid arguments2'), 400);
 		}
 
-		$tale = $this -> Tale_model -> insert_entry($result);
-
-		if ($tale) {
-			$this -> response($tale, 200);
-		} else {
-			$this -> response(array('error' => 'Tale already exist!'), 404);
-		}
+		
+		$comments = $this -> Comment_model -> get_with(array('tale_id' => $taleId));
+		$this -> response($comments, 200);
 	}
 
 	/**
 	 *
 	 */
 	public function likes_post() {
-		$params = array('uid', 'tale_id');
-		$default_values = array();
-		$result = self::_checkPostParams($params, $default_values);
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
+		$user = self::_authenticate();
+		if (!$this -> get('tale_id')) {
+			$this -> response(array('error' => 'Invalid arguments1'), 400);
 		}
+		$tale_id = $this -> get('tale_id');
 
-		// assure foreign keys constrains
-		$user = $this -> User_model -> get_with(array('uid' => $result['uid']));
-		$tale = $this -> Tale_model -> get_with(array('tale_id' => $result['tale_id']));
-		if (!$user || !$tale) {
+		$tale = $this -> Tale_model -> get_with(array('tale_id' => $tale_id));
+
+		if (!$tale) {
 			$this -> response(array('error' => 'Invalid arguments2'), 400);
 		}
 
-		$like = $this -> User_like_tale_model -> insert_entry($result);
+		$like = $this -> User_like_tale_model -> insert_entry(array('tale_id' => $tale_id, 'uid' => $user -> uid));
 
 		if ($like) {
-			$this -> response($like, 200);
+			$count = count($this -> User_like_tale_model -> get_with(array('tale_id' => $tale_id)));
+			$this -> response(array('count' => $count), 200);
 		} else {
 			$this -> response(array('error' => 'user already liked!'), 404);
 		}
 	}
 
+	function unlikes_post() {
+		$user = self::_authenticate();
+		if (!$this -> get('tale_id')) {
+			$this -> response(array('error' => 'Invalid arguments1'), 400);
+		}
+		$tale_id = $this -> get('tale_id');
+
+		$tale = $this -> Tale_model -> get_with(array('tale_id' => $tale_id));
+
+		if (!$tale) {
+			$this -> response(array('error' => 'Invalid arguments2'), 400);
+		}
+
+		$result = $this -> User_like_tale_model -> delete_entry(array('tale_id' => $tale_id, 'uid' => $user -> uid));
+
+		if ($result) {
+			$count = count($this -> User_like_tale_model -> get_with(array('tale_id' => $tale_id)));
+			$this -> response(array('count' => $count), 200);
+		} else {
+			$this -> response(array('error' => 'user not liked yet'), 404);
+		}
+	}
+
 	public function likes_get() {
+		$user = self::_authenticate();
 		$getableParams = array('tale_id', 'uid');
 		$values = self::_formGetParams($getableParams);
 		if (count($values) == 0) {
 			$this -> response(array('error' => 'Invalid arguments'), 400);
 		}
-		$likeCount = $this -> Tale_model -> get_with($values);
+		$likeCount = count($this -> Tale_model -> get_with($values));
 		if ($likeCount) {
-			$this -> response($likeCount, 200);
+			$this -> response(array('count' => $likeCount), 200);
 		} else {
 			$this -> response(array('error' => 'Dedication could not be found'), 404);
 		}
-	}
-
-	public function like_get() {
-		$getableParams = array('tale_id', 'uid');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 2) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$likeCount = $this -> Tale_model -> get_with($values);
-		if ($likeCount) {
-			$this -> response($likeCount, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	/*
-	 * Check parameter of a post function, return key-value pair array of parameter
-	 */
-	private function _checkPostParams($params, $default_values) {
-		$result = array();
-		foreach ($params as $param) {
-			// if a param is not set value and no default value is set, then error
-			if (!$this -> post($param) && !isset($default_values[$param])) {
-				return array('error' => $param . " is not set");
-			} else if (!$this -> post($param)) {
-				// if a param is not set value but has default value, then good
-				$value = $default_values[$param];
-				$result[$param] = $value;
-			} else {
-				// else has value
-				$value = $this -> post($param);
-				$result[$param] = $value;
-			}
-		}
-		return $result;
-	}
-
-	/*
-	 * Check parameter of a put function, return key-value pair array of parameter
-	 */
-	private function _filterPutParams($allowd_params) {
-		$result = array();
-		foreach ($allowd_params as $allowd_param) {
-			if ($this -> put($allowd_param)) {
-				$result[$allowd_param] = $this -> put($allowd_param);
-			}
-		}
-		return $result;
-	}
-
-	/*
-	 * Form get params from $this->get
-	 */
-	private function _formGetParams($getable_params) {
-		$result = array();
-		foreach ($getable_params as $getable_param) {
-			if ($this -> get($getable_param)) {
-				$result[$getable_param] = $this -> get($getable_param);
-			}
-		}
-		return $result;
 	}
 
 }

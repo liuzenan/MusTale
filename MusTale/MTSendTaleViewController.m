@@ -7,9 +7,13 @@
 //
 
 #import "MTSendTaleViewController.h"
+#import <FacebookSDK/Facebook.h>
+#import "MTFBHelper.h"
+@interface MTSendTaleViewController () <FBFriendPickerDelegate,UISearchBarDelegate>
+@property (strong, nonatomic) FBFriendPickerViewController* friendPickerController;
 
-@interface MTSendTaleViewController ()
-
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) NSString *searchText;
 @end
 
 @implementation MTSendTaleViewController
@@ -28,6 +32,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setStyling];
+    self.bgImgView = [[RCBlurredImageView alloc] initWithImage:self.bgImg];
+    [self.view insertSubview:self.bgImgView belowSubview:self.overlayView];
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+    tapGes.numberOfTapsRequired = 1;
+    tapGes.delegate = self;
+    [self.view addGestureRecognizer:tapGes];
     
 }
 
@@ -50,12 +60,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.bgImgView = [[RCBlurredImageView alloc] initWithImage:self.bgImg];
-    [self.view insertSubview:self.bgImgView belowSubview:self.overlayView];
-    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
-    tapGes.numberOfTapsRequired = 1;
-    tapGes.delegate = self;
-    [self.view addGestureRecognizer:tapGes];
+   
     [self setInitialStyle];
     [super viewWillAppear:animated];
 
@@ -99,6 +104,131 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    [self dismiss];
+    [self dismissModalViewControllerAnimated:YES];
 }
+
+
+
+
+
+
+
+
+
+- (IBAction)fbBtnPressed:(id)sender {
+    if (![[MTFBHelper sharedFBHelper] isOpen]) {
+        
+        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+           
+        }];
+        
+    }
+    if (self.friendPickerController == nil) {
+        // Create friend picker, and get data loaded into it.
+        self.friendPickerController = [[FBFriendPickerViewController alloc] init];
+        self.friendPickerController.title = @"Select Friends";
+        self.friendPickerController.delegate = self;
+    }
+    [self.friendPickerController loadData];
+    [self.friendPickerController clearSelection];
+    
+    // Present the friend picker
+    [self presentViewController:self.friendPickerController
+                       animated:YES
+                     completion:^(void){
+                         [self addSearchBarToFriendPickerView];
+                     }
+     ];
+}
+
+- (void)addSearchBarToFriendPickerView
+{
+    if (self.searchBar == nil) {
+        CGFloat searchBarHeight = 44.0;
+        self.searchBar =
+        [[UISearchBar alloc]
+         initWithFrame:
+         CGRectMake(0,0,
+                    self.view.bounds.size.width,
+                    searchBarHeight)];
+        self.searchBar.autoresizingMask = self.searchBar.autoresizingMask |
+        UIViewAutoresizingFlexibleWidth;
+        self.searchBar.delegate = self;
+        self.searchBar.showsCancelButton = YES;
+        
+        [self.friendPickerController.canvasView addSubview:self.searchBar];
+        CGRect newFrame = self.friendPickerController.view.bounds;
+        newFrame.size.height -= searchBarHeight;
+        newFrame.origin.y = searchBarHeight;
+        self.friendPickerController.tableView.frame = newFrame;
+    }
+}
+
+#pragma mark - FBFriendPickerDelegate methods
+- (void)facebookViewControllerCancelWasPressed:(id)sender
+{
+    NSLog(@"Friend selection cancelled.");
+    [self handlePickerDone];
+}
+
+- (void)facebookViewControllerDoneWasPressed:(id)sender
+{
+#warning complete to add dedication
+    for (id<FBGraphUser> user in self.friendPickerController.selection) {
+        NSLog(@"Friend selected: %@", user.name);
+    }
+    [self handlePickerDone];
+}
+
+- (void) handlePickerDone
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+/*
+ * This delegate method is called to decide whether to show a user
+ * in the friend picker list.
+ */
+- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
+                 shouldIncludeUser:(id<FBGraphUser>)user
+{
+    // If there is a search query, filter the friend list based on this.
+    if (self.searchText && ![self.searchText isEqualToString:@""]) {
+        NSRange result = [user.name
+                          rangeOfString:self.searchText
+                          options:NSCaseInsensitiveSearch];
+        if (result.location != NSNotFound) {
+            // If friend name matches partially, show the friend
+            return YES;
+        } else {
+            // If no match, do not show the friend
+            return NO;
+        }
+    } else {
+        // If there is no search query, show all friends.
+        return YES;
+    }
+    return YES;
+}
+
+#pragma mark - UISearchBarDelegate methods
+- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar
+{
+    // Trigger the search
+    [self handleSearch:searchBar];
+}
+
+- (void) handleSearch:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    self.searchText = searchBar.text;
+    [self.friendPickerController updateView];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+    // Clear the search query and dismiss the keyboard
+    self.searchText = nil;
+    [searchBar resignFirstResponder];
+}
+
+
 @end

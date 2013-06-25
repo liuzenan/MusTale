@@ -10,6 +10,17 @@ class User_like_tale_model extends CI_Model {
 		$this -> load -> database();
 	}
 
+	function is_liked($uid, $taleID) {
+		$values = array('uid' => $uid, 'tale_id' => $taleID);
+		$this -> db -> where($values);
+		$query = $this -> db -> get($this -> database_name);
+		if (count($query -> result()) > 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 	function get_count_with($values) {
 		$this -> db -> select($this -> public_attr);
 		$this -> db -> where($values);
@@ -21,7 +32,16 @@ class User_like_tale_model extends CI_Model {
 		$this -> db -> select($this -> public_attr);
 		$this -> db -> where($values);
 		$query = $this -> db -> get($this -> database_name);
-		return count($query -> result());
+		return $query -> result();
+	}
+
+	function delete_entry($values) {
+		$this -> db -> delete($this -> database_name, $values);
+		if ($this -> db -> affected_rows() == 1) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 
 	function insert_entry($values) {

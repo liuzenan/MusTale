@@ -1,8 +1,8 @@
 <?php
 class Dedication_model extends CI_Model {
 
-	var $joint_primary_keys = array('from', 'to', 'tale_id');
-	var $public_attr = 'from,to,tale_id,is_front,created_at';
+	var $joint_primary_keys = array();
+	var $public_attr = 'from,to,tale_id,is_anonymous,is_public,created_at';
 	var $database_name = 'dedications';
 
 	function __construct() {
@@ -19,9 +19,6 @@ class Dedication_model extends CI_Model {
 	}
 
 	function insert_entry($values) {
-		if (self::is_existing($values)) {
-			return NULL;
-		}
 		$this -> db -> insert($this -> database_name, $values);
 
 		if ($this -> db -> affected_rows() == 1) {

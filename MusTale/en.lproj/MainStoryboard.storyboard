@@ -261,9 +261,12 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="fbBtnPressed:" destination="9bb-dr-eFL" eventType="touchUpInside" id="RcE-YK-eWB"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zWU-fE-cUf">
-                                        <rect key="frame" x="175" y="313" width="44" height="44"/>
+                                        <rect key="frame" x="174" y="313" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="@">
@@ -707,6 +710,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTSendTaleViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="fbBtnPressed:"/>
                 <relationship kind="action" name="sendTale:"/>
                 <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
             </relationships>

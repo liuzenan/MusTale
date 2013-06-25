@@ -2,9 +2,9 @@
 class Tale_model extends CI_Model {
 
 	var $joint_primary_keys = array('uid', 'song_id');
-	var $public_attr = 'tale_id,uid,song_id,text,voice_url,created_at';
+	var $public_attr = 'tale_id,uid,song_id,text,voice_url,created_at,is_public,is_anonymous,is_front';
 	var $database_name = 'tales';
-
+	var $primary_key = 'tale_id';
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
@@ -19,13 +19,10 @@ class Tale_model extends CI_Model {
 	}
 
 	function insert_entry($values) {
-		if (self::is_existing($values)) {
-			return NULL;
-		}
 		$this -> db -> insert($this -> database_name, $values);
 
 		if ($this -> db -> affected_rows() == 1) {
-			return $this -> get_with($values);
+			return $this -> get_with(array('tale_id'=>$this->db->insert_id()));
 		} else {
 			return NULL;
 		}

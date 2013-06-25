@@ -25,21 +25,75 @@ require APPPATH . '/libraries/REST_Controller.php';
  */
 
 class MY_REST_Controller extends REST_Controller {
-
+	var $APP_FACEBOOK_ID = "168614603309444";
+	var $APP_FACEBOOK_SECRET = "e88fd3b4f3ac6b984f945dc346a7676a";
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
 		$this -> load -> model('User_model');
 		$this -> load -> model('Song_model');
 		$this -> load -> model('Listen_model');
+		$this -> load -> model('Tale_model');
+		$this -> load -> model('Comment_model');
+		$this -> load -> model('User_like_tale_model');
 		$this -> load -> helper('rest_helper');
+		$this -> load -> model('Dedication_model');
+	}
+
+	// note this wrapper function exists in order to circumvent PHP’s
+	//strict obeying of HTTP error codes.  In this case, Facebook
+	//returns error code 400 which PHP obeys and wipes out
+	//the response.
+	function _curl_get_file_contents($URL) {
+		$c = curl_init();
+		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($c, CURLOPT_URL, $URL);
+		$contents = curl_exec($c);
+		$err = curl_getinfo($c, CURLINFO_HTTP_CODE);
+		curl_close($c);
+		if ($contents)
+			return $contents;
+		else
+			return FALSE;
+	}
+
+	function token_get() {
+		$accessToken = $this -> get('access_token');
+		$result = self::_validate_access_token($accessToken);
+		$this -> response($result, 200);
+	}
+
+	function _validate_access_token($access_token) {
+		$app_id = $this -> APP_FACEBOOK_ID;
+		$app_secret = $this -> APP_FACEBOOK_SECRET;
+		// Attempt to query the graph:
+		$graph_url = "https://graph.facebook.com/me?" . "access_token=" . $access_token;
+		$response = self::_curl_get_file_contents($graph_url);
+		$decoded_response = json_decode($response);
+
+		//Check for errors
+		if (isset($decoded_response -> error)) {
+			// check to see if this is an oAuth error:
+			if ($decoded_response -> error -> type == "OAuthException") {
+				// Retrieving a valid access token.
+				return array('result' => FALSE, 'error' => $decoded_response -> error -> message);
+			} else {
+				return array('result' => FALSE, 'error' => "other error has happened");
+			}
+		} else {
+			// success
+			return array('result' => TRUE, 'error' => NULL, 'fb_id' => $decoded_response -> id);
+		}
+
 	}
 
 	function _authenticate() {
-		if (!isset($_GET['auth_token']) && !isset($_POST['auth_token'])) {
+		if (!isset($_GET['auth_token']) && !isset($_POST['auth_token']) && !$this -> get('auth_token')) {
 			$this -> response(array('error' => 'unauthorized1'), 401);
 		} else if (isset($_GET['auth_token'])) {
 			$authToken = $_GET['auth_token'];
+		} else if ($this -> get('auth_token')) {
+			$authToken = $this -> get('auth_token');
 		} else {
 			$authToken = $_POST['auth_token'];
 		}
