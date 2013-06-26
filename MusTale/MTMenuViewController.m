@@ -223,11 +223,15 @@
     disabled = NO;
     if (buttonIndex == 0) {
         BOOL testing = YES;
-        
+ 
         [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
-            
+            MTDedicationModel* dedication = [data objectAtIndex:0];
+            [[MTNetworkController sharedInstance] postReadDedication:dedication completeHandler:^(id data, NSError *error) {
+                
+            }];
         }];
-        
+ 
+
         if (!testing){
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
             if (!error){

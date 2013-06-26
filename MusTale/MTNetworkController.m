@@ -14,7 +14,7 @@
 #import "RKObjectMappingOperationDataSource.h"
 
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
-#define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with data %@",tag,error.localizedDescription)
+#define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with error %@",tag,error.localizedDescription)
 #define int2string(i) [NSString stringWithFormat:@"%d",i]
 
 #define FB_PROFILE_URL_FORMAT @"http://graph.facebook.com/%@/picture?type=square"
@@ -37,6 +37,7 @@
 
 #define MT_PATH_USER_DEDICATION @"users/dedications/uid/%@" // songid-userid(from)-userid(to)
 #define MT_PATH_DEDICATION @"users/dedications"
+#define MT_PATH_READ_DEDICATION @"dedications/read"
 
 #define MT_PATH_COMMENT @"tales/comments" // uid-songid (tale)-songid (from)
 #define MT_PATH_COMMENT_TALE @"tales/comments/tale_id/%@"
@@ -139,8 +140,10 @@ static RKObjectMapping* dedicationMapping;
          }];
         dedicationMapping = [RKObjectMapping mappingForClass:[MTDedicationModel class]];
         [dedicationMapping addAttributeMappingsFromDictionary:@{
+         @"dedication_id":@"ID",
          @"is_public":@"isPublic",
          @"is_anonymous":@"isAnonymous",
+         @"has_read":@"hasRead",
          @"created_at":@"createdAt",
          @"tale_id":@"taleId"
          }];
@@ -537,6 +540,18 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
+- (void) postReadDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler {
+    NSString* tag = @"post read";
+    NSDictionary* data = @{@"dedication_id":dedication.ID};
+    [serverClient postSecure:data token:self.mtToken path:MT_PATH_READ_DEDICATION success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        LOG_S(tag, responseObject);
+        dedication.hasRead = YES;
+        handler(dedication,nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        LOG_F(tag, error);
+        handler(nil,error);
+    }];
+}
 
 
 #pragma mark helper
