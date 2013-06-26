@@ -70,21 +70,6 @@
     
 }
 
-
-- (void)loadInbox
-{
-    [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
-                                                          toUser:[MTNetworkController sharedInstance].currentUser.ID
-                                                 completeHandler:^(id data, NSError *error) {
-                                                     
-                                                 }];
-}
-
-- (void)loadOutbox
-{
-    
-}
-
 - (void)loadPopular
 {
     
