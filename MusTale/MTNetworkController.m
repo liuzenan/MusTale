@@ -12,7 +12,7 @@
 #import "MTServerClient.h"
 #import <EGOCache/EGOCache.h>
 #import "RKObjectMappingOperationDataSource.h"
-
+#import "MTS3Controller.h"
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
 #define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with error %@",tag,error.localizedDescription)
 #define int2string(i) [NSString stringWithFormat:@"%d",i]
@@ -383,6 +383,20 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
+- (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
+    NSString* tag =@"post voice tale";
+    [[MTS3Controller sharedInstance] uploadSoundToS3Bucket:voiceData Completion:^(BOOL success, NSString *soundPath) {
+        if (success) {
+            LOG_S(tag, soundPath);
+            tale.voiceUrl = soundPath;
+            [self postTale:tale to:song completeHandler:handler];
+        } else {
+            NSError* err =[NSError errorWithDomain:@"MT" code:999 userInfo:@{@"localizedDescription":@"upload voice failed"}];
+            LOG_F(tag, err);
+            handler(nil,err);
+        }
+    }];
+}
 
 #pragma mark tale
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
