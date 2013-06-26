@@ -14,7 +14,7 @@
  */
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
-require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/libraries/MY_REST_Controller.php';
 /*
  200: Success (OK)
  400: Invalid widget was requested (Bad Request)
@@ -24,7 +24,7 @@ require APPPATH . '/libraries/REST_Controller.php';
  *
  */
 
-class Publicity extends REST_Controller {
+class Publicity extends MY_REST_Controller {
 
 	function __construct() {
 		// Call the Model constructor
@@ -36,9 +36,11 @@ class Publicity extends REST_Controller {
 		$params = array('email');
 		$default_values = array();
 		$result = self::_checkPostParams($params, $default_values);
+		self::_validatePostparams($result);
 		$email = $this -> post('email');
 		
-		/*if (!$this -> VerifyMailAddress($email)) {
+		/*
+		if (!$this -> VerifyMailAddress($email)) {
 			$this -> response(array('error' => 'Bad email format'), 400);
 		}*/
 		
@@ -66,27 +68,4 @@ class Publicity extends REST_Controller {
 		$query = $this -> db -> get('subscribers');
 		return $query -> result();
 	}
-
-	/*
-	 * Check parameter of a post function, return key-value pair array of parameter
-	 */
-	private function _checkPostParams($params, $default_values) {
-		$result = array();
-		foreach ($params as $param) {
-			// if a param is not set value and no default value is set, then error
-			if (!$this -> post($param) && !isset($default_values[$param])) {
-				return array('error' => $param . " is not set");
-			} else if (!$this -> post($param)) {
-				// if a param is not set value but has default value, then good
-				$value = $default_values[$param];
-				$result[$param] = $value;
-			} else {
-				// else has value
-				$value = $this -> post($param);
-				$result[$param] = $value;
-			}
-		}
-		return $result;
-	}
-
 }

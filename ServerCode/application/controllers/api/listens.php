@@ -37,15 +37,14 @@ class Listens extends MY_REST_Controller {
 		$default_values = array();
 		$result = self::_checkPostParams($params, $default_values);
 		self::_validatePostParams($result);
-
+		
 		// assure foreign keys constrains
-		$user = $this -> User_model -> get_with(array('uid' => $user -> uid));
 		$song = $this -> Song_model -> get_with(array('song_id' => $result['song_id']));
 		
-		if (!$user || !$song) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
+		if (!$song) {
+			$this -> response(array('error' => 'Song id can not be found '), 400);
 		}
-		
+		$result['uid'] = $user->uid;
 		$entry = $this -> Listen_model -> insert_entry($result);
 		if ($entry && count($entry)) {
 			$this -> response($entry[0], 200);

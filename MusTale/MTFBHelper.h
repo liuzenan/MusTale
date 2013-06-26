@@ -1,9 +1,9 @@
 //
-//  SGFBHelper.h
-//  StreetGaGaApp
+//  MTFBHelper.h
+//  MusTale
 //
-//  Created by Xujie Song on 29/05/13.
-//  Copyright (c) 2013 StreetGaGa. All rights reserved.
+//  Created by Jiao Jing Ping on 15/6/13.
+//  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -20,6 +20,6 @@ extern NSString *const FBSessionStateChangedNotification;
 - (BOOL)handleOpenURL:(NSURL*)url;
 - (void)closeSession;
 - (BOOL)isOpen;
-
+- (void)searchFriendMatchingTerm:(NSString*)term completeHandler:(NetworkCompleteHandler)handler;
 + (MTFBHelper*) sharedFBHelper;
 @end

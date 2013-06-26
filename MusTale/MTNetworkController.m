@@ -168,7 +168,7 @@ static RKObjectMapping* dedicationMapping;
 
 #pragma mark login/out/signup
 - (BOOL) isLoggedIn {
-    return (_currentUser && self.mtToken);
+    return (_currentUser && self.mtToken && fbHelper.isOpen);
 }
 
 - (void) clearUserData {

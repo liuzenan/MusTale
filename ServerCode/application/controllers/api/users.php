@@ -14,7 +14,7 @@
  */
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
-require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/libraries/MY_REST_Controller.php';
 /*
  200: Success (OK)
  400: Invalid widget was requested (Bad Request)
@@ -24,19 +24,15 @@ require APPPATH . '/libraries/REST_Controller.php';
  *
  */
 
-class Users extends REST_Controller {
+class Users extends MY_REST_Controller {
 
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
-		$this -> load -> model('User_model');
-		$this -> load -> model('Song_model');
-		$this -> load -> model('Dedication_model');
-		$this -> load -> model('Tale_model');
-		$this -> load -> model('User_like_tale_model');
 	}
 
 	function index_get() {
+		$user = self::_authenticate();
 		$getableParams = array('uid', 'fb_id', 'email', 'name', 'link', 'fb_location_id', 'gender', 'profile_url');
 		$values = self::_formGetParams($getableParams);
 
@@ -54,6 +50,7 @@ class Users extends REST_Controller {
 
 	//Get a user
 	function user_get() {
+		$user = self::_authenticate();
 		$getableParams = array('uid', 'fb_id');
 		$values = self::_formGetParams($getableParams);
 
@@ -62,13 +59,11 @@ class Users extends REST_Controller {
 		}
 		$user = $this -> User_model -> get_with($values);
 		if ($user && count($user) > 0) {
-			$this -> response(array('user' => $user[0]), 200);
+			$this -> response($user[0], 200);
 		} else {
 			$this -> response(array('error' => 'User could not be found', 'data' => NULL), 400);
 		}
 	}
-
-
 
 	// Update a user
 	function index_put() {
@@ -94,341 +89,105 @@ class Users extends REST_Controller {
 	}
 
 	/*
-	 * Song
-	 */
-	// Get a Song
-	function song_get() {
-		$getableParams = array('song_id');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 1) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$song = $this -> Song_model -> get_with($values);
-		if ($song) {
-			$this -> response($song, 200);
-		} else {
-			$this -> response(array('error' => 'Song could not be found'), 404);
-		}
-	}
-
-	// Get all songs
-	function songs_get() {
-		$getableParams = array('song_id', 'itune_track_id');
-		$values = self::_formGetParams($getableParams);
-		$song = $this -> Song_model -> get_with($values);
-		if ($song) {
-			$this -> response($song, 200);
-		} else {
-			$this -> response(array('error' => 'Song could not be found'), 404);
-		}
-	}
-
-	// Create a song
-	function songs_post() {
-		$params = array('itune_track_id');
-		$default_values = array();
-		$result = self::_checkPostParams($params, $default_values);
-
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
-			$this -> response(array('error' => NULL), 400);
-		}
-
-		$songID = $this -> Song_model -> insert_entry($result);
-
-		if ($songID) {
-			$this -> response(array('song_id' => $songID), 200);
-		} else {
-			$this -> response(array('error' => 'Song already exist!'), 404);
-		}
-	}
-
-	/*
 	 * Dedication
 	 */
 	function dedications_post() {
-		if ($this -> post('from') == $this -> post('to')) {
+		$userFrom = self::_authenticate();
+
+		$params = array('tale_id');
+		$default_values = array();
+		$result = self::_checkPostParams($params, $default_values);
+		self::_validatePostParams($result);
+		if (!$this -> get('uid')) {
+			$this -> response(array('error' => "Uid is not set"), 400);
+		}
+
+		// Special handle for boolean 囧
+		$result['is_anonymous'] = $_POST['is_anonymous'];
+		$result['is_public'] = $_POST['is_public'];
+
+		// foriegn key constrain
+		$taleList = $this -> Tale_model -> get_with(array('tale_id' => $this -> post('tale_id')));
+		$userToList = $this -> User_model -> get_with(array('uid' => $this -> get('uid')));
+		if (!$taleList || !$userToList) {
 			$this -> response(array('error' => "Invalid arguments"), 400);
 		}
 
-		$params = array('from', 'to', 'tale_id', 'text', 'voice_url');
-		$default_values = array('text' => '', 'voice_url' => '');
-		$result = self::_checkPostParams($params, $default_values);
-
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
+		$tale = $taleList[0];
+		$userTo = $userToList[0];
+		// check if the tale is written by the userFrom
+		if (strcmp($userFrom -> uid, $tale -> uid) != 0) {
+			$this -> response(array('error' => 'the tale is not from this user'), 400);
+		}
+		// user cannot didicate to self
+		if (strcmp($userFrom -> uid, $userTo -> uid) == 0) {
+			$this -> response(array('error' => "Cannot dedicate to self"), 400);
 		}
 
-		// assure at either voice_url or text isset
-		if ($result['text'] == '' && $result['voice_url'] == '') {
-			$this -> response(array('error' => "dedication content is not set"), 400);
-		}
+		$result['from'] = $userFrom -> uid;
+		$result['to'] = $userTo -> uid;
 
-		// assure foreign keys constrains
-		$from = $this -> User_model -> get_with(array('uid' => $result['from']));
-		$to = $this -> User_model -> get_with(array('uid' => $result['to']));
-		$song = $this -> Song_model -> get_with(array('tale_id' => $result['tale_id']));
+		$dedicationList = $this -> Dedication_model -> insert_entry($result);
 
-		if (!$from || !$to || !$song) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-
-		$dedication = $this -> Dedication_model -> insert_entry($result);
-
-		if ($dedication) {
-			$this -> response($dedication, 200);
-		} else {
+		if (!$dedicationList) {
 			$this -> response(array('error' => 'dedication already exist!'), 404);
-		}
-	}
-
-	// Get a dedication
-	function dedication_get() {
-		$getableParams = array('from', 'to');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 2) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$dedication = $this -> Dedication_model -> get_with($values);
-		if ($dedication) {
-			$this -> response($dedication, 200);
 		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
+			$dedication = $dedicationList[0];
+			$dedication -> from = $userFrom;
+			$dedication -> to = $userTo;
+			$this -> response($dedication, 200);
 		}
 	}
 
 	// Get dedications
 	function dedications_get() {
-		$getableParams = array('from', 'to');
+		$userRequest = self::_authenticate();
+		$getableParams = array('from', 'to', 'created_at');
 		$values = self::_formGetParams($getableParams);
 		$dedications = $this -> Dedication_model -> get_with($values);
 		if ($dedications) {
-			$this -> response($dedications, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	/**
-	 *  Tale
-	 */
-	// Get a tale
-	function tale_get() {
-		$getableParams = array('tale_id');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 1) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$tale = $this -> Tale_model -> get_with($values);
-		if ($tale) {
-			$this -> response($tale, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	// Get tales matching query
-	function tales_get() {
-		$getableParams = array('song_id', 'uid');
-		$values = self::_formGetParams($getableParams);
-		$tale = $this -> Tale_model -> get_with($values);
-		if ($tale) {
-			$this -> response(array('tales' => $tale), 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	// Create a tale
-	function tales_post() {
-		$params = array('uid', 'song_id', 'is_public', 'is_anonymous', 'text', 'voice_url');
-		$default_values = array();
-		$result = self::_checkPostParams($params, $default_values);
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
-			$this -> response(array('error' => 'Invalid arguments1'), 400);
-		}
-		// assure at either voice_url or text isset
-		if ($result['text'] == '' && $result['voice_url'] == '') {
-			$this -> response(array('error' => "Tale content is not set"), 400);
-		}
-
-		// assure foreign keys constrains
-		$user = $this -> User_model -> get_with(array('uid' => $result['uid']));
-		$song = $this -> Song_model -> get_with(array('song_id' => $result['song_id']));
-
-		if (!$user || !$song) {
-			$this -> response(array('error' => 'Invalid arguments2'), 400);
-		}
-
-		$tale = $this -> Tale_model -> insert_entry($result);
-
-		if ($tale) {
-			$this -> response($tale, 200);
-		} else {
-			$this -> response(array('error' => 'Tale already exist!'), 404);
-		}
-	}
-
-	/**
-	 *
-	 */
-	public function likes_post() {
-		$params = array('uid', 'tale_id');
-		$default_values = array();
-		$result = self::_checkPostParams($params, $default_values);
-		if (isset($result['error'])) {
-			$this -> response(array('error' => $result['error']), 400);
-		} else if (count($result) == 0) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-
-		// assure foreign keys constrains
-		$user = $this -> User_model -> get_with(array('uid' => $result['uid']));
-		$tale = $this -> Tale_model -> get_with(array('tale_id' => $result['tale_id']));
-		if (!$user || !$tale) {
-			$this -> response(array('error' => 'Invalid arguments2'), 400);
-		}
-
-		$like = $this -> User_like_tale_model -> insert_entry($result);
-
-		if ($like) {
-			$this -> response($like, 200);
-		} else {
-			$this -> response(array('error' => 'user already liked!'), 404);
-		}
-	}
-
-	public function likes_get() {
-		$getableParams = array('tale_id', 'uid');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) == 0) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$likeCount = $this -> Tale_model -> get_with($values);
-		if ($likeCount) {
-			$this -> response($likeCount, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	public function like_get() {
-		$getableParams = array('tale_id', 'uid');
-		$values = self::_formGetParams($getableParams);
-		if (count($values) != 2) {
-			$this -> response(array('error' => 'Invalid arguments'), 400);
-		}
-		$likeCount = $this -> Tale_model -> get_with($values);
-		if ($likeCount) {
-			$this -> response($likeCount, 200);
-		} else {
-			$this -> response(array('error' => 'Dedication could not be found'), 404);
-		}
-	}
-
-	function subscribe_post() {
-
-	}
-
-	/*
-	 * Check parameter of a post function, return key-value pair array of parameter
-	 */
-	private function _checkPostParams($params, $default_values) {
-		$result = array();
-		foreach ($params as $param) {
-			// if a param is not set value and no default value is set, then error
-			if (!$this -> post($param) && !isset($default_values[$param])) {
-				return array('error' => $param . " is not set");
-			} else if (!$this -> post($param)) {
-				// if a param is not set value but has default value, then good
-				$value = $default_values[$param];
-				$result[$param] = $value;
-			} else {
-				// else has value
-				$value = $this -> post($param);
-				$result[$param] = $value;
+			$result = array();
+			foreach ($dedications as $dedication) {
+				$userFromId = $dedication -> from;
+				$userToId = $dedication -> to;
+				$taleId = $dedication -> tale_id;
+				$userFrom = $this -> User_model -> get_with(array('uid' => $userFromId));
+				$userTo = $this -> User_model -> get_with(array('uid' => $userToId));
+				$tale = $this -> Tale_model -> get_with(array('tale_id' => $taleId));
+				$song = $this -> Song_model -> get_with(array('song_id' => $tale[0] -> song_id));
+				
+				$dedication -> from = $userFrom[0];
+				$dedication -> to = $userTo[0];
+				$dedication -> song = $song[0];
+				
+				if (strcmp($userRequest -> uid, $userFromId) == 0) {
+					// if request user is the posting-user himself, return full data
+					$result[] = $dedication;
+				} else if (strcmp($userRequest -> uid, $userToId) == 0) {
+					// if request user is the post-to user
+					if ($dedication -> is_anonymous) {
+						// if dedication is anonymous, then don't show the user from
+						$dedication -> from = NULL;
+					}
+					$result[] = $dedication;
+				} else {
+					// to other user
+					if (!$dedication -> is_public) {
+						// if dedication is not public then skip the dedication
+						continue;
+					} else {
+						if ($dedication -> is_anonymous) {
+							// if dedication is anonymous, then don't show the user from
+							$dedication -> from = NULL;
+						}
+						$result[] = $dedication;
+					}
+				}
 			}
-		}
-		return $result;
-	}
-
-	/*
-	 * Check parameter of a put function, return key-value pair array of parameter
-	 */
-	private function _filterPutParams($allowd_params) {
-		$result = array();
-		foreach ($allowd_params as $allowd_param) {
-			if ($this -> put($allowd_param)) {
-				$result[$allowd_param] = $this -> put($allowd_param);
-			}
-		}
-		return $result;
-	}
-
-	/*
-	 * Form get params from $this->get
-	 */
-	private function _formGetParams($getable_params) {
-		$result = array();
-		foreach ($getable_params as $getable_param) {
-			if ($this -> get($getable_param)) {
-				$result[$getable_param] = $this -> get($getable_param);
-			}
-		}
-		return $result;
-	}
-
-	// note this wrapper function exists in order to circumvent PHP’s
-	//strict obeying of HTTP error codes.  In this case, Facebook
-	//returns error code 400 which PHP obeys and wipes out
-	//the response.
-	function _curl_get_file_contents($URL) {
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($c, CURLOPT_URL, $URL);
-		$contents = curl_exec($c);
-		$err = curl_getinfo($c, CURLINFO_HTTP_CODE);
-		curl_close($c);
-		if ($contents)
-			return $contents;
-		else
-			return FALSE;
-	}
-
-	function token_get() {
-		$accessToken = $this -> get('access_token');
-		$result = self::_validate_access_token($accessToken);
-		$this -> response($result, 200);
-	}
-
-	function _validate_access_token($access_token) {
-		$app_id = "168614603309444";
-		$app_secret = "e88fd3b4f3ac6b984f945dc346a7676a";
-
-		// Attempt to query the graph:
-		$graph_url = "https://graph.facebook.com/me?" . "access_token=" . $access_token;
-		$response = self::_curl_get_file_contents($graph_url);
-		$decoded_response = json_decode($response);
-
-		//Check for errors
-		if (isset($decoded_response -> error)) {
-			// check to see if this is an oAuth error:
-			if ($decoded_response -> error -> type == "OAuthException") {
-				// Retrieving a valid access token.
-				return array('result' => FALSE, 'error' => $decoded_response -> error -> message);
-			} else {
-				return array('result' => FALSE, 'error' => "other error has happened");
-			}
+			$this -> response($result, 200);
 		} else {
-			// success
-			return array('result' => TRUE, 'error' => NULL, 'fb_id' => $decoded_response -> id);
+			$this -> response(array(), 200);
 		}
-
 	}
 
 }

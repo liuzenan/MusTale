@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+// ACCESS 
+
 // Notifications
 extern NSString *const APP_STATUS_WILL_INACTIVE;
 extern NSString *const APP_STATUS_WILL_TERMINATE;

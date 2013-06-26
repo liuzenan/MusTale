@@ -23,5 +23,6 @@
 @property (strong, nonatomic) RCBlurredImageView *bgImgView;
 - (IBAction)sendTale:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)fbBtnPressed:(id)sender;
 - (void)dismiss;
 @end

@@ -53,7 +53,7 @@ class Dedications extends REST_Controller {
 		} else if (count($result) == 0) {
 			$this -> response(array('error' => 'Invalid arguments'), 400);
 		}
-
+		
 		// assure at either voice_url or text isset
 		if ($result['text'] == '' && $result['voice_url'] == '') {
 			$this -> response(array('error' => "dedication content is not set"), 400);
