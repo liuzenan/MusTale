@@ -163,7 +163,6 @@
 
 - (void) getSoundURLByFilePath:(NSString*)filePath Completion:(void(^)(NSURL *url, NSError *error))callback {
     NSLog(@"%@", filePath);
-    // Set the content type so that the browser will treat the URL as an image.
     
     if ([[EGOCache globalCache] hasCacheForKey:filePath]) {
         return callback((NSURL*)[[EGOCache globalCache] objectForKey:filePath], nil);

@@ -35,14 +35,19 @@
 
 #pragma mark tale
 - (void) getTalesOfSong:(NSString*)songId completeHandler:(NetworkCompleteHandler)handler;
+
+- (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+
 - (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler;
+- (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
+
 - (void) likeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 - (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
-- (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
 
 #pragma mark dedication
 - (void) postDedication:(MTDedicationModel*)dedication toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler;
 - (void) getDedicationsFromUser:(NSString*)from toUser:(NSString*)to completeHandler:(NetworkCompleteHandler)handler;
+
 - (void) postReadDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler;
 @end

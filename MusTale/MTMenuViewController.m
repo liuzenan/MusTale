@@ -227,14 +227,36 @@
     disabled = NO;
     if (buttonIndex == 0) {
         BOOL testing = YES;
- 
+        [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
+            
+            if (!error){
+                MTSongModel* song = [(NSArray*)data objectAtIndex:0];
+                
+                [[MTNetworkController sharedInstance] postListenTo:song completeHandler:^(id data, NSError *error) {
+                    MTTaleModel* tale = [MTTaleModel new];
+                    tale.isAnonymous=YES;
+                    tale.isPublic = YES;
+                    tale.text = @"Test tale";
+                    tale.isFront = NO;
+                    NSError* err;
+                    NSData* soundData = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/MySound.caf", DOCUMENTS_FOLDER] options: 0 error:&err];
+                    [[MTNetworkController sharedInstance] postVoiceTale:soundData tale:tale to:song completeHandler:^(id data, NSError *error){
+                        
+                    }];
+                }];
+            } else {
+                NSLog(@"Error %@",error);
+            }
+        }];
+        
+        /*
         [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
             MTDedicationModel* dedication = [data objectAtIndex:0];
             [[MTNetworkController sharedInstance] postReadDedication:dedication completeHandler:^(id data, NSError *error) {
                 
             }];
         }];
- 
+         */
 
         if (!testing){
         [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
@@ -285,24 +307,7 @@
                 
          // Get song info from itune and register the song to the server, return the same song model with songId filled.
          // Then post a tale to this song
-        /*[[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
-            
-            if (!error){
-                MTSongModel* song = [(NSArray*)data objectAtIndex:0];
-                [[MTNetworkController sharedInstance] postListenTo:song completeHandler:^(id data, NSError *error) {
-                    MTTaleModel* tale = [MTTaleModel new];
-                    tale.isAnonymous=YES;
-                    tale.isPublic = YES;
-                    tale.text = @"Test tale";
-                    tale.isFront = NO;
-                    [[MTNetworkController sharedInstance] postTale:tale to:song completeHandler:^(id data, NSError *error) {
-                        NSLog(data,nil);
-                    }];
-                }];
-            } else {
-                NSLog(@"Error %@",error);
-            }
-        }];*/
+        */
      
         /*
          // Get popular song with limit 50
