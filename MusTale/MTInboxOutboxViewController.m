@@ -7,8 +7,20 @@
 //
 
 #import "MTInboxOutboxViewController.h"
+#import "UIViewController+SliderView.h"
+#import "UIViewController+DoubleRightBarItems.h"
+#import <QuartzCore/QuartzCore.h>
+#import "MTSliderViewController.h"
+#import "MTNetworkController.h"
+#import "MTInboxCell.h"
+#import "MTDedicationModel.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "NSDate+TimeAgo.h"
+#import "UIColor+i7HexColor.h"
 
-@interface MTInboxOutboxViewController ()
+@interface MTInboxOutboxViewController (){
+    BOOL isInbox;
+}
 
 @end
 
@@ -26,12 +38,86 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setupRightNavBarItems];
+    [self setStyling];
+    
+    self.dedications = [NSMutableArray array];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+
+- (void)setStyling{
+    self.tableView.backgroundColor = [UIColor colorWithHexString:@"#fefef8"];
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 10.0f, 0.0f);
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
+    self.delegate = sliderController;
+    self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
+    [self setupTopViewController];
+    
+}
+
+- (void)showMenu
+{
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+}
+
+
+- (void) loadInboxDedications
+{
+    isInbox = YES;
+    [self setTitle:@"Inbox"];
+    NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
+    
+    MTUserModel *currentUser = [MTNetworkController sharedInstance].currentUser;
+    if (currentUser && currentUser.ID) {
+        [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
+                                                              toUser:[MTNetworkController sharedInstance].currentUser.ID
+                                                     completeHandler:^(id data, NSError *error) {
+                                                         
+                                                         if (!error) {
+                                                             self.dedications = [NSMutableArray arrayWithArray:data];
+                                                             [self.tableView reloadData];
+                                                         } else {
+                                                             NSLog(@"%@", error);
+                                                         }
+                                                         
+                                                     }];
+    } else {
+        NSLog(@"no current user");
+    }
+
+}
+
+- (void) loadOutboxDedications
+{
+    isInbox = NO;
+    [self setTitle:@"Outbox"];
+    
+    MTUserModel *currentUser = [MTNetworkController sharedInstance].currentUser;
+    if (currentUser && currentUser.ID) {
+    NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
+    [[MTNetworkController sharedInstance] getDedicationsFromUser:[MTNetworkController sharedInstance].currentUser.ID
+                                                          toUser:nil
+                                                 completeHandler:^(id data, NSError *error) {
+                                                              
+                                                              
+                                                              if (!error) {
+                                                                  self.dedications = [NSMutableArray arrayWithArray:data];
+                                                                  [self.tableView reloadData];
+                                                              } else {
+                                                                  NSLog(@"%@", error);
+                                                              }
+                                                              
+                                                          }];
+    } else {
+        NSLog(@"no current user");
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,66 +130,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.dedications count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"inboxCell";
+    MTInboxCell *cell = (MTInboxCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
+    MTDedicationModel *dedication = [self.dedications objectAtIndex:indexPath.row];
+
+    MTUserModel *user;
+    if (isInbox) {
+        user = dedication.from;
+    } else {
+        user = dedication.to;
+    }
     
+    [cell.profilePic setImageWithURL:[NSURL URLWithString:user.profileURL]];
+    [cell.userName setText:user.name];
+    [cell.shortDedication setText:dedication.tale.text];
+    [cell.date setText:[dedication.createdAt timeAgo]];
+    
+    [cell setStyling];
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

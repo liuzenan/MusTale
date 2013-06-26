@@ -12,7 +12,6 @@
 #import "MTPlaylistListCell.h"
 #import "UIViewController+DoubleRightBarItems.h"
 #import "UIColor+i7HexColor.h"
-#import <QuartzCore/QuartzCore.h>
 #import "MTFloatMusicViewController.h"
 #import "MTSongModel.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -41,6 +40,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
     self.delegate = sliderController;
     self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
@@ -55,11 +55,7 @@
     [self setStyling];
     
     self.playlist = [NSMutableArray array];
-    
-    MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
-    self.delegate = sliderController;
-    
-    
+
     // set up search bar
     NSArray *objects = [[NSBundle mainBundle] loadNibNamed:@"MTSearchBar" owner:self options:nil];
     self.searchController = (MTSearchBarController*)[objects objectAtIndex:1];
@@ -109,21 +105,14 @@
         cell = [[MTPlaylistListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaylistListCell"];
     }
     
-    [cell setStyling];
-    
-    [cell.contentWrapper.layer setCornerRadius:4.0f];
-    // border
-    [cell.contentWrapper.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [cell.contentWrapper.layer setBorderWidth:0.4f];
-    
-    cell.contentWrapper.layer.shouldRasterize = YES;
-    cell.contentWrapper.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     // Configure the cell...
     
     MTSongModel *song = [self.playlist objectAtIndex:indexPath.row];
     [cell.songTitle setText:song.trackName];
     [cell.songCoverImage setImageWithURL:song.artworkUrl100];
     [cell.singerName setText:song.artistName];
+    
+    [cell setStyling];
     
     return cell;
 }

@@ -20,6 +20,9 @@
 		C5D55DC31779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5D55DC11779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib */; };
 		C5D55DC41779EAD600DF4FB2 /* MTFBFriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D55DC21779EAD600DF4FB2 /* MTFBFriendPickerViewController.m */; };
 		C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */; };
+		E405307A177B54CF002BA719 /* MTInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4053079177B54CF002BA719 /* MTInboxCell.m */; };
+		E4053095177B5D62002BA719 /* NSDateTimeAgo.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4053082177B5D62002BA719 /* NSDateTimeAgo.strings */; };
+		E4053096177B5D62002BA719 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = E4053094177B5D62002BA719 /* NSDate+TimeAgo.m */; };
 		E4059A681758E16A00F4C351 /* MTMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4059A671758E16A00F4C351 /* MTMenuTableCell.m */; };
 		E4059A891758E49B00F4C351 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4059A7F1758E49B00F4C351 /* Lato-Black.ttf */; };
 		E4059A8A1758E49B00F4C351 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4059A801758E49B00F4C351 /* Lato-BlackItalic.ttf */; };
@@ -202,6 +205,26 @@
 		C5D55DC21779EAD600DF4FB2 /* MTFBFriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFBFriendPickerViewController.m; sourceTree = "<group>"; };
 		C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTItuneNetworkController.h; sourceTree = "<group>"; };
 		C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTItuneNetworkController.m; sourceTree = "<group>"; };
+		E4053078177B54CF002BA719 /* MTInboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTInboxCell.h; sourceTree = "<group>"; };
+		E4053079177B54CF002BA719 /* MTInboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTInboxCell.m; sourceTree = "<group>"; };
+		E4053083177B5D62002BA719 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053084177B5D62002BA719 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053085177B5D62002BA719 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053086177B5D62002BA719 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053087177B5D62002BA719 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053088177B5D62002BA719 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053089177B5D62002BA719 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308A177B5D62002BA719 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308B177B5D62002BA719 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308C177B5D62002BA719 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308D177B5D62002BA719 /* pt_BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt_BR; path = pt_BR.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308E177B5D62002BA719 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E405308F177B5D62002BA719 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053090177B5D62002BA719 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053091177B5D62002BA719 /* zh_Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_Hans; path = zh_Hans.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053092177B5D62002BA719 /* zh_Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_Hant; path = zh_Hant.lproj/NSDateTimeAgo.strings; sourceTree = "<group>"; };
+		E4053093177B5D62002BA719 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		E4053094177B5D62002BA719 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 		E4059A661758E16A00F4C351 /* MTMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTMenuTableCell.h; sourceTree = "<group>"; };
 		E4059A671758E16A00F4C351 /* MTMenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTMenuTableCell.m; sourceTree = "<group>"; };
 		E4059A7F1758E49B00F4C351 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -444,6 +467,24 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
+		E4053081177B5D62002BA719 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				E4053082177B5D62002BA719 /* NSDateTimeAgo.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		E4053097177B5D66002BA719 /* NSDate-TimeAgo */ = {
+			isa = PBXGroup;
+			children = (
+				E4053081177B5D62002BA719 /* Localization */,
+				E4053093177B5D62002BA719 /* NSDate+TimeAgo.h */,
+				E4053094177B5D62002BA719 /* NSDate+TimeAgo.m */,
+			);
+			name = "NSDate-TimeAgo";
+			sourceTree = "<group>";
+		};
 		E4059A691758E34200F4C351 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +698,8 @@
 			children = (
 				E4AA8B6B1757AF81001FA121 /* MTPlaylistListCell.h */,
 				E4AA8B6C1757AF81001FA121 /* MTPlaylistListCell.m */,
+				E4053078177B54CF002BA719 /* MTInboxCell.h */,
+				E4053079177B54CF002BA719 /* MTInboxCell.m */,
 				E4AA8B6E1757AFBA001FA121 /* MTPlaylistGridCell.h */,
 				E4AA8B6F1757AFBA001FA121 /* MTPlaylistGridCell.m */,
 				E4AA8B711757B66E001FA121 /* MTPlaylistGridCell.xib */,
@@ -728,6 +771,7 @@
 		E4BD1ED81756604800518BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4053097177B5D66002BA719 /* NSDate-TimeAgo */,
 				E4AFEDF21767A32B003B1725 /* CoreImage.framework */,
 				E4AFEDEE1767A31A003B1725 /* RCBlurredImageView */,
 				E4F67678176633DD00F22284 /* GCPlaceholderTextView */,
@@ -916,6 +960,21 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				da,
+				de,
+				es,
+				fi,
+				fr,
+				hu,
+				it,
+				ja,
+				nl,
+				pt_BR,
+				ro,
+				ru,
+				vi,
+				zh_Hans,
+				zh_Hant,
 			);
 			mainGroup = E4BD1ECD1756604800518BDE;
 			productRefGroup = E4BD1ED71756604800518BDE /* Products */;
@@ -1029,6 +1088,7 @@
 				E45198DB17704488003C7BDB /* Icon@2x.png in Resources */,
 				C5CA94781778A3A800F6A4ED /* MySound.caf in Resources */,
 				C5D55DC31779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib in Resources */,
+				E4053095177B5D62002BA719 /* NSDateTimeAgo.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1133,12 +1193,37 @@
 				E452F0561776FBB3003C1024 /* MTS3Controller.m in Sources */,
 				E452F0591776FC76003C1024 /* MTInboxOutboxViewController.m in Sources */,
 				C5D55DC41779EAD600DF4FB2 /* MTFBFriendPickerViewController.m in Sources */,
+				E405307A177B54CF002BA719 /* MTInboxCell.m in Sources */,
+				E4053096177B5D62002BA719 /* NSDate+TimeAgo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		E4053082177B5D62002BA719 /* NSDateTimeAgo.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4053083177B5D62002BA719 /* da */,
+				E4053084177B5D62002BA719 /* de */,
+				E4053085177B5D62002BA719 /* en */,
+				E4053086177B5D62002BA719 /* es */,
+				E4053087177B5D62002BA719 /* fi */,
+				E4053088177B5D62002BA719 /* fr */,
+				E4053089177B5D62002BA719 /* hu */,
+				E405308A177B5D62002BA719 /* it */,
+				E405308B177B5D62002BA719 /* ja */,
+				E405308C177B5D62002BA719 /* nl */,
+				E405308D177B5D62002BA719 /* pt_BR */,
+				E405308E177B5D62002BA719 /* ro */,
+				E405308F177B5D62002BA719 /* ru */,
+				E4053090177B5D62002BA719 /* vi */,
+				E4053091177B5D62002BA719 /* zh_Hans */,
+				E4053092177B5D62002BA719 /* zh_Hant */,
+			);
+			name = NSDateTimeAgo.strings;
+			sourceTree = "<group>";
+		};
 		E4BD1EE21756604800518BDE /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

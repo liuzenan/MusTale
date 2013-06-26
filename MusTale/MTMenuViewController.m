@@ -14,6 +14,7 @@
 #import "MTFBHelper.h"
 #import "MTS3Controller.h"
 #import "MTFBFriendPickerViewController.h"
+#import "MTInboxOutboxViewController.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -164,13 +165,16 @@
                 
             case kOthersSectionTypeInbox:
             {
-                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
-                
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
+                MTInboxOutboxViewController *inbox = (MTInboxOutboxViewController*) viewController.topViewController;
+                [inbox loadInboxDedications];
                 break;
             }
             case kOthersSectionTypeOutbox:
             {
-                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
+                MTInboxOutboxViewController *outbox = (MTInboxOutboxViewController*) viewController.topViewController;
+                [outbox loadOutboxDedications];
                 break;
             }
             case kOthersSectionTypePopular:
