@@ -117,12 +117,16 @@
 
 - (IBAction)fbBtnPressed:(id)sender {
     if (![[MTFBHelper sharedFBHelper] isOpen]) {
-        
         [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-           
+            [self showFriendPicker];
         }];
-        
+    } else {
+        [self showFriendPicker];
     }
+    
+}
+
+- (void) showFriendPicker {
     if (self.friendPickerController == nil) {
         // Create friend picker, and get data loaded into it.
         self.friendPickerController = [[FBFriendPickerViewController alloc] init];

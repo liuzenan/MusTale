@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "MTUserModel.h"
+#import "MTTaleModel.h"
 @interface MTDedicationModel : NSObject
 
 @property (nonatomic,strong) NSString* taleId;
+@property (nonatomic,strong) MTTaleModel* tale;
 @property (nonatomic,strong) MTUserModel* from;
 @property (nonatomic,strong) MTUserModel* to;
 @property (nonatomic) BOOL isPublic;

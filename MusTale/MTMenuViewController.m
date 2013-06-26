@@ -222,6 +222,25 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
+        BOOL testing = YES;
+        
+        [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
+            
+        }];
+        
+        if (!testing){
+        [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
+            if (!error){
+                UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
+                loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                [self presentModalViewController:loginView animated:YES];
+            } else {
+                // some error
+            }
+        }];
+        }
+
+        /*
         NSError* err;
         NSData* soundData = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/MySound.caf", DOCUMENTS_FOLDER] options: 0 error:&err];
         [[MTS3Controller sharedInstance] uploadSoundToS3Bucket:soundData Completion:^(BOOL success, NSString *soundPath) {
@@ -231,7 +250,7 @@
             }];
         }];
         fbpickerVC = [[MTFBFriendPickerViewController alloc] init];
-        [self presentViewController:fbpickerVC animated:YES completion:nil];
+        [self presentViewController:fbpickerVC animated:YES completion:nil];*/
         /* Send dedication,return the same dedication model
         MTDedicationModel* dedication = [MTDedicationModel new];
         dedication.taleId = @"10";
@@ -255,17 +274,7 @@
         
         /*API Examples*/
        /*
-        // Logout
-        [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
-            if (!error){
-                UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-                loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentModalViewController:loginView animated:YES];
-            } else {
-                // some error
-            }
-        }];*/
-        
+                
          // Get song info from itune and register the song to the server, return the same song model with songId filled.
          // Then post a tale to this song
         /*[[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {

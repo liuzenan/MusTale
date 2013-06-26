@@ -146,6 +146,7 @@ static RKObjectMapping* dedicationMapping;
          }];
         [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"from" mapping:userMapping];
         [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"to" mapping:userMapping];
+        [dedicationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"tale" toKeyPath:@"tale" withMapping:taleMapping]];
     }
     return self;
 }
@@ -168,7 +169,7 @@ static RKObjectMapping* dedicationMapping;
 
 #pragma mark login/out/signup
 - (BOOL) isLoggedIn {
-    return (_currentUser && self.mtToken && fbHelper.isOpen);
+    return (_currentUser && self.mtToken);
 }
 
 - (void) clearUserData {
@@ -517,6 +518,7 @@ static RKObjectMapping* dedicationMapping;
     assert(!(from==nil && to==nil));
     NSString* tag = @"get dedication";
     NSDictionary* data;
+    
     if (from && to) {
         data =@{@"from":from,@"to":to};
     } else if(from){
@@ -524,6 +526,7 @@ static RKObjectMapping* dedicationMapping;
     } else {
         data =@{@"to":to};
     }
+    NSLog(@"%@",data);
     [serverClient getSecure:data token:self.mtToken path:MT_PATH_DEDICATION success:^(AFHTTPRequestOperation *operation, id responseObject) {
         LOG_S(tag, responseObject);
         NSArray* dedications = [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
