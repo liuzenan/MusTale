@@ -175,32 +175,26 @@ static RKObjectMapping* dedicationMapping;
 
 #pragma mark login/out/signup
 - (BOOL) isLoggedIn {
-    return (self.currentUser && self.mtToken);
+    return (self.currentUser.ID && self.mtToken);
 }
 
 - (void) clearUserData {
     
     [cacheManager clearUserData];
     [fbHelper closeSessionAndClearToken];
-    self.currentUser = [MTUserModel new];
-    self.mtToken = nil;
+    _currentUser = [MTUserModel new];
+    _mtToken = nil;
     NSLog(@"removed cached user");
 }
 
 
 - (MTUserModel*)currentUser {
-    if (_currentUser && _currentUser.ID !=nil) {
-        return _currentUser;
-    } else {
+    if (cacheManager.cachedCurUser) {
         _currentUser = cacheManager.cachedCurUser;
+        return cacheManager.cachedCurUser;
+    } else {
         return _currentUser;
     }
-}
-
-
-- (void) setCurrentUser:(MTUserModel *)currentUser {
-    _currentUser = currentUser;
-    cacheManager.cachedCurUser = currentUser;
 }
 
 
@@ -287,7 +281,8 @@ static RKObjectMapping* dedicationMapping;
                    NSLog(@"Login via fb Success with data %@",data);
                    self.mtToken = [(NSDictionary*)data objectForKey:@"auth_token"];
                    self.currentUser.ID = [(NSDictionary*)data objectForKey:@"uid"];
-                   [cacheManager setCachedCurUser:self.currentUser];    
+                   cacheManager.cachedCurUser = self.currentUser;
+                   MTUserModel* user = self.currentUser;
                    completeHanlder(YES,nil);
                }
                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -317,7 +312,7 @@ static RKObjectMapping* dedicationMapping;
         NSLog(@"Sign up successful %@",responseObject);
         self.mtToken = [responseObject objectForKey:@"auth_token"];
         self.currentUser.ID =[responseObject objectForKey:@"uid"];
-        [cacheManager setCachedCurUser:self.currentUser];
+        cacheManager.cachedCurUser = self.currentUser;
         handler(self.currentUser,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Sign up Error %@",error);
