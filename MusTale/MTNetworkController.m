@@ -189,10 +189,10 @@ static RKObjectMapping* dedicationMapping;
 
 
 - (MTUserModel*)currentUser {
-    if (_currentUser) {
-        return _currentUser;
-    } else {
+    if (cacheManager.cachedCurUser) {
         _currentUser = cacheManager.cachedCurUser;
+        return cacheManager.cachedCurUser;
+    } else {
         return _currentUser;
     }
 }
