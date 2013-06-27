@@ -19,6 +19,7 @@
 		C5D43F69176D633F00BE1C7A /* MTFBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D43F68176D633F00BE1C7A /* MTFBHelper.m */; };
 		C5D55DC31779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5D55DC11779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib */; };
 		C5D55DC41779EAD600DF4FB2 /* MTFBFriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D55DC21779EAD600DF4FB2 /* MTFBFriendPickerViewController.m */; };
+		C5D89734177C81A100E555FF /* MTCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C5D89733177C81A100E555FF /* MTCacheManager.m */; };
 		C5F581AB176C9A56008C3B73 /* MTItuneNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */; };
 		E405307A177B54CF002BA719 /* MTInboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4053079177B54CF002BA719 /* MTInboxCell.m */; };
 		E4053095177B5D62002BA719 /* NSDateTimeAgo.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4053082177B5D62002BA719 /* NSDateTimeAgo.strings */; };
@@ -204,6 +205,8 @@
 		C5D55DC01779EAD600DF4FB2 /* MTFBFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTFBFriendPickerViewController.h; sourceTree = "<group>"; };
 		C5D55DC11779EAD600DF4FB2 /* MTFBFriendPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MTFBFriendPickerViewController.xib; sourceTree = "<group>"; };
 		C5D55DC21779EAD600DF4FB2 /* MTFBFriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTFBFriendPickerViewController.m; sourceTree = "<group>"; };
+		C5D89732177C81A100E555FF /* MTCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCacheManager.h; sourceTree = "<group>"; };
+		C5D89733177C81A100E555FF /* MTCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCacheManager.m; sourceTree = "<group>"; };
 		C5F581A9176C9A56008C3B73 /* MTItuneNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTItuneNetworkController.h; sourceTree = "<group>"; };
 		C5F581AA176C9A56008C3B73 /* MTItuneNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTItuneNetworkController.m; sourceTree = "<group>"; };
 		E4053078177B54CF002BA719 /* MTInboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTInboxCell.h; sourceTree = "<group>"; };
@@ -833,6 +836,8 @@
 		E4BD1EFC175662E300518BDE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C5D89732177C81A100E555FF /* MTCacheManager.h */,
+				C5D89733177C81A100E555FF /* MTCacheManager.m */,
 				E452F0531776FBB3003C1024 /* NetworkConfig.h */,
 				E452F0541776FBB3003C1024 /* MTS3Controller.h */,
 				E452F0551776FBB3003C1024 /* MTS3Controller.m */,

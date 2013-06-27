@@ -13,6 +13,7 @@
 #import <EGOCache/EGOCache.h>
 #import "RKObjectMappingOperationDataSource.h"
 #import "MTS3Controller.h"
+#import "MTCacheManager.h"
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
 #define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with error %@",tag,error.localizedDescription)
 #define int2string(i) [NSString stringWithFormat:@"%d",i]
@@ -59,9 +60,10 @@ static RKObjectMapping* dedicationMapping;
     //RKObjectManager *objectManager;
     MTServerClient* serverClient;
     MTFBHelper* fbHelper;
+    MTCacheManager* cacheManager;
 }
 @synthesize mtToken = _mtToken;
-
+@synthesize currentUser = _currentUser;
 + (MTNetworkController*) sharedInstance {
     static MTNetworkController *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -74,11 +76,12 @@ static RKObjectMapping* dedicationMapping;
 - (id) init {
     if (self = [super init]) {
         //[self addErrorResponseDescriptor];
-        self.isDebugMode = YES;
-        self.currentUser = [MTUserModel new];
         serverClient = [MTServerClient sharedInstance];
         fbHelper = [MTFBHelper sharedFBHelper];
-           
+        cacheManager = [MTCacheManager sharedManager];
+        self.isDebugMode = YES;
+        _currentUser = [MTUserModel new];
+       
         // User mapping
         userMapping = [RKObjectMapping mappingForClass:[MTUserModel class]];
         [userMapping addAttributeMappingsFromDictionary:@{
@@ -142,7 +145,7 @@ static RKObjectMapping* dedicationMapping;
         [dedicationMapping addAttributeMappingsFromDictionary:@{
          @"dedication_id":@"ID",
          @"is_public":@"isPublic",
-         @"is_anonymous":@"isAnonymous",
+         //@"is_anonymous":@"isAnonymous",
          @"has_read":@"hasRead",
          @"created_at":@"createdAt",
          @"tale_id":@"taleId"
@@ -172,14 +175,32 @@ static RKObjectMapping* dedicationMapping;
 
 #pragma mark login/out/signup
 - (BOOL) isLoggedIn {
-    return (_currentUser && self.mtToken);
+    return (self.currentUser && self.mtToken);
 }
 
 - (void) clearUserData {
-    _currentUser = [MTUserModel new];
+    
+    [cacheManager clearUserData];
+    [fbHelper closeSessionAndClearToken];
+    self.currentUser = [MTUserModel new];
     self.mtToken = nil;
-    [[EGOCache globalCache] removeCacheForKey:@"auth_token"];
     NSLog(@"removed cached user");
+}
+
+
+- (MTUserModel*)currentUser {
+    if (_currentUser && _currentUser.ID !=nil) {
+        return _currentUser;
+    } else {
+        _currentUser = cacheManager.cachedCurUser;
+        return _currentUser;
+    }
+}
+
+
+- (void) setCurrentUser:(MTUserModel *)currentUser {
+    _currentUser = currentUser;
+    cacheManager.cachedCurUser = currentUser;
 }
 
 
@@ -194,18 +215,15 @@ static RKObjectMapping* dedicationMapping;
 - (NSString*)mtToken {
     if (_mtToken) {
         return _mtToken;
-    } else if ([[EGOCache globalCache] stringForKey:@"auth_token"] && ![[[EGOCache globalCache] stringForKey:@"auth_token"] isEqualToString:@""]) {
-        _mtToken = [[EGOCache globalCache] stringForKey:@"auth_token"];
-        NSLog(@"Get cached mtToken %@",[[EGOCache globalCache] stringForKey:@"auth_token"]);
-        return _mtToken;
+    } else {
+        return cacheManager.cachedCurUserAccessToken;
     }
-    return nil;
 }
 
 
 - (void) setMtToken:(NSString *)mtToken {
     _mtToken = mtToken;
-    [[EGOCache globalCache] setString:mtToken forKey:@"auth_token"];
+    cacheManager.cachedCurUserAccessToken = mtToken;
     NSLog(@"Cached mtToken %@",mtToken);
 }
 
@@ -269,6 +287,7 @@ static RKObjectMapping* dedicationMapping;
                    NSLog(@"Login via fb Success with data %@",data);
                    self.mtToken = [(NSDictionary*)data objectForKey:@"auth_token"];
                    self.currentUser.ID = [(NSDictionary*)data objectForKey:@"uid"];
+                   [cacheManager setCachedCurUser:self.currentUser];    
                    completeHanlder(YES,nil);
                }
                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -298,6 +317,7 @@ static RKObjectMapping* dedicationMapping;
         NSLog(@"Sign up successful %@",responseObject);
         self.mtToken = [responseObject objectForKey:@"auth_token"];
         self.currentUser.ID =[responseObject objectForKey:@"uid"];
+        [cacheManager setCachedCurUser:self.currentUser];
         handler(self.currentUser,nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Sign up Error %@",error);

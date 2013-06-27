@@ -20,6 +20,7 @@
 @interface MTMenuViewController (){
     BOOL disabled;
     MTFBFriendPickerViewController* fbpickerVC;
+    //MTUserModel* user;
 }
 @end
 
@@ -226,7 +227,22 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        BOOL testing = YES;
+        BOOL testing = NO;
+        
+        if (!testing){
+            [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
+                if (!error){
+                    UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
+                    loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                    [self presentModalViewController:loginView animated:YES];
+                } else {
+                    // some error
+                }
+            }];
+        }
+        //user = [MTNetworkController sharedInstance].currentUser;
+        
+        /*
         [[MTItuneNetworkController sharedInstance] getSongWithSongId:@"171852806" completeHandler:^(id data, NSError *error) {
             
             if (!error){
@@ -247,7 +263,9 @@
             } else {
                 NSLog(@"Error %@",error);
             }
-        }];
+        }];*/
+        
+      
         
         /*
         [[MTNetworkController sharedInstance] getDedicationsFromUser:nil toUser:@"28" completeHandler:^(id data, NSError *error) {
@@ -258,17 +276,6 @@
         }];
          */
 
-        if (!testing){
-        [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
-            if (!error){
-                UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-                loginView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentModalViewController:loginView animated:YES];
-            } else {
-                // some error
-            }
-        }];
-        }
 
         /*
         NSError* err;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>  
-@interface MTUserModel:NSObject
+@interface MTUserModel:NSObject <NSCoding>
 @property (nonatomic,strong) NSString* ID;
 @property (nonatomic,strong) NSString* fbID;
 @property (nonatomic,strong) NSString* email;

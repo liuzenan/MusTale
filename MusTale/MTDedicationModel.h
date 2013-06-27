@@ -16,7 +16,7 @@
 @property (nonatomic,strong) MTUserModel* from;
 @property (nonatomic,strong) MTUserModel* to;
 @property (nonatomic) BOOL isPublic;
-@property (nonatomic) BOOL isAnonymous;
+//@property (nonatomic) BOOL isAnonymous;
 @property (nonatomic) BOOL hasRead;
 @property (nonatomic,strong) NSDate* createdAt;
 @end
