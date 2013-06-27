@@ -20,7 +20,7 @@
 @interface MTMenuViewController (){
     BOOL disabled;
     MTFBFriendPickerViewController* fbpickerVC;
-    //MTUserModel* user;
+    MTUserModel* user;
 }
 @end
 
@@ -228,7 +228,7 @@
     disabled = NO;
     if (buttonIndex == 0) {
         BOOL testing = NO;
-        
+        user = [MTNetworkController sharedInstance].currentUser;
         if (!testing){
             [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
                 if (!error){
