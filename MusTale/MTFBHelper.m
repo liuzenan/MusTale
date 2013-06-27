@@ -36,6 +36,9 @@ NSString *const FBSessionStateChangedNotification = @"com.streetgaga.Login:FBSes
     return self;
 }
 
+- (void)closeSessionAndClearToken {
+    [[FBSession activeSession] closeAndClearTokenInformation];
+}
 
 - (void)closeSession {
     [FBSession.activeSession close];
