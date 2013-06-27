@@ -7,6 +7,7 @@
 //
 
 #import "MTSliderViewController.h"
+#import "MTInboxOutboxViewController.h"
 
 @interface MTSliderViewController ()
 
@@ -19,7 +20,10 @@
     [super viewDidLoad];
     
     // Setup initial main playlist
-    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+    self.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
+    UINavigationController *navigation = (UINavigationController*) self.topViewController;
+    MTInboxOutboxViewController *inbox = (MTInboxOutboxViewController*) navigation.topViewController;
+    [inbox loadInboxDedications];
     
     // Set up menu
     self.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MenuView"];

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTPlaylistViewDelegate.h"
 
 @interface MTInboxOutboxViewController : UITableViewController
+
+@property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *dedications;
+
+- (void) loadInboxDedications;
+- (void) loadOutboxDedications;
 
 @end
