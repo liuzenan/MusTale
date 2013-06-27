@@ -11,6 +11,7 @@
 #import "MTFBHelper.h"
 @interface MTSendTaleViewController () <FBFriendPickerDelegate,UISearchBarDelegate>
 @property (strong, nonatomic) FBFriendPickerViewController* friendPickerController;
+@property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSString *searchText;
 @end
 
@@ -42,7 +43,7 @@
 
 - (void)dismiss
 {
-
+    
     [UIView animateWithDuration:0.6f animations:^{
         [self setInitialStyle];
     } completion:^(BOOL finished) {
@@ -59,10 +60,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-   
+    
     [self setInitialStyle];
     [super viewWillAppear:animated];
-
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -70,7 +71,7 @@
     [super viewDidAppear:animated];
     [UIView animateWithDuration:0.6f animations:^{
         [self setFinalStyle];
-        [self showFriendList];
+//        [self showFriendList];
     }];
 }
 
@@ -125,42 +126,46 @@
 
 
 
-- (void) showFriendList
-{
-    if (![[MTFBHelper sharedFBHelper] isOpen]) {
-        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-            [self insertFriendTable];
-        }];
-    } else {
-        [self insertFriendTable];
-    }
-}
-
-
-- (void) insertFriendTable {
-    if (self.friendPickerController == nil) {
-        // Create friend picker, and get data loaded into it.
-        self.friendPickerController = [[FBFriendPickerViewController alloc] init];
-        self.friendPickerController.title = @"Select Friends";
-        self.friendPickerController.delegate = self;
-        self.friendsListTable = self.friendPickerController.tableView;
-    }
-
-    [self.friendPickerController loadData];
-    [self.friendPickerController clearSelection];
-}
+//- (void) showFriendList
+//{
+//    if (![[MTFBHelper sharedFBHelper] isOpen]) {
+//        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//            [self insertFriendTable];
+//        }];
+//    } else {
+//        [self insertFriendTable];
+//    }
+//}
+//
+//
+//- (void) insertFriendTable {
+//    
+//    
+//    if (self.friendPickerController == nil) {
+//        // Create friend picker, and get data loaded into it.
+//        self.friendPickerController = [[FBFriendPickerViewController alloc] init];
+//        self.friendPickerController.title = @"Select Friends";
+//        self.friendPickerController.delegate = self;
+//    }
+//    NSLog(@"friendpicker controller: %@", self.friendPickerController);
+//    [self.friendPickerController loadData];
+//    [self.friendPickerController clearSelection];
+//    [self.friendPickerController loadView];
+//    self.friendsListTable = self.friendPickerController.tableView;
+//    NSLog(@"friedns list table:%@", self.friendsListTable);
+//}
 
 
 
 - (IBAction)fbBtnPressed:(id)sender {
-//    if (![[MTFBHelper sharedFBHelper] isOpen]) {
-//        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//            [self showFriendPicker];
-//        }];
-//    } else {
-//        [self showFriendPicker];
-//    }
-//    
+        if (![[MTFBHelper sharedFBHelper] isOpen]) {
+            [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                [self showFriendPicker];
+            }];
+        } else {
+            [self showFriendPicker];
+        }
+    
 }
 
 - (void) showFriendPicker {
@@ -214,9 +219,11 @@
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
 {
-#warning complete to add dedication
     for (id<FBGraphUser> user in self.friendPickerController.selection) {
         NSLog(@"Friend selected: %@", user.name);
+        
+        [self.delegate sendCurrentTaleToUser:[NSString stringWithFormat:@"%d", 20]];
+        
     }
     [self handlePickerDone];
 }

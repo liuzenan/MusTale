@@ -13,11 +13,11 @@
 @protocol MTSendTaleDelegate
 
 - (void) sendCurrentTale;
+- (void) sendCurrentTaleToUser:(MTUserModel*)user;
 
 @end
 
 @interface MTSendTaleViewController : UIViewController <UIGestureRecognizerDelegate>
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, weak) id<MTSendTaleDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (strong, nonatomic) UIImage *bgImg;

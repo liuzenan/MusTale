@@ -11,6 +11,7 @@
 #import "ViewController+Snapshot.h"
 #import "MTTaleModel.h"
 #import "MTNetworkController.h"
+#import "MTDedicationModel.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MTWriteTaleViewController ()
@@ -132,6 +133,26 @@
                 
             }
         }];
+    }];
+}
+
+- (void)sendCurrentTaleToUser:(NSString*)userID
+{
+    MTTaleModel* tale = [MTTaleModel new];
+    tale.isAnonymous = NO;
+    tale.isPublic = YES;
+    tale.text = self.taleTextView.text;
+    tale.isFront = NO;
+    
+    MTDedicationModel *de = [MTDedicationModel new];
+    de.tale = tale;
+    
+    [[MTNetworkController sharedInstance] postDedication:de toUser:userID completeHandler:^(id data, NSError *error) {
+        if (!error) {
+            NSLog(@"posted dedication to user: %@", data);
+        } else {
+            NSLog(@"error: %@", error);
+        }
     }];
 }
 
