@@ -21,6 +21,6 @@ typedef enum{
 
 - (void) loadInboxDedications;
 - (void) loadOutboxDedications;
-- (void)setType:(InboxOutboxType)type;
+- (void) setType:(InboxOutboxType)type;
 
 @end

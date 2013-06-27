@@ -75,6 +75,7 @@
 		E43FE61117645A0E00472986 /* CHDraggingCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = E43FE60E17645A0E00472986 /* CHDraggingCoordinator.m */; };
 		E4431D251760E52B009ED59A /* icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D231760E52B009ED59A /* icon-back.png */; };
 		E4431D261760E52B009ED59A /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4431D241760E52B009ED59A /* icon-back@2x.png */; };
+		E448ABDE177C837A00DC20FF /* MTDedicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E448ABDD177C837A00DC20FF /* MTDedicationViewController.m */; };
 		E45198D917704484003C7BDB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198D817704484003C7BDB /* Icon.png */; };
 		E45198DB17704488003C7BDB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E45198DA17704488003C7BDB /* Icon@2x.png */; };
 		E452F0471776ABAD003C1024 /* MTTaleController.m in Sources */ = {isa = PBXBuildFile; fileRef = E452F0461776ABAD003C1024 /* MTTaleController.m */; };
@@ -289,6 +290,8 @@
 		E4431D231760E52B009ED59A /* icon-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back.png"; sourceTree = "<group>"; };
 		E4431D241760E52B009ED59A /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		E4472D93175A4712008BDE6C /* MTPlaylistViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPlaylistViewDelegate.h; sourceTree = "<group>"; };
+		E448ABDC177C837A00DC20FF /* MTDedicationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTDedicationViewController.h; sourceTree = "<group>"; };
+		E448ABDD177C837A00DC20FF /* MTDedicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTDedicationViewController.m; sourceTree = "<group>"; };
 		E45198D817704484003C7BDB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		E45198DA17704488003C7BDB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E452F0451776ABAD003C1024 /* MTTaleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTaleController.h; sourceTree = "<group>"; };
@@ -671,6 +674,8 @@
 				E4472D93175A4712008BDE6C /* MTPlaylistViewDelegate.h */,
 				E452F0571776FC75003C1024 /* MTInboxOutboxViewController.h */,
 				E452F0581776FC75003C1024 /* MTInboxOutboxViewController.m */,
+				E448ABDC177C837A00DC20FF /* MTDedicationViewController.h */,
+				E448ABDD177C837A00DC20FF /* MTDedicationViewController.m */,
 				E4AA8B431757A117001FA121 /* MTPlaylistListViewController.h */,
 				E4AA8B441757A117001FA121 /* MTPlaylistListViewController.m */,
 				E4AA8B461757A13E001FA121 /* MTPlaylistGridViewController.h */,
@@ -1195,6 +1200,7 @@
 				C5D55DC41779EAD600DF4FB2 /* MTFBFriendPickerViewController.m in Sources */,
 				E405307A177B54CF002BA719 /* MTInboxCell.m in Sources */,
 				E4053096177B5D62002BA719 /* NSDate+TimeAgo.m in Sources */,
+				E448ABDE177C837A00DC20FF /* MTDedicationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

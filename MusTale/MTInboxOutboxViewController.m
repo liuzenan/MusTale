@@ -39,7 +39,7 @@
 {
     [super viewDidLoad];
     
-    [self setupRightNavBarItems];
+    [self setupRightMenuButton];
     [self setStyling];
     
     self.dedications = [NSMutableArray array];
@@ -87,12 +87,11 @@
 - (void) loadInboxDedications
 {
     [self setTitle:@"Inbox"];
-    NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
-    
-    MTUserModel *currentUser = [MTNetworkController sharedInstance].currentUser;
+    MTUserModel *currentUser = [[MTNetworkController sharedInstance] currentUser];
+    NSLog(@"current user:%@", currentUser.ID);
     if (currentUser && currentUser.ID) {
         [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
-                                                              toUser:[MTNetworkController sharedInstance].currentUser.ID
+                                                              toUser:currentUser.ID
                                                      completeHandler:^(id data, NSError *error) {
                                                          
                                                          if (!error) {
@@ -112,10 +111,10 @@
 - (void) loadOutboxDedications
 {
     [self setTitle:@"Outbox"];
-    MTUserModel *currentUser = [MTNetworkController sharedInstance].currentUser;
+    MTUserModel *currentUser = [[MTNetworkController sharedInstance] currentUser];
     if (currentUser && currentUser.ID) {
-    NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
-    [[MTNetworkController sharedInstance] getDedicationsFromUser:[MTNetworkController sharedInstance].currentUser.ID
+    NSLog(@"current user:%@", currentUser.ID);
+    [[MTNetworkController sharedInstance] getDedicationsFromUser:currentUser.ID
                                                           toUser:nil
                                                  completeHandler:^(id data, NSError *error) {
                                                               

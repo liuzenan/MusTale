@@ -66,4 +66,28 @@
     [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)setupRightMenuButton
+{
+    NSLog(@"setup right nav bar menu button");
+
+
+    UIButton *menu = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menu setImage:[UIImage imageNamed:@"icon-menu.png"] forState:UIControlStateNormal];
+    [menu sizeToFit];
+    CGRect menuFrame = menu.frame;
+    NSLog(@"menu frame: %@", NSStringFromCGRect(menuFrame));
+    menuFrame.size.width += 20.0f;
+    menu.frame = menuFrame;
+    [menu setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *menuBtn = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    [menuBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [menuBtn setTag:kMenuButton];
+    
+    NSArray *buttonArray = [NSArray arrayWithObjects:menuBtn, nil];
+    [self.navigationItem setRightBarButtonItems:buttonArray];
+    
+    [menu addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+}
+
 @end
