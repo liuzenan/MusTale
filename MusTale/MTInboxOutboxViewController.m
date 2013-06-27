@@ -16,6 +16,7 @@
 #import "MTDedicationModel.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "NSDate+TimeAgo.h"
+#import "MTDedicationViewController.h"
 #import "UIColor+i7HexColor.h"
 
 @interface MTInboxOutboxViewController (){
@@ -181,12 +182,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+    MTDedicationViewController *dedication = [self.storyboard instantiateViewControllerWithIdentifier:@"Dedication"];
+    MTDedicationModel *currentDedication = [self.dedications objectAtIndex:indexPath.row];
+    [dedication setCurrentTale:currentDedication];
+    [dedication setStyling];
+    [self.navigationController pushViewController:dedication animated:YES];
 }
 
 @end

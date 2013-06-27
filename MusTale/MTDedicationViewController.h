@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <OHAttributedLabel/OHAttributedLabel.h>
+#import "MTDedicationModel.h"
+
 
 @interface MTDedicationViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIImageView *profilePic;
+- (IBAction)togglePlay:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *userName;
+@property (strong, nonatomic) IBOutlet UILabel *date;
+@property (strong, nonatomic) IBOutlet OHAttributedLabel *textTale;
+@property (strong, nonatomic) IBOutlet UILabel *commentsCount;
+@property (strong, nonatomic) IBOutlet UIView *bottomSeparator;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
+- (void)setCurrentTale:(MTDedicationModel*)dedication;
+- (void) setStyling;
 @end
