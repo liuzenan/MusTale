@@ -37,6 +37,7 @@
 #define MT_PATH_LISTEN_POPULAR @"listens/popular"
 
 #define MT_PATH_USER_DEDICATION @"users/dedications/uid/%@" // songid-userid(from)-userid(to)
+#define MT_PATH_USER_DEDICATION_FB @"users/dedications/fb_id/%@"
 #define MT_PATH_DEDICATION @"users/dedications"
 #define MT_PATH_READ_DEDICATION @"dedications/read"
 
@@ -282,7 +283,6 @@ static RKObjectMapping* dedicationMapping;
                    self.mtToken = [(NSDictionary*)data objectForKey:@"auth_token"];
                    self.currentUser.ID = [(NSDictionary*)data objectForKey:@"uid"];
                    cacheManager.cachedCurUser = self.currentUser;
-                   MTUserModel* user = self.currentUser;
                    completeHanlder(YES,nil);
                }
                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -535,6 +535,24 @@ static RKObjectMapping* dedicationMapping;
     [serverClient postSecure:dedicationData
                        token:self.mtToken
                         path:[NSString stringWithFormat:MT_PATH_USER_DEDICATION,userId]
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         LOG_S(tag, responseObject);
+                         [self dictionaryToObject:dedicationData destination:dedication objectMapping:dedicationMapping];
+                         handler(dedication,nil);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         LOG_F(tag, error);
+                         handler(nil,error);
+                     }];
+}
+
+- (void) postDedication:(MTDedicationModel*)dedication toFBUser:(NSString*)fbId completeHandler:(NetworkCompleteHandler)handler {
+    assert(fbId!=nil);
+    NSString *tag = @"post dedication to fb people";
+    NSDictionary* dedicationData = [self objectToDictionary:dedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
+    [serverClient postSecure:dedicationData
+                       token:self.mtToken
+                        path:[NSString stringWithFormat:MT_PATH_USER_DEDICATION_FB,fbId]
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          LOG_S(tag, responseObject);
                          [self dictionaryToObject:dedicationData destination:dedication objectMapping:dedicationMapping];
