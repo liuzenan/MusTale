@@ -1205,6 +1205,7 @@
 				C5D55DC41779EAD600DF4FB2 /* MTFBFriendPickerViewController.m in Sources */,
 				E405307A177B54CF002BA719 /* MTInboxCell.m in Sources */,
 				E4053096177B5D62002BA719 /* NSDate+TimeAgo.m in Sources */,
+				C5D89734177C81A100E555FF /* MTCacheManager.m in Sources */,
 				E448ABDE177C837A00DC20FF /* MTDedicationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
