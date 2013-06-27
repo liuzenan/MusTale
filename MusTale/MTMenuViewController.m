@@ -167,14 +167,14 @@
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
                 MTInboxOutboxViewController *inbox = (MTInboxOutboxViewController*) viewController.topViewController;
-                [inbox loadInboxDedications];
+                [inbox setType:kInbox];
                 break;
             }
             case kOthersSectionTypeOutbox:
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Inbox"];
                 MTInboxOutboxViewController *outbox = (MTInboxOutboxViewController*) viewController.topViewController;
-                [outbox loadOutboxDedications];
+                [outbox setType:kOutbox];
                 break;
             }
             case kOthersSectionTypePopular:

@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MTPlaylistViewDelegate.h"
 
+typedef enum{
+    kInbox,
+    kOutbox
+} InboxOutboxType;
+
 @interface MTInboxOutboxViewController : UITableViewController
 
 @property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
@@ -16,5 +21,6 @@
 
 - (void) loadInboxDedications;
 - (void) loadOutboxDedications;
+- (void)setType:(InboxOutboxType)type;
 
 @end

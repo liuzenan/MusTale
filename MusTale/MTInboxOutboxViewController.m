@@ -19,7 +19,7 @@
 #import "UIColor+i7HexColor.h"
 
 @interface MTInboxOutboxViewController (){
-    BOOL isInbox;
+    InboxOutboxType boxType;
 }
 
 @end
@@ -60,6 +60,13 @@
     self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
     [self setupTopViewController];
     
+    [self loadItems];
+    
+}
+
+- (void)setType:(InboxOutboxType)type
+{
+    boxType = type;
 }
 
 - (void)showMenu
@@ -68,9 +75,17 @@
 }
 
 
+- (void) loadItems
+{
+    if (boxType == kInbox) {
+        [self loadInboxDedications];
+    } else {
+        [self loadOutboxDedications];
+    }
+}
+
 - (void) loadInboxDedications
 {
-    isInbox = YES;
     [self setTitle:@"Inbox"];
     NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
     
@@ -96,9 +111,7 @@
 
 - (void) loadOutboxDedications
 {
-    isInbox = NO;
     [self setTitle:@"Outbox"];
-    
     MTUserModel *currentUser = [MTNetworkController sharedInstance].currentUser;
     if (currentUser && currentUser.ID) {
     NSLog(@"current user:%@", [MTNetworkController sharedInstance].currentUser.ID);
@@ -149,7 +162,7 @@
     MTDedicationModel *dedication = [self.dedications objectAtIndex:indexPath.row];
 
     MTUserModel *user;
-    if (isInbox) {
+    if (boxType == kInbox) {
         user = dedication.from;
     } else {
         user = dedication.to;
