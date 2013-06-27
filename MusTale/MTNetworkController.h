@@ -36,6 +36,7 @@
 #pragma mark tale
 - (void) getTalesOfSong:(NSString*)songId completeHandler:(NetworkCompleteHandler)handler;
 
+// .CAF voice file 
 - (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 
