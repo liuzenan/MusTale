@@ -219,10 +219,7 @@
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
 {
-    for (id<FBGraphUser> user in self.friendPickerController.selection) {
-        NSLog(@"Friend selected: %@", user.name);
-        [self.delegate sendCurrentTaleToUser:[NSString stringWithFormat:@"%d", 20]];
-    }
+    [self.delegate sendCurrentTaleToUsers:self.friendPickerController.selection];
     [self handlePickerDone];
 }
 
