@@ -227,8 +227,9 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        BOOL testing = NO;
-        user = [MTNetworkController sharedInstance].currentUser;
+        BOOL testing = YES;
+        
+        
         if (!testing){
             [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
                 if (!error){
