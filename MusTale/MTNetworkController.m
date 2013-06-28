@@ -7,13 +7,15 @@
 //
 
 #import "MTNetworkController.h"
-#import "SVProgressHUD.h"
 #import <RestKit/RestKit.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "MTServerClient.h"
 #import <EGOCache/EGOCache.h>
 #import "RKObjectMappingOperationDataSource.h"
 #import "MTS3Controller.h"
 #import "MTCacheManager.h"
+#import "MTItuneNetworkController.h"
+
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
 #define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with error %@",tag,error.localizedDescription)
 #define int2string(i) [NSString stringWithFormat:@"%d",i]
@@ -62,6 +64,7 @@ static RKObjectMapping* dedicationMapping;
     MTServerClient* serverClient;
     MTFBHelper* fbHelper;
     MTCacheManager* cacheManager;
+    MTItuneNetworkController* ituneController;
 }
 @synthesize mtToken = _mtToken;
 @synthesize currentUser = _currentUser;
@@ -80,6 +83,7 @@ static RKObjectMapping* dedicationMapping;
         serverClient = [MTServerClient sharedInstance];
         fbHelper = [MTFBHelper sharedFBHelper];
         cacheManager = [MTCacheManager sharedManager];
+        ituneController = [MTItuneNetworkController sharedInstance];
         self.isDebugMode = YES;
         _currentUser = [MTUserModel new];
        
@@ -149,7 +153,8 @@ static RKObjectMapping* dedicationMapping;
          //@"is_anonymous":@"isAnonymous",
          @"has_read":@"hasRead",
          @"created_at":@"createdAt",
-         @"tale_id":@"taleId"
+         @"tale_id":@"taleId",
+         @"fb_ids":@"dedicatedToFacebookUserIDs"
          }];
         [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"from" mapping:userMapping];
         [dedicationMapping addRelationshipMappingWithSourceKeyPath:@"to" mapping:userMapping];
@@ -349,7 +354,20 @@ static RKObjectMapping* dedicationMapping;
 }
 
 #pragma mark songs
-- (void) postSong:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
+- (void) getSongInfoWithItuneTrackId:(NSString*)itune_track_id completeHandler:(NetworkCompleteHandler)handler {
+    NSString* tag = @"get song info";
+    [ituneController getSongWithSongId:itune_track_id completeHandler:^(id data, NSError *error) {
+        if (error) {
+            LOG_F(tag, error);
+            handler(nil,error);
+        } else {
+            MTSongModel* song = [(NSArray*)data objectAtIndex:0];
+            [self registerSongToServer:song completeHandler:handler];
+        }
+    }];
+}
+
+- (void) registerSongToServer:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
     NSDictionary* songData = [self objectToDictionary:song inverseMapping:songMapping.inverseMapping rootPath:nil];
     [serverClient postSecure:songData token:self.mtToken path:MT_PATH_SONG success:^(AFHTTPRequestOperation *operation, id responseObject) {
         song.ID = [responseObject objectForKey:@"song_id"];
@@ -361,8 +379,8 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
-- (void) postListenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
-    [self postSong:song completeHandler:^(id data, NSError *error) {
+- (void) listenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
+    [self registerSongToServer:song completeHandler:^(id data, NSError *error) {
         if (data) {
             MTSongModel* song = (MTSongModel*)data;
             assert(song!=nil);
@@ -414,6 +432,12 @@ static RKObjectMapping* dedicationMapping;
 }
 
 #pragma mark tale
+- (void) postTaleWithSongId:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler {
+    MTSongModel* song = [MTSongModel new];
+    song.ID = songID;
+    [self postTale:tale to:song completeHandler:handler];
+}
+
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
     NSDictionary* taleData = [self objectToDictionary:tale inverseMapping:taleMapping.inverseMapping rootPath:nil];
     assert(song.ID!=nil);
@@ -503,6 +527,20 @@ static RKObjectMapping* dedicationMapping;
 }
 
 #pragma mark user 
+- (void) getUserInfoWithUserID:(NSString*)uid completehandler:(NetworkCompleteHandler)handler {
+    assert(uid!=nil);
+    MTUserModel* user = [MTUserModel new];
+    user.ID = uid;
+    [self getUserInfo:user completehandler:handler];
+}
+
+- (void) getUserInfoWithFacebookID:(NSString*)fbid completehandler:(NetworkCompleteHandler)handler {
+    assert(fbid!=nil);
+    MTUserModel* user = [MTUserModel new];
+    user.fbID = fbid;
+    [self getUserInfo:user completehandler:handler];
+}
+
 - (void) getUserInfo:(MTUserModel*)user completehandler:(NetworkCompleteHandler)handler {
     NSString* path = @"%@/user/%@/%@";
     if (user.ID) {
@@ -528,6 +566,44 @@ static RKObjectMapping* dedicationMapping;
 }
 
 #pragma mark dedication 
+- (void) dedicateTaleToFacebookUsers:(MTTaleModel*)tale toFacebookUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler {
+    NSString* tag =@"dedicate tale to fb user";
+    assert(tale.songID!=nil);
+    [self postTaleWithSongId:tale to:tale.songID completeHandler:^(id data, NSError *error) {
+        if (!error) {
+            LOG_S(tag, data);
+            MTTaleModel* tale = (MTTaleModel*)data;
+            MTDedicationModel* dedication = [MTDedicationModel new];
+            dedication.tale = tale;
+            dedication.taleId =tale.ID;
+            [self postDedication:dedication toFBUsers:fbIds completeHandler:handler];
+        } else {
+            LOG_F(tag, error);
+            handler(nil,error);
+        }
+    }];
+}
+
+- (void) postDedication:(MTDedicationModel*)dedication toFBUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler {
+    assert(dedication.taleId!=nil);
+    NSString *tag = @"post dedication to fb people";
+    dedication.dedicatedToFacebookUserIDs = fbIds;
+    NSDictionary* dedicationData = [self objectToDictionary:dedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
+    
+    [serverClient postSecure:dedicationData
+                       token:self.mtToken
+                        path:MT_PATH_DEDICATION
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         LOG_S(tag, responseObject);
+                         NSArray* dedications = [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
+                          handler(dedications,nil);
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         LOG_F(tag, error);
+                         handler(nil,error);
+                     }];
+}
+
 - (void) postDedication:(MTDedicationModel*)dedication toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler {
     assert(userId!=nil);
     NSString *tag = @"post dedication";
@@ -546,22 +622,14 @@ static RKObjectMapping* dedicationMapping;
                      }];
 }
 
-- (void) postDedication:(MTDedicationModel*)dedication toFBUser:(NSString*)fbId completeHandler:(NetworkCompleteHandler)handler {
-    assert(fbId!=nil);
-    NSString *tag = @"post dedication to fb people";
-    NSDictionary* dedicationData = [self objectToDictionary:dedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
-    [serverClient postSecure:dedicationData
-                       token:self.mtToken
-                        path:[NSString stringWithFormat:MT_PATH_USER_DEDICATION_FB,fbId]
-                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         LOG_S(tag, responseObject);
-                         [self dictionaryToObject:dedicationData destination:dedication objectMapping:dedicationMapping];
-                         handler(dedication,nil);
-                     }
-                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         LOG_F(tag, error);
-                         handler(nil,error);
-                     }];
+
+
+
+- (void) getMyOutboxWithCompleteHandler:(NetworkCompleteHandler)handler {
+    [self getDedicationsFromUser:self.currentUser.ID toUser:nil completeHandler:handler];
+}
+- (void) getMyInboxWithCompleteHandler:(NetworkCompleteHandler)handler {
+    [self getDedicationsFromUser:nil toUser:self.currentUser.ID completeHandler:handler];
 }
 
 - (void) getDedicationsFromUser:(NSString*)from toUser:(NSString*)to completeHandler:(NetworkCompleteHandler)handler {
@@ -587,7 +655,7 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
-- (void) postReadDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler {
+- (void) readDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler {
     NSString* tag = @"post read";
     NSDictionary* data = @{@"dedication_id":dedication.ID};
     [serverClient postSecure:data token:self.mtToken path:MT_PATH_READ_DEDICATION success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -651,13 +719,7 @@ static RKObjectMapping* dedicationMapping;
 
 - (void) handleNetworkDown:(NSNotification*)notif  {
     NSLog(@"Networkclient handling network down",nil);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                    message:@"You must be connected to the internet to use this app."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-
+    [SVProgressHUD showErrorWithStatus:@"Network connection is down, please try again later"];
 }
 
 @end

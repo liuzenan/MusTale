@@ -120,7 +120,7 @@
     tale.isFront = NO;
     
     [SVProgressHUD showWithStatus:@"Posting your tale..." maskType:SVProgressHUDMaskTypeBlack];
-    [[MTNetworkController sharedInstance] postSong:self.currentSong completeHandler:^(id data, NSError *error) {
+    [[MTNetworkController sharedInstance] registerSongToServer:self.currentSong completeHandler:^(id data, NSError *error) {
         [[MTNetworkController sharedInstance] postTale:tale to:data completeHandler:^(id data, NSError *error) {
             if (!error) {
                 NSLog(@"posted tale to server: %@", data);
@@ -146,14 +146,15 @@
     
     MTDedicationModel *de = [MTDedicationModel new];
     de.tale = tale;
-    
+#warning imcomplete
+    /*
     [[MTNetworkController sharedInstance] postDedication:de toUser:userID completeHandler:^(id data, NSError *error) {
         if (!error) {
             NSLog(@"posted dedication to user: %@", data);
         } else {
             NSLog(@"error: %@", error);
         }
-    }];
+    }];*/
 }
 
 - (void)setStyling

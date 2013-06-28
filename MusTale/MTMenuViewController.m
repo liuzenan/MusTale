@@ -232,9 +232,14 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     disabled = NO;
     if (buttonIndex == 0) {
-        BOOL testing = NO;
-        user = [MTNetworkController sharedInstance].currentUser;
-        if (!testing){
+        BOOL testing = YES;
+        MTTaleModel* tale = [MTTaleModel textTaleWithSongID:@"70" text:@"test" isPublic:YES isAnonymous:NO];
+
+
+        [[MTNetworkController sharedInstance] dedicateTaleToFacebookUsers:tale toFacebookUsers:@[@"1275667659",@"1385768002"]  completeHandler:^(id data, NSError *error) {
+            
+        }];
+         if (!testing){
             [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
                 if (!error){
                     UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];

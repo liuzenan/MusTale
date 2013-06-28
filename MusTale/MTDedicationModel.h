@@ -19,4 +19,8 @@
 //@property (nonatomic) BOOL isAnonymous;
 @property (nonatomic) BOOL hasRead;
 @property (nonatomic,strong) NSDate* createdAt;
+
+// Original dedication fb users
+@property (nonatomic,strong) NSArray* dedicatedToFacebookUserIDs;
+
 @end

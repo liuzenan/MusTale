@@ -297,7 +297,7 @@
 -(void)showTales:(MTSongModel *)song
 {
     if (song) {
-        [[MTNetworkController sharedInstance] postSong:song completeHandler:^(id data, NSError *error) {
+        [[MTNetworkController sharedInstance] registerSongToServer:song completeHandler:^(id data, NSError *error) {
             MTSongModel *song = data;
             MTTalesViewController *tale = [self.storyboard instantiateViewControllerWithIdentifier:@"TalesView"];
             [self presentModalViewController:tale animated:YES];

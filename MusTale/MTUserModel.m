@@ -10,6 +10,8 @@
 
 @implementation MTUserModel
 
+
+
 - (id) initWithCoder:(NSCoder *)aDecoder {
     NSString* ID = [aDecoder decodeObjectForKey:@"ID"];
     NSString* fbID = [aDecoder decodeObjectForKey:@"fbID"];
