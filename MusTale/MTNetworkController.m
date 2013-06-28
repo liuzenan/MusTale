@@ -15,12 +15,12 @@
 #import "MTS3Controller.h"
 #import "MTCacheManager.h"
 #import "MTItuneNetworkController.h"
-
+#import <FacebookSDK/Facebook.h>
 #define LOG_S(tag,data) if(self.isDebugMode) NSLog(@"%@ success with data %@",tag,data)
 #define LOG_F(tag,error) if(self.isDebugMode) NSLog(@"%@ fail with error %@",tag,error.localizedDescription)
 #define int2string(i) [NSString stringWithFormat:@"%d",i]
 
-#define FB_PROFILE_URL_FORMAT @"http://graph.facebook.com/%@/picture?type=square"
+#define FB_PROFILE_URL_FORMAT @"http://graph.facebook.com/%@/picture?width=200&height=200"
 
 
 #define MT_PATH_LOGIN_FACEBOOK @"general/login"
@@ -566,7 +566,11 @@ static RKObjectMapping* dedicationMapping;
 }
 
 #pragma mark dedication 
-- (void) dedicateTaleToFacebookUsers:(MTTaleModel*)tale toFacebookUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler {
+- (void) dedicateTaleToFacebookUsers:(MTTaleModel*)tale toFacebookUsers:(NSArray*)fbUsers completeHandler:(NetworkCompleteHandler)handler {
+    NSMutableArray* fbIds = [NSMutableArray array];
+    for (id<FBGraphUser>fbuser in fbUsers) {
+        [fbIds addObject:[fbuser objectForKey:@"id"]];
+    }
     NSString* tag =@"dedicate tale to fb user";
     assert(tale.songID!=nil);
     [self postTaleWithSongId:tale to:tale.songID completeHandler:^(id data, NSError *error) {
@@ -584,11 +588,11 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
-- (void) postDedication:(MTDedicationModel*)dedication toFBUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler {
-    assert(dedication.taleId!=nil);
+- (void) postDedication:(MTDedicationModel*)sendDedication toFBUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler {
+    assert(sendDedication.taleId!=nil);
     NSString *tag = @"post dedication to fb people";
-    dedication.dedicatedToFacebookUserIDs = fbIds;
-    NSDictionary* dedicationData = [self objectToDictionary:dedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
+    sendDedication.dedicatedToFacebookUserIDs = fbIds;
+    NSDictionary* dedicationData = [self objectToDictionary:sendDedication inverseMapping:dedicationMapping.inverseMapping rootPath:nil];
     
     [serverClient postSecure:dedicationData
                        token:self.mtToken
@@ -596,7 +600,10 @@ static RKObjectMapping* dedicationMapping;
                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                          LOG_S(tag, responseObject);
                          NSArray* dedications = [self arrayToObjects:responseObject class:[MTDedicationModel class] objectMapping:dedicationMapping];
-                          handler(dedications,nil);
+                         for(MTDedicationModel* dedication in dedications) {
+                             dedication.tale = sendDedication.tale;
+                         }
+                        handler(dedications,nil);
                      }
                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          LOG_F(tag, error);

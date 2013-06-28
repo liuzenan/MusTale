@@ -233,6 +233,10 @@
     disabled = NO;
     if (buttonIndex == 0) {
         BOOL testing = YES;
+        /*[[MTNetworkController sharedInstance] getPopularSongs:10 completeHandler:^(id data, NSError *error) {
+            
+        }];*/
+        
         MTTaleModel* tale = [MTTaleModel textTaleWithSongID:@"70" text:@"test" isPublic:YES isAnonymous:NO];
 
 
