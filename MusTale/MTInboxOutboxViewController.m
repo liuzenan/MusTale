@@ -186,8 +186,8 @@
     MTDedicationViewController *dedication = [self.storyboard instantiateViewControllerWithIdentifier:@"Dedication"];
     MTDedicationModel *currentDedication = [self.dedications objectAtIndex:indexPath.row];
     [dedication setCurrentTale:currentDedication];
-    [dedication setStyling];
     [self.navigationController pushViewController:dedication animated:YES];
+    
 }
 
 @end

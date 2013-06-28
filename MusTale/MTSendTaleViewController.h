@@ -13,6 +13,7 @@
 @protocol MTSendTaleDelegate
 
 - (void) sendCurrentTale;
+- (void) sendCurrentTaleToUser:(MTUserModel*)user;
 
 @end
 
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (strong, nonatomic) UIImage *bgImg;
 @property (strong, nonatomic) RCBlurredImageView *bgImgView;
+@property (strong, nonatomic) IBOutlet UITableView *friendsListTable;
 - (IBAction)sendTale:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)fbBtnPressed:(id)sender;

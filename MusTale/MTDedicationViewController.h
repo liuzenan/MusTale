@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIView *bottomSeparator;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (strong, nonatomic) MTDedicationModel *currentDedication;
 - (void)setCurrentTale:(MTDedicationModel*)dedication;
 - (void) setStyling;
 @end

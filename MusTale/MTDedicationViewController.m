@@ -30,6 +30,13 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setUpContent];
+    [self setStyling];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -49,13 +56,18 @@
 - (IBAction)togglePlay:(id)sender {
 }
 
-- (void)setCurrentTale:(MTDedicationModel*)dedication
+
+- (void) setCurrentTale:(MTDedicationModel *)dedication
 {
-    [self.userName setText:dedication.from.name];
-    [self.commentsCount setText:[NSString stringWithFormat:@"%d comments", dedication.tale.commentCount]];
-    [self setText:dedication.tale.text];
-    [self.date setText:[dedication.createdAt timeAgo]];
-    [self.profilePic setImageWithURL:[NSURL URLWithString:dedication.from.profileURL]];
+    self.currentDedication = dedication;
+}
+- (void)setUpContent
+{
+    [self.userName setText:self.currentDedication.from.name];
+    [self.commentsCount setText:[NSString stringWithFormat:@"%d comments", self.currentDedication.tale.commentCount]];
+    [self setText:self.currentDedication.tale.text];
+    [self.date setText:[self.currentDedication.createdAt timeAgo]];
+    [self.profilePic setImageWithURL:[NSURL URLWithString:self.currentDedication.from.profileURL]];
 }
 
 - (void)setText:(NSString*)text

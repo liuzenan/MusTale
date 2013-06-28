@@ -15,6 +15,7 @@
 #import "MTS3Controller.h"
 #import "MTFBFriendPickerViewController.h"
 #import "MTInboxOutboxViewController.h"
+#import "MTPlaylistListViewController.h"
 #define MENU_CELL_HEIGHT 60.0f
 
 @interface MTMenuViewController (){
@@ -181,11 +182,15 @@
             case kOthersSectionTypePopular:
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                MTPlaylistListViewController *playlist = (MTPlaylistListViewController*) viewController.topViewController;
+                [playlist setTitle:@"Popular"];
                 break;
             }
             case kOthersSectionTypeFeatured:
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
+                MTPlaylistListViewController *playlist = (MTPlaylistListViewController*) viewController.topViewController;
+                [playlist setTitle:@"Featured"];
                 break;
             }
 //            case kOthersSectionTypePlaylist:

@@ -11,7 +11,6 @@
 #import "MTFBHelper.h"
 @interface MTSendTaleViewController () <FBFriendPickerDelegate,UISearchBarDelegate>
 @property (strong, nonatomic) FBFriendPickerViewController* friendPickerController;
-
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSString *searchText;
 @end
@@ -37,13 +36,14 @@
     UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     tapGes.numberOfTapsRequired = 1;
     tapGes.delegate = self;
-    [self.view addGestureRecognizer:tapGes];
+    [self.bgImgView setUserInteractionEnabled:YES];
+    [self.bgImgView addGestureRecognizer:tapGes];
     
 }
 
 - (void)dismiss
 {
-
+    
     [UIView animateWithDuration:0.6f animations:^{
         [self setInitialStyle];
     } completion:^(BOOL finished) {
@@ -60,10 +60,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-   
+    
     [self setInitialStyle];
     [super viewWillAppear:animated];
-
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -71,6 +71,7 @@
     [super viewDidAppear:animated];
     [UIView animateWithDuration:0.6f animations:^{
         [self setFinalStyle];
+//        [self showFriendList];
     }];
 }
 
@@ -93,36 +94,77 @@
 -(void) setStyling
 {
     [self.overlayView setBackgroundColor:[UIColor colorWithWhite:1.0f alpha:0.7]];
+    [self.searchBar setBackgroundImage:[UIImage new]];
+    [self.searchBar setTintColor:[UIColor clearColor]];
+    [self.searchBar setTranslucent:YES];
+    for (id v in [self.searchBar subviews]) {
+        if (![v isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+            [v setAlpha:0.0f];
+            [v setHidden:YES];
+        }
+        else {
+            [v setBackgroundColor:[UIColor clearColor]];
+        }
+    }
 }
 
 - (void)viewDidUnload {
     [self setOverlayView:nil];
+    [self setSearchBar:nil];
+    [self setFriendsListTable:nil];
     [super viewDidUnload];
 }
+
 - (IBAction)sendTale:(id)sender {
     [self.delegate sendCurrentTale];
 }
 
 - (IBAction)cancel:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismiss];
 }
 
 
 
 
-
-
+//- (void) showFriendList
+//{
+//    if (![[MTFBHelper sharedFBHelper] isOpen]) {
+//        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//            [self insertFriendTable];
+//        }];
+//    } else {
+//        [self insertFriendTable];
+//    }
+//}
+//
+//
+//- (void) insertFriendTable {
+//    
+//    
+//    if (self.friendPickerController == nil) {
+//        // Create friend picker, and get data loaded into it.
+//        self.friendPickerController = [[FBFriendPickerViewController alloc] init];
+//        self.friendPickerController.title = @"Select Friends";
+//        self.friendPickerController.delegate = self;
+//    }
+//    NSLog(@"friendpicker controller: %@", self.friendPickerController);
+//    [self.friendPickerController loadData];
+//    [self.friendPickerController clearSelection];
+//    [self.friendPickerController loadView];
+//    self.friendsListTable = self.friendPickerController.tableView;
+//    NSLog(@"friedns list table:%@", self.friendsListTable);
+//}
 
 
 
 - (IBAction)fbBtnPressed:(id)sender {
-    if (![[MTFBHelper sharedFBHelper] isOpen]) {
-        [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        if (![[MTFBHelper sharedFBHelper] isOpen]) {
+            [[MTFBHelper sharedFBHelper] openSessionWithAllowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                [self showFriendPicker];
+            }];
+        } else {
             [self showFriendPicker];
-        }];
-    } else {
-        [self showFriendPicker];
-    }
+        }
     
 }
 
@@ -177,9 +219,11 @@
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
 {
-#warning complete to add dedication
     for (id<FBGraphUser> user in self.friendPickerController.selection) {
         NSLog(@"Friend selected: %@", user.name);
+        
+        [self.delegate sendCurrentTaleToUser:[NSString stringWithFormat:@"%d", 20]];
+        
     }
     [self handlePickerDone];
 }
