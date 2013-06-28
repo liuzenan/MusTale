@@ -18,7 +18,7 @@
 #import "NSDate+TimeAgo.h"
 #import "MTDedicationViewController.h"
 #import "UIColor+i7HexColor.h"
-
+#import <SVProgressHUD/SVProgressHUD.h>
 @interface MTInboxOutboxViewController (){
     InboxOutboxType boxType;
 }
@@ -91,18 +91,14 @@
     MTUserModel *currentUser = [[MTNetworkController sharedInstance] currentUser];
     NSLog(@"current user:%@", currentUser.ID);
     if (currentUser && currentUser.ID) {
-        [[MTNetworkController sharedInstance] getDedicationsFromUser:nil
-                                                              toUser:currentUser.ID
-                                                     completeHandler:^(id data, NSError *error) {
-                                                         
-                                                         if (!error) {
-                                                             self.dedications = [NSMutableArray arrayWithArray:data];
-                                                             [self.tableView reloadData];
-                                                         } else {
-                                                             NSLog(@"%@", error);
-                                                         }
-                                                         
-                                                     }];
+        [[MTNetworkController sharedInstance] getMyInboxWithCompleteHandler:^(id data, NSError *error) {
+            if (!error) {
+                self.dedications = [NSMutableArray arrayWithArray:data];
+                [self.tableView reloadData];
+            } else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
+        }];
     } else {
         NSLog(@"no current user");
     }
@@ -114,20 +110,15 @@
     [self setTitle:@"Outbox"];
     MTUserModel *currentUser = [[MTNetworkController sharedInstance] currentUser];
     if (currentUser && currentUser.ID) {
-    NSLog(@"current user:%@", currentUser.ID);
-    [[MTNetworkController sharedInstance] getDedicationsFromUser:currentUser.ID
-                                                          toUser:nil
-                                                 completeHandler:^(id data, NSError *error) {
-                                                              
-                                                              
-                                                              if (!error) {
-                                                                  self.dedications = [NSMutableArray arrayWithArray:data];
-                                                                  [self.tableView reloadData];
-                                                              } else {
-                                                                  NSLog(@"%@", error);
-                                                              }
-                                                              
-                                                          }];
+        NSLog(@"current user:%@", currentUser.ID);
+        [[MTNetworkController sharedInstance] getMyOutboxWithCompleteHandler:^(id data, NSError *error) {
+            if (!error) {
+                self.dedications = [NSMutableArray arrayWithArray:data];
+                [self.tableView reloadData];
+            } else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
+        }];
     } else {
         NSLog(@"no current user");
     }

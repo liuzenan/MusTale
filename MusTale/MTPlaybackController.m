@@ -49,7 +49,7 @@
     
     [self.player prepareToPlay];
     
-    [[MTNetworkController sharedInstance] postListenTo:currentSong completeHandler:^(id data, NSError *error) {
+    [[MTNetworkController sharedInstance] listenTo:currentSong completeHandler:^(id data, NSError *error) {
         
         if (!error) {
             NSLog(@"listened to current sing:%@, data:%@", currentSong, data);

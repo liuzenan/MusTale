@@ -26,11 +26,20 @@
 
 
 #pragma mark user
-- (void) getUserInfo:(MTUserModel*)user completehandler:(NetworkCompleteHandler)handler;
+- (void) getUserInfoWithUserID:(NSString*)uid completehandler:(NetworkCompleteHandler)handler;
+- (void) getUserInfoWithFacebookID:(NSString*)fbid completehandler:(NetworkCompleteHandler)handler;
 
 #pragma mark songs
-- (void) postSong:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
-- (void) postListenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+// Get song from itune based on itune_track_id, and register song to server
+- (void) getSongInfoWithItuneTrackId:(NSString*)itune_track_id completeHandler:(NetworkCompleteHandler)handler;
+
+// Register itune song to server
+- (void) registerSongToServer:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+
+// Add listen count of the song
+- (void) listenTo:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+
+// Get popular songs
 - (void) getPopularSongs:(NSInteger)limit completeHandler:(NetworkCompleteHandler)handler;
 
 #pragma mark tale
@@ -38,7 +47,11 @@
 
 // .CAF voice file 
 - (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+
+//- (void) uploadTale:(MTTaleModel*)tale completeHandler:(NetworkCompleteHandler)handler;
+
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
+- (void) postTaleWithSongId:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler;
 
 - (void) postCommentToTale:(MTCommentsModel*)comment completeHandler:(NetworkCompleteHandler)handler;
 - (void) getCommentsOfTale:(NSString*)taleId completeHandler:(NetworkCompleteHandler)handler;
@@ -47,11 +60,15 @@
 - (void) unlikeTale:(NSString*)taleID compeleteHandler:(NetworkCompleteHandler)handler;
 
 #pragma mark dedication
-//- (void) postTaleAndDedicationToFBUsers:(MTTaleModel*)tale toSong:(MTSongModel*)song
 
-- (void) postDedication:(MTDedicationModel*)dedication toUser:(NSString*)userId completeHandler:(NetworkCompleteHandler)handler;
-- (void) postDedication:(MTDedicationModel*)dedication toFBUser:(NSString*)fbId completeHandler:(NetworkCompleteHandler)handler;
+// Return dedication model
+- (void) dedicateTaleToFacebookUsers:(MTTaleModel*)tale toFacebookUsers:(NSArray*)fbIds completeHandler:(NetworkCompleteHandler)handler;
+
+- (void) readDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler;
+
+- (void) getMyInboxWithCompleteHandler:(NetworkCompleteHandler)handler;
+- (void) getMyOutboxWithCompleteHandler:(NetworkCompleteHandler)handler;
 - (void) getDedicationsFromUser:(NSString*)from toUser:(NSString*)to completeHandler:(NetworkCompleteHandler)handler;
 
-- (void) postReadDedication:(MTDedicationModel*)dedication completeHandler:(NetworkCompleteHandler)handler;
+
 @end

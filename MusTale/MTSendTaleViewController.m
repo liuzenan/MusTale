@@ -221,9 +221,7 @@
 {
     for (id<FBGraphUser> user in self.friendPickerController.selection) {
         NSLog(@"Friend selected: %@", user.name);
-        
         [self.delegate sendCurrentTaleToUser:[NSString stringWithFormat:@"%d", 20]];
-        
     }
     [self handlePickerDone];
 }

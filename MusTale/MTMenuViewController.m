@@ -233,9 +233,13 @@
     disabled = NO;
     if (buttonIndex == 0) {
         BOOL testing = YES;
-        
-        
-        if (!testing){
+        MTTaleModel* tale = [MTTaleModel textTaleWithSongID:@"70" text:@"test" isPublic:YES isAnonymous:NO];
+
+
+        [[MTNetworkController sharedInstance] dedicateTaleToFacebookUsers:tale toFacebookUsers:@[@"1275667659",@"1385768002"]  completeHandler:^(id data, NSError *error) {
+            
+        }];
+         if (!testing){
             [[MTNetworkController sharedInstance] logout:^(id data, NSError *error) {
                 if (!error){
                     UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];

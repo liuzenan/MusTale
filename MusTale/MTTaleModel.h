@@ -22,4 +22,6 @@
 @property (nonatomic) BOOL isLikedByCurrentUser;
 @property (nonatomic) NSInteger likeCount;
 @property (nonatomic) NSInteger commentCount;
+
++ (MTTaleModel*) textTaleWithSongID:(NSString*)songID text:(NSString*)text isPublic:(BOOL)isPublic isAnonymous:(BOOL)isAnonymous;
 @end

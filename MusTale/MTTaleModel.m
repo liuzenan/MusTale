@@ -9,4 +9,14 @@
 #import "MTTaleModel.h"
 
 @implementation MTTaleModel
+
++ (MTTaleModel*) textTaleWithSongID:(NSString*)songID text:(NSString*)text isPublic:(BOOL)isPublic isAnonymous:(BOOL)isAnonymous {
+    MTTaleModel* tale = [[MTTaleModel alloc] init];
+    tale.songID = songID;
+    tale.text =text;
+    tale.isPublic = isPublic;
+    tale.isAnonymous = isAnonymous;
+    return tale;
+}
+
 @end
