@@ -58,7 +58,6 @@
     [super viewWillAppear:animated];
     MTSliderViewController *sliderController = (MTSliderViewController*)self.slidingViewController;
     self.delegate = sliderController;
-    self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
     [self setupTopViewController];
     
     [self loadItems];

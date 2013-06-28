@@ -10,7 +10,6 @@
 #import <OHAttributedLabel/OHAttributedLabel.h>
 #import "MTDedicationModel.h"
 
-
 @interface MTDedicationViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIImageView *profilePic;
 - (IBAction)togglePlay:(id)sender;
@@ -20,8 +19,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *commentsCount;
 @property (strong, nonatomic) IBOutlet UIView *bottomSeparator;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 
 @property (strong, nonatomic) MTDedicationModel *currentDedication;
 - (void)setCurrentTale:(MTDedicationModel*)dedication;
+- (IBAction)goBack:(id)sender;
 - (void) setStyling;
 @end

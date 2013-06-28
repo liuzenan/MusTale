@@ -21,7 +21,9 @@
 
 #define PLAY_LIST_CELL_HEIGHT 124.0f
 
-@interface MTPlaylistListViewController ()
+@interface MTPlaylistListViewController (){
+    PlaylistType playlistType;
+}
 
 @end
 
@@ -45,7 +47,7 @@
     self.delegate = sliderController;
     self.tableView.contentOffset = CGPointMake(0.0f, 44.0f);
     [self setupTopViewController];
-    
+    [self loadPlaylist];
 }
 
 - (void)viewDidLoad
@@ -66,9 +68,34 @@
     
 }
 
+- (void) setType:(PlaylistType)type
+{
+    playlistType = type;
+}
+
+- (void) loadPlaylist
+{
+    if (playlistType == kPopular) {
+        
+        [self loadPopular];
+        [self setTitle:@"Popular"];
+    } else if (playlistType == kFeatured) {
+    
+        [self loadFeatured];
+        [self setTitle:@"Featured"];
+    }
+}
+
 - (void)loadPopular
 {
-    
+    [[MTNetworkController sharedInstance] getPopularSongs:20 completeHandler:^(id data, NSError *error) {
+        if (!error) {
+            self.playlist = [NSMutableArray arrayWithArray:data];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
 - (void)loadFeatured

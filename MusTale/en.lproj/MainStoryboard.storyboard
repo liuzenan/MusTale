@@ -640,22 +640,22 @@
                             <outlet property="delegate" destination="Ngz-Ek-fep" id="gcS-9V-mBx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="P6q-cE-RQY"/>
+                    <navigationItem key="navigationItem" id="t2g-Wp-tgV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JG-Ey-N4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1136" y="936"/>
         </scene>
-        <!--Dedication View Controller-->
+        <!--Dedication View Controller - Dedication-->
         <scene sceneID="zws-XU-UTr">
             <objects>
                 <viewController storyboardIdentifier="Dedication" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C0M-Jh-pBe" customClass="MTDedicationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o6z-8C-9hw">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4jZ-H2-Dkl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="417"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="face2.png" id="Ql1-gT-T8o">
@@ -663,19 +663,19 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" id="2gQ-4b-mcD">
-                                        <rect key="frame" x="20" y="400" width="280" height="1"/>
+                                        <rect key="frame" x="20" y="364" width="280" height="1"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="7 Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pOR-g5-fbA">
-                                        <rect key="frame" x="20" y="400" width="280" height="32"/>
+                                        <rect key="frame" x="20" y="365" width="280" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sVw-YT-aKl" customClass="OHAttributedLabel">
-                                        <rect key="frame" x="20" y="85" width="280" height="307"/>
+                                        <rect key="frame" x="20" y="85" width="280" height="245"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -720,7 +720,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Dedication" id="uS9-p9-oR8">
+                        <barButtonItem key="leftBarButtonItem" image="icon-back.png" id="o2J-JE-VOj">
+                            <connections>
+                                <action selector="goBack:" destination="C0M-Jh-pBe" id="ba9-tW-eHM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="backBtn" destination="o2J-JE-VOj" id="p0Q-ox-9I9"/>
                         <outlet property="bottomSeparator" destination="2gQ-4b-mcD" id="2lM-Ht-1ha"/>
                         <outlet property="commentsCount" destination="pOR-g5-fbA" id="UaG-6b-uix"/>
                         <outlet property="date" destination="gbE-lf-seB" id="MLT-C5-MdJ"/>
@@ -818,6 +827,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MTDedicationViewController.h"/>
             <relationships>
                 <relationship kind="action" name="togglePlay:"/>
+                <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="bottomSeparator" candidateClass="UIView"/>
                 <relationship kind="outlet" name="commentsCount" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="date" candidateClass="UILabel"/>
