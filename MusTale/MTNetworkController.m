@@ -416,6 +416,12 @@ static RKObjectMapping* dedicationMapping;
     }];
 }
 
+- (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale completeHandler:(NetworkCompleteHandler)handler {
+    MTSongModel* song = [MTSongModel new];
+    song.ID = tale.songID;
+    [self postVoiceTale:voiceData tale:tale to:song completeHandler:handler];
+}
+
 - (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler {
     NSString* tag =@"post voice tale";
     [[MTS3Controller sharedInstance] uploadSoundToS3Bucket:voiceData Completion:^(BOOL success, NSString *soundPath) {

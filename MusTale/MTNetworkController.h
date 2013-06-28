@@ -50,6 +50,7 @@
 
 //- (void) uploadTale:(MTTaleModel*)tale completeHandler:(NetworkCompleteHandler)handler;
 
+- (void) postVoiceTale:(NSData*)voiceData tale:(MTTaleModel*)tale completeHandler:(NetworkCompleteHandler)handler;
 - (void) postTale:(MTTaleModel*)tale to:(MTSongModel*)song completeHandler:(NetworkCompleteHandler)handler;
 - (void) postTaleWithSongId:(MTTaleModel*)tale to:(NSString*)songID completeHandler:(NetworkCompleteHandler)handler;
 
