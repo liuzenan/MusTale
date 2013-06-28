@@ -10,6 +10,10 @@
 #import "MTPlaylistViewDelegate.h"
 #import "MTSearchBarController.h"
 
+typedef enum{
+    kPopular,
+    kFeatured
+}PlaylistType;
 
 @interface MTPlaylistListViewController : UITableViewController <UISearchDisplayDelegate, MTSearchBarDelegate>
 @property (nonatomic, weak) id<MTPlaylistViewDelegate> delegate;
@@ -18,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *playlist;
 
 - (IBAction)showGridView:(id)sender;
+- (void) setType:(PlaylistType)type;
 
 
 @end

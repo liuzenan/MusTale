@@ -13,7 +13,7 @@
 @protocol MTSendTaleDelegate
 
 - (void) sendCurrentTale;
-- (void) sendCurrentTaleToUser:(MTUserModel*)user;
+- (void)sendCurrentTaleToUsers: (NSArray*)users;
 
 @end
 

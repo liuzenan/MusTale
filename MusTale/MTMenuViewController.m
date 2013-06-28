@@ -183,14 +183,14 @@
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
                 MTPlaylistListViewController *playlist = (MTPlaylistListViewController*) viewController.topViewController;
-                [playlist setTitle:@"Popular"];
+                [playlist setType:kPopular];
                 break;
             }
             case kOthersSectionTypeFeatured:
             {
                 viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaylistList"];
                 MTPlaylistListViewController *playlist = (MTPlaylistListViewController*) viewController.topViewController;
-                [playlist setTitle:@"Featured"];
+                [playlist setType:kFeatured];
                 break;
             }
 //            case kOthersSectionTypePlaylist:

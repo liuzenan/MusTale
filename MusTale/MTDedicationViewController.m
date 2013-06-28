@@ -51,6 +51,7 @@
     [self setCommentsCount:nil];
     [self setBottomSeparator:nil];
     [self setScrollView:nil];
+    [self setBackBtn:nil];
     [super viewDidUnload];
 }
 - (IBAction)togglePlay:(id)sender {
@@ -60,6 +61,10 @@
 - (void) setCurrentTale:(MTDedicationModel *)dedication
 {
     self.currentDedication = dedication;
+}
+
+- (IBAction)goBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)setUpContent
 {
@@ -89,6 +94,10 @@
 {
     [self.userName setFont:[UIFont fontWithName:LATO_BOLD size:16.0f]];
     [self.date setFont:[UIFont fontWithName:LATO_REGULAR size:12.0f]];
+    
+    [self.backBtn setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    
     CGRect currentFrame = self.textTale.frame;
     CGSize max = CGSizeMake(self.textTale.frame.size.width, INFINITY);
     CGSize expected = [self.textTale.attributedText sizeConstrainedToSize:max];

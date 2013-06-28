@@ -136,25 +136,21 @@
     }];
 }
 
-- (void)sendCurrentTaleToUser:(NSString*)userID
+- (void)sendCurrentTaleToUsers:(NSArray*)users
 {
-    MTTaleModel* tale = [MTTaleModel new];
-    tale.isAnonymous = NO;
-    tale.isPublic = YES;
-    tale.text = self.taleTextView.text;
-    tale.isFront = NO;
     
-    MTDedicationModel *de = [MTDedicationModel new];
-    de.tale = tale;
-#warning imcomplete
-    /*
-    [[MTNetworkController sharedInstance] postDedication:de toUser:userID completeHandler:^(id data, NSError *error) {
+    MTTaleModel *tale = [MTTaleModel textTaleWithSongID:self.currentSong.ID text:self.taleTextView.text isPublic:YES isAnonymous:NO];
+    
+    [[MTNetworkController sharedInstance] dedicateTaleToFacebookUsers:tale toFacebookUsers:users completeHandler:^(id data, NSError *error) {
         if (!error) {
             NSLog(@"posted dedication to user: %@", data);
+            [SVProgressHUD showSuccessWithStatus:@"Dedication sent!"];
         } else {
             NSLog(@"error: %@", error);
+            [SVProgressHUD showErrorWithStatus:@"Something is wrong..."];
         }
-    }];*/
+    }];
+    
 }
 
 - (void)setStyling
